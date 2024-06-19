@@ -8,8 +8,10 @@
     <title>@yield('title')</title>
 
     @section('styles')
-        @vite(['resources/assets/scss/app.scss', 'resources/assets/js/app.ts'])
+        @vite(['resources/assets/scss/app.scss', 'resources/assets/ts/app.ts'])
     @show
+
+    @include('partials._favicons')
 </head>
 
 <body>
@@ -18,25 +20,11 @@
 
     {{ $slot }}
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="gr-24">
-                    <div class="footer__inner">
-                        <div></div>
-                        <div class="footer__copy">Copyright &copy; {{ now()->year }}</div>
-                        <div class="footer__action">
-                            <a class="button button--secondary" href="/listing/create">
-                                <span>Post Job</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+
+    @include('partials._footer')
+ 
 </main>
-<x-flash-message/>
+
 </body>
 
 </html>
