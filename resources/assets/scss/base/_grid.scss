@@ -1,0 +1,47 @@
+/*
+* Grid
+*/
+
+$container-max: 1680px;
+$grid-gutter-width: 1rem;
+$gutter-vertical-space: 1rem;
+$grid-columns: 12;
+$spacer: 1rem;
+
+$breakpoints: (
+    s: 768px,
+    m: 1024px,
+    l: 1440px,
+);
+
+.container {
+    max-width: $container-max;
+    margin: 0 auto;
+    padding: 0 $gutter-vertical-space;
+    flex: 1;
+}
+
+.row {
+    display: flex;
+    gap: $grid-gutter-width;
+}
+
+.col {
+    @for $index from 1 through $grid-columns {
+        &-#{$index} {
+            flex: 0 1 auto;
+            width: calc($index / $grid-columns * 100%);
+        }
+    }
+
+    @each $size, $value in $breakpoints {
+        @for $index from 1 through $grid-columns {
+            @include breakpoint($size) {
+                &-#{$size}-#{$index} {
+                    flex: 0 1 auto;
+                    width: calc($index / $grid-columns * 100%);
+                }
+            }
+        }
+    }
+}

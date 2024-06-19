@@ -8,23 +8,22 @@
     <title>@yield('title')</title>
 
     @section('styles')
-        @vite(['resources/assets/scss/app.scss', 'resources/assets/ts/app.ts'])
+        @vite(['resources/assets/scss/main.scss', 'resources/assets/ts/app.ts'])
     @show
 
-    @include('partials._favicons')
+    @include('partials.favicons')
 </head>
 
-<body>
-<main class="main">
-    @include('partials._header')
-
-    {{ $slot }}
-
-
-    @include('partials._footer')
+<body class="app">
  
-</main>
+    @include('partials.header')
 
+    <main class="main">
+        {{ $slot }}
+    </main>
+
+    @include('partials.footer')
+ 
 </body>
 
 </html>
