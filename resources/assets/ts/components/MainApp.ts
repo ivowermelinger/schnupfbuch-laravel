@@ -3,12 +3,13 @@ interface Line {
     views: number;
     likes: number;
     dislkes: number;
-    author_id: number;
+    nickname: string;
 }
 
 class MainApp extends HTMLElement {
     api = 'api/v1/list';
     list : Line[];
+    activeLine?: Line;
     counter = 0;
 
     lineBtn: HTMLButtonElement;
@@ -42,11 +43,10 @@ class MainApp extends HTMLElement {
 
         this.createElements();
         this.getList();
-        this.addEventListener('click', this.setLine.bind(this));
+        this.lineBtn.addEventListener('click', this.setLine.bind(this));
     }
 
     async getList() {
-        console.log("list gets called");
         const res = await fetch(this.api);
         this.list = await res.json();
         this.setLine();
@@ -54,10 +54,10 @@ class MainApp extends HTMLElement {
 
     setLine() {
         if (this.counter < 10 && this.list[this.counter]) {
-            const item : Line = this.list[this.counter];
-            console.log(item);
-            this.line.innerText = item.line;
-            this.author.innerText = item.author_id.toString();
+            this.activeLine = this.list[this.counter];
+            console.log(this.activeLine);
+            this.line.innerText = this.activeLine.line;
+            this.author.innerText = this.activeLine.nickname;
         } else {
             this.counter = 0;
             this.getList();

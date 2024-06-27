@@ -13,7 +13,11 @@ class ListController extends Controller
      */
     public function index()
     {
-        return response(Line::inRandomOrder()->limit(10)->get(), 200);
+        $lines = Line::inRandomOrder()->limit(10)
+        ->join('authors', 'lines.author_id', '=', 'authors.id')
+        ->select('lines.*', 'authors.nickname')
+        ->get();
+        return response($lines, 200);
     }
 
     public function show()

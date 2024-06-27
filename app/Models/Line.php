@@ -21,4 +21,8 @@ class Line extends Model
         'dislikes',
         'author_id',
     ];
+
+    public function author() {
+        return $this->belongsTo('App\Models\Author');
+    }
 }
