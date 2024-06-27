@@ -1,0 +1,71 @@
+interface Line {
+    line: string;
+    views: number;
+    likes: number;
+    dislkes: number;
+    author_id: number;
+}
+
+class MainApp extends HTMLElement {
+    api = 'api/v1/list';
+    list : Line[];
+    counter = 0;
+
+    lineBtn: HTMLButtonElement;
+    likeBtn : HTMLButtonElement;
+    dislikeBtn : HTMLButtonElement;
+
+    line: HTMLElement;
+    author: HTMLElement;
+
+
+    createElements() {
+        const inner = document.createElement('div');
+        this.line = document.createElement('div');
+        this.author = document.createElement('div');
+
+
+        inner.classList.add('touch__inner');
+        this.line.classList.add('touch__line');
+        this.author.classList.add('touch__author');
+
+        inner.append(this.line, this.author);
+        this.lineBtn.appendChild(inner);
+    }
+
+    connectedCallback() {
+        this.lineBtn = this.querySelector('#line');
+        this.likeBtn = this.querySelector('#like');
+        this.dislikeBtn = this.querySelector('#dislike');
+
+        if (!this.lineBtn || !this.likeBtn || !this.dislikeBtn) throw new Error(`Missing button elements on Main App!`);
+
+        this.createElements();
+        this.getList();
+        this.addEventListener('click', this.setLine.bind(this));
+    }
+
+    async getList() {
+        console.log("list gets called");
+        const res = await fetch(this.api);
+        this.list = await res.json();
+        this.setLine();
+    }
+
+    setLine() {
+        if (this.counter < 10 && this.list[this.counter]) {
+            const item : Line = this.list[this.counter];
+            console.log(item);
+            this.line.innerText = item.line;
+            this.author.innerText = item.author_id.toString();
+        } else {
+            this.counter = 0;
+            this.getList();
+        }
+
+        this.counter++;
+    }
+
+}
+
+customElements.define('main-app', MainApp);

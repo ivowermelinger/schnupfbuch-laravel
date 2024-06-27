@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('lines', function (Blueprint $table) {
             $table->id();
             $table->longtext('line');
+            $table->tinyInteger('views')->default(0);
+            $table->tinyInteger('likes')->default(0);
+            $table->tinyInteger('dislikes')->default(0);
             $table->foreignId('author_id')->constrained();
             $table->timestamps();
         });

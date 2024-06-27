@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ListController;
 
-Route::get('/', function() {
-    return view('index.index', [
-        'heading' => env('APP_NAME', '')
-    ]);
-});
+Route::get('/', [ListController::class, 'show']);
+
+Route::apiResource('api/v1/list', ListController::class);

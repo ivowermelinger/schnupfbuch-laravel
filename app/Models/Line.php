@@ -16,6 +16,9 @@ class Line extends Model
      */
     protected $fillable = [
         'line',
+        'views',
+        'likes',
+        'dislikes',
         'author_id',
     ];
 }
