@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Author;
 use App\Models\Line;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +16,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
          User::factory(5)->create();
-         Author::factory(5)->create();
          Line::factory(5)->create();
     }
 }

@@ -18,7 +18,6 @@ class LineFactory extends Factory
     {
         return [
             'line' => fake()->sentence(10, true),
-            'views' => fake()->numberBetween(1, 100),
             'likes' => fake()->numberBetween(1, 100),
             'dislikes' => fake()->numberBetween(1, 100),
             'author_id' => fake()->numberBetween(1, 5),

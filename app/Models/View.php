@@ -5,23 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model
+class View extends Model
 {
     use HasFactory;
 
-    /**
+      /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'nickname',
-        'email'
+        'user_id',
+        'line_id',
     ];
 
-    public function lines() {
-        return $this->hasMany('App\Models\Line');
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function line()
+    {
+        return $this->belongsTo(Line::class);
     }
 }

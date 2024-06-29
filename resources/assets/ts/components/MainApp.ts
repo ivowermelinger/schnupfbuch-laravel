@@ -1,4 +1,5 @@
 interface Line {
+    id: number,
     line: string;
     views: number;
     likes: number;
@@ -18,6 +19,10 @@ class MainApp extends HTMLElement {
 
     line: HTMLElement;
     author: HTMLElement;
+
+    likedList: Line[];
+    isLiked: boolean;
+    isDisliked: boolean;
 
 
     createElements() {
@@ -52,18 +57,31 @@ class MainApp extends HTMLElement {
         this.setLine();
     }
 
+    checkLikes() {
+        console.log(this.activeLine);
+    }
+
     setLine() {
         if (this.counter < 10 && this.list[this.counter]) {
             this.activeLine = this.list[this.counter];
-            console.log(this.activeLine);
+
             this.line.innerText = this.activeLine.line;
             this.author.innerText = this.activeLine.nickname;
+
+            this.checkLikes();
         } else {
             this.counter = 0;
             this.getList();
         }
 
         this.counter++;
+    }
+
+    toggleLike()  {
+        // Add a like to the lines table
+
+
+        // Add a like to the users table
     }
 
 }

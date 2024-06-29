@@ -16,13 +16,23 @@ class Line extends Model
      */
     protected $fillable = [
         'line',
-        'views',
         'likes',
         'dislikes',
         'author_id',
     ];
 
-    public function author() {
-        return $this->belongsTo('App\Models\Author');
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function interactions()
+    {
+        return $this->hasMany(UserLineInteraction::class, 'line_id');
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
     }
 }

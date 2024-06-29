@@ -19,6 +19,8 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
+        'nickname',
+        'active',
         'email',
         'password',
     ];
@@ -45,4 +47,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function lines()
+    {
+        return $this->hasMany(Line::class, 'author_id');
+    }
+
+    public function interactions()
+    {
+        return $this->hasMany(UserLineInteraction::class);
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
 }
