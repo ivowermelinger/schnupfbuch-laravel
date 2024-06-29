@@ -1,3 +1,5 @@
+import { getHeaders } from "../helpers";
+
 interface Line {
     id: number,
     line: string;
@@ -9,7 +11,7 @@ interface Line {
 
 class MainApp extends HTMLElement {
     api = 'api/v1/list';
-    list : Line[];
+    list : Line[] = [];
     activeLine?: Line;
     counter = 0;
 
@@ -48,7 +50,12 @@ class MainApp extends HTMLElement {
 
         this.createElements();
         this.getList();
+        this.attachEventListener();
+    }
+
+    attachEventListener() {
         this.lineBtn.addEventListener('click', this.setLine.bind(this));
+        this.likeBtn.addEventListener('click', this.toggleLike.bind(this));
     }
 
     async getList() {
@@ -77,13 +84,17 @@ class MainApp extends HTMLElement {
         this.counter++;
     }
 
-    toggleLike()  {
-        // Add a like to the lines table
+    async toggleLike()  {
+       const res = await fetch(`/api/v1/interaction/${this.activeLine.id}/like`, {
+            method: 'post',
+            headers: getHeaders(),
+            body: JSON.stringify({ liked: true }),
+       });
 
-
-        // Add a like to the users table
+       console.log(res);
+       const body = await res.json();
+       console.log(body);
     }
-
 }
 
 customElements.define('main-app', MainApp);

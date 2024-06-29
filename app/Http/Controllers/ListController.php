@@ -14,8 +14,8 @@ class ListController extends Controller
     public function index()
     {
         $lines = Line::inRandomOrder()->limit(10)
-        ->join('authors', 'lines.author_id', '=', 'authors.id')
-        ->select('lines.*', 'authors.nickname')
+        ->join('users', 'lines.author_id', '=', 'users.id')
+        ->select('lines.*', 'users.nickname')
         ->get();
         return response($lines, 200);
     }

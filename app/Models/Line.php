@@ -28,7 +28,7 @@ class Line extends Model
 
     public function interactions()
     {
-        return $this->hasMany(UserLineInteraction::class, 'line_id');
+        return $this->hasMany(UserInteraction::class, 'line_id');
     }
 
     public function views()

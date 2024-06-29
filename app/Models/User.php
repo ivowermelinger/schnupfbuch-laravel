@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function interactions()
     {
-        return $this->hasMany(UserLineInteraction::class);
+        return $this->hasMany(UserInteraction::class);
     }
 
     public function views()
