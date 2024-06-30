@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Line;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,7 @@ class ListController extends Controller
      */
     public function show()
     {
-        return view('app.index', [
+        return Inertia::render('App', [
             'heading' => env('APP_NAME', ''),
         ]);
     }
