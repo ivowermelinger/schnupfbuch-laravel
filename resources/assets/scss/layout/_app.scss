@@ -1,13 +1,13 @@
 .app {
-    display: grid;
-    grid-template-areas:
-        "header"
-        "main"
-        "footer";
-    grid-template-rows: $header-height-s 1fr $footer-height-s;
-    grid-template-columns: 1fr;
-    height: 100vh;
-    height: 100svh;
-    background-color: $color-dark;
-    color: $color-light;
+	display: grid;
+	grid-template-areas:
+		'header'
+		'main'
+		'footer';
+	grid-template-rows: $header-height-s 1fr $footer-height-s;
+	grid-template-columns: 1fr;
+	height: 100vh;
+	height: 100svh;
+	background-color: $color-dark;
+	color: $color-light;
 }

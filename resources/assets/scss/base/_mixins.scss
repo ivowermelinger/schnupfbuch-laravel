@@ -1,9 +1,9 @@
-@use "sass:math";
+@use 'sass:math';
 
 @mixin breakpoint($key) {
-    @media only screen and (min-width: map-get($breakpoints, $key)) {
-        @content;
-    }
+	@media only screen and (min-width: map-get($breakpoints, $key)) {
+		@content;
+	}
 }
 
 /// https://css-tricks.com/snippets/sass/viewport-sized-typography-minimum-maximum-sizes/
@@ -23,25 +23,25 @@
 ///  @include responsive-font(5vw, 35px, 150px, 50px);
 ///
 @mixin responsive-font($responsive, $min, $max: false, $fallback: false) {
-    $responsive-unitless: math.div($responsive, $responsive - $responsive + 1);
-    $dimension: if(unit($responsive) == "vh", "height", "width");
-    $min-breakpoint: math.div($min, $responsive-unitless) * 100;
+	$responsive-unitless: math.div($responsive, $responsive - $responsive + 1);
+	$dimension: if(unit($responsive) == 'vh', 'height', 'width');
+	$min-breakpoint: math.div($min, $responsive-unitless) * 100;
 
-    @media (max-#{$dimension}: #{$min-breakpoint}) {
-        font-size: $min;
-    }
+	@media (max-#{$dimension}: #{$min-breakpoint}) {
+		font-size: $min;
+	}
 
-    @if $max {
-        $max-breakpoint: math.div($max, $responsive-unitless) * 100;
+	@if $max {
+		$max-breakpoint: math.div($max, $responsive-unitless) * 100;
 
-        @media (min-#{$dimension}: #{$max-breakpoint}) {
-            font-size: $max;
-        }
-    }
+		@media (min-#{$dimension}: #{$max-breakpoint}) {
+			font-size: $max;
+		}
+	}
 
-    @if $fallback {
-        font-size: $fallback;
-    }
+	@if $fallback {
+		font-size: $fallback;
+	}
 
-    font-size: $responsive;
+	font-size: $responsive;
 }
