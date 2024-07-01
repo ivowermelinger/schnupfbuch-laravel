@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserInteraction;
+use App\Models\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -117,5 +118,31 @@ class UserInteractionController extends Controller
         }
 
         return response()->json($interaction, 200);
+    }
+
+    /**
+     * Add a view for a specific interaction.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addView($line)
+    {
+        $userId = Auth::id();
+
+        if (!$userId) {
+            return response()->json([
+                'message' => 'Unauthorized',
+                'success' => false
+            ], 401);
+        }
+
+        // Create new interaction
+        $view = View::create([
+            'line_id' => $line,
+            'user_id' => $userId,
+        ]);
+
+        return response()->json($view, 200);
     }
 }
