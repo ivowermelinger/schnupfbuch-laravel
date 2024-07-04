@@ -65,10 +65,7 @@ class UserInteractionController extends Controller
         ->select('lines.*', 'users.nickname', 'user_interactions.liked', 'user_interactions.disliked')
         ->first();
 
-        return response()->json([
-            'success' => true,
-            $newLine
-        ], 200);
+        return response()->json($newLine, 200);
     }
 
     /**
