@@ -50,12 +50,8 @@ class ListController extends Controller
         $listing->update($validatedData);
 
         // Optionally, return a response indicating success
-<<<<<<< HEAD
-        return response()->json(['message' => 'Listing updated successfully', 'data' => $listing], 200);}
-=======
         return response()->json(['message' => 'Listing updated successfully', 'data' => $listing], 200);
     }
->>>>>>> faadf0463c85227e6dcc3213ad7e874d5984b33d
 
 
 

@@ -70,11 +70,7 @@ class UserInteractionController extends Controller
      */
     public function addView($line)
     {
-<<<<<<< HEAD
-        $userId = Auth::id() ?? 1;
-=======
         $userId = Auth::id();
->>>>>>> faadf0463c85227e6dcc3213ad7e874d5984b33d
 
         // Create new interaction
         $view = View::create([
