@@ -35,6 +35,12 @@
 		margin-bottom: use-spacer(0.5, 1.5);
 	}
 
+	&__error {
+		@extend .text__small;
+		color: $color-error;
+		padding-top: use-spacer(0.5, 1.5);
+	}
+
 	&__label {
 		margin-bottom: use-spacer(0.5, 1.5);
 		display: inline-block;
@@ -54,6 +60,12 @@
 
 		:last-child {
 			margin-bottom: 0;
+		}
+
+		&--error {
+			.form__input {
+				border-color: $color-error;
+			}
 		}
 	}
 }

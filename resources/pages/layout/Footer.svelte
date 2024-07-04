@@ -1,9 +1,37 @@
 <script>
+	import { badWords } from '../bad-words';
 	import Modal from '../components/Modal.svelte';
+	import debounce from 'lodash/debounce';
+
 	$: show = false;
+	$: showNicknameError = false;
+
+	let nickname = '';
+	let matcher;
 
 	const showForm = () => {
 		show = true;
+	};
+
+	const initMatcher = async () => {
+		const { RegExpMatcher, pattern, englishDataset, englishRecommendedTransformers } = await import('obscenity');
+
+		const blacklistedTerms = [];
+
+		badWords.forEach((word, index) => {
+			blacklistedTerms.push({ id: index, pattern: pattern`${word}` });
+		});
+
+		matcher = new RegExpMatcher({
+			...englishDataset.build(),
+			...englishRecommendedTransformers,
+			blacklistedTerms: blacklistedTerms,
+		});
+	};
+
+	const checkNickname = async () => {
+		if (!matcher) await initMatcher();
+		showNicknameError = matcher.hasMatch(nickname);
 	};
 </script>
 
@@ -16,9 +44,12 @@
 						<label class="form__label form__label--dark" for="line">Spruch</label>
 						<textarea class="form__input form__input--dark" id="line" name="name" required />
 					</div>
-					<div class="form__group">
+					<div class="form__group" class:form__group--error={showNicknameError}>
 						<label class="form__label form__label--dark" for="author">Autor / Nickname</label>
-						<input class="form__input form__input--dark" id="author" name="author" required />
+						<input class="form__input form__input--dark" id="author" name="author" required bind:value={nickname} on:keyup={debounce(() => checkNickname(), 250)} />
+						{#if showNicknameError && nickname}
+							<p class="form__error">Verwende keine beleidigenden Wörter</p>
+						{/if}
 					</div>
 					<div class="row">
 						<div class="col-12 col-s-6">
