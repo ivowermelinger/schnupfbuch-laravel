@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('line_id')->constrained('lines')->onDelete('cascade');
-            $table->boolean('liked');
+            $table->boolean('liked')->default(false);
+            $table->boolean('disliked')->default(false);
             $table->timestamps();
         });
     }

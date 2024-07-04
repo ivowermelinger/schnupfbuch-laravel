@@ -1,18 +1,17 @@
 <script lang="ts">
-    import { get } from 'svelte/store';
-    import { activeLine } from '../stores';
+    import debounce from 'lodash/debounce';
 
     export let setLine;
+    export let item;
 
-    let item = get(activeLine);
-
-    activeLine.subscribe(value => {
-        item = value;
-    });
-
+    const callSetLine = () => {
+        setLine ? setLine() : () => {};
+    }
 </script>
 
-<button on:click|preventDefault={setLine} class="btn btn--loading touch__trigger">
+<button
+    on:click|preventDefault={debounce(() => callSetLine(), 100, { leading: true, trailing: false })}
+      class="btn btn--loading touch__trigger">
     {#if item}
         <span class="touch__line">{item.line}</span>
         <span class="touch__author">{item.nickname}</span>

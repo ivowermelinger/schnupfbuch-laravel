@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use App\Models\Line;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Line;
+use App\Models\UserInteraction;
 
 class ListController extends Controller
 {
@@ -14,9 +17,16 @@ class ListController extends Controller
      */
     public function index()
     {
+        $userId = Auth::id();
+        $userId = 1;
+
         $lines = Line::inRandomOrder()->limit(10)
         ->join('users', 'lines.author_id', '=', 'users.id')
-        ->select('lines.*', 'users.nickname')
+        ->leftJoin('user_interactions', function($join) use ($userId) {
+            $join->on('lines.id', '=', 'user_interactions.line_id')
+            ->where('user_interactions.user_id', '=', $userId);
+        })
+        ->select('lines.*', 'users.nickname', 'user_interactions.liked', 'user_interactions.disliked')
         ->get();
         return response($lines, 200);
     }
@@ -40,8 +50,12 @@ class ListController extends Controller
         $listing->update($validatedData);
 
         // Optionally, return a response indicating success
+<<<<<<< HEAD
+        return response()->json(['message' => 'Listing updated successfully', 'data' => $listing], 200);}
+=======
         return response()->json(['message' => 'Listing updated successfully', 'data' => $listing], 200);
     }
+>>>>>>> faadf0463c85227e6dcc3213ad7e874d5984b33d
 
 
 
