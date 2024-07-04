@@ -17,6 +17,8 @@
 			<span class="visually-hidden">{`${name} schliessen`}</span>
 			<Close css="modal__icon" />
 		</button>
-		<slot />
+		{#if show}
+			<slot />
+		{/if}
 	</div>
 </div>

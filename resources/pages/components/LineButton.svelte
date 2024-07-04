@@ -1,19 +1,17 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce';
+	import debounce from 'lodash/debounce';
+	import { activeLine } from '../stores';
 
-    export let setLine;
-    export let item;
+	export let setLine;
 
-    const callSetLine = () => {
-        setLine ? setLine() : () => {};
-    }
+	const callSetLine = () => {
+		setLine ? setLine() : () => {};
+	};
 </script>
 
-<button
-    on:click|preventDefault={debounce(() => callSetLine(), 100, { leading: true, trailing: false })}
-      class="btn btn--loading touch__trigger">
-    {#if item}
-        <span class="touch__line">{item.line}</span>
-        <span class="touch__author">{item.nickname}</span>
-    {/if}
+<button on:click|preventDefault={debounce(() => callSetLine(), 100, { leading: true, trailing: false })} class="btn btn--loading touch__trigger">
+	{#if $activeLine}
+		<span class="touch__line">{$activeLine.id} <br /> {$activeLine.line}</span>
+		<span class="touch__author">{$activeLine.nickname}</span>
+	{/if}
 </button>

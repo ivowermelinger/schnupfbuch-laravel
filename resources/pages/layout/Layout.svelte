@@ -2,6 +2,13 @@
 	import Header from './Header.svelte';
 	import Footer from './Footer.svelte';
 	import Login from '../auth/Login.svelte';
+	import { page } from '@inertiajs/svelte';
+	import { user } from '../stores';
+
+	page.subscribe((value) => {
+		const propsUser = value.props.user || null;
+		user.set(propsUser);
+	});
 </script>
 
 <svelte:head>

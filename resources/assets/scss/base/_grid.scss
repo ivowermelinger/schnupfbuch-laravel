@@ -26,8 +26,8 @@ $breakpoints: (
 .row {
 	display: flex;
 	flex-wrap: wrap;
-	/* gap: $grid-gutter-width; */
-	row-gap: $grid-gutter-width;
+	margin-left: calc($grid-gutter-width / 2 * -1);
+	margin-right: calc($grid-gutter-width / 2 * -1);
 
 	.row {
 		margin-left: calc($grid-gutter-width / 2 * -1);

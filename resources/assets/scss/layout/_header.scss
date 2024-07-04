@@ -10,4 +10,15 @@
 	width: 100%;
 	height: 100%;
 	z-index: $layer-header;
+
+	&__user {
+		@extend .text__content;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		&--login {
+			justify-content: flex-end;
+		}
+	}
 }

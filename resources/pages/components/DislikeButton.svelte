@@ -1,36 +1,26 @@
 <script lang="ts">
 	import debounce from 'lodash/debounce';
-	import { get } from 'svelte/store';
-	import { handleServerResponse, interactionAPI } from '../stores';
+	import { handleServerResponse, interactionAPI, activeLine } from '../stores';
 	import { getHeaders } from '../helpers';
-
-	const api = get(interactionAPI);
-	export let item;
-	export let updateItem;
+	import ThumbUp from '../svg/ThumbUp.svelte';
 
 	const addDislike = async () => {
-		if (!item) return;
+		if (!$activeLine) return;
 
-		const res = await fetch(`${api}/${item.id}/like`, {
+		const res = await fetch(`${$interactionAPI}/${$activeLine.id}/like`, {
 			method: 'POST',
 			headers: getHeaders(),
 			body: JSON.stringify({
 				liked: false,
-				disliked: item?.disliked ? false : true,
+				disliked: $activeLine?.disliked ? false : true,
 			}),
 		});
 
-		const like = await handleServerResponse(res);
-		like?.success && updateItem(like);
+		const dislike = await handleServerResponse(res);
+		dislike && activeLine.set(dislike);
 	};
 </script>
 
 <button class="btn btn--icon" on:click|preventDefault={debounce(() => addDislike(), 1000, { leading: true, trailing: false })}>
-	<span>
-		<span>dislike</span>
-
-		{#if item?.disliked}
-			disliked it
-		{/if}
-	</span>
+	<ThumbUp css="btn__icon btn__icon--rotate {$activeLine?.disliked ? 'btn--thumb' : ''}" />
 </button>

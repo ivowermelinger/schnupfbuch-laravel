@@ -72,7 +72,7 @@
 						<div class="form__notice">wird nicht veröffentlicht</div>
 						<input class="form__input form__input--dark" id="email" name="email" type="email" required />
 					</div>
-					<div class="form__group">
+					<div class="form__group form__group--button">
 						<button class="btn btn--dark">
 							<span>Spruch erfassen</span>
 						</button>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserInteraction;
 use App\Models\Line;
+use App\Models\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class UserInteractionController extends Controller
             'disliked' => 'required|boolean',
         ]);
 
-        $userId = Auth::id() ?? 1;
+        $userId = Auth::id();
 
         // Find or create the UserInteraction record
         $interaction = UserInteraction::updateOrCreate(
@@ -50,16 +51,24 @@ class UserInteractionController extends Controller
             ]
         );
 
-        $lineModel = Line::find($line)->limit(1)
+        // Remove the interaction if both liked and disliked are false
+        if (!$request->liked && !$request->disliked) {
+            $interaction->delete();
+        }
+
+        $newLine = Line::where('lines.id', $line)
         ->join('users', 'lines.author_id', '=', 'users.id')
         ->leftJoin('user_interactions', function($join) use ($userId) {
             $join->on('lines.id', '=', 'user_interactions.line_id')
-            ->where('user_interactions.user_id', '=', $userId);
+                 ->where('user_interactions.user_id', '=', $userId);
         })
         ->select('lines.*', 'users.nickname', 'user_interactions.liked', 'user_interactions.disliked')
-        ->get();
+        ->first();
 
-        return response()->json($lineModel, 200);
+        return response()->json([
+            'success' => true,
+            $newLine
+        ], 200);
     }
 
     /**
