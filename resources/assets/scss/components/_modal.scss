@@ -1,0 +1,74 @@
+.modal {
+	$this: &;
+	$animation-duration: 500ms;
+
+	&__wrapper {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: $layer-login;
+		display: grid;
+		grid-template-rows: 1fr auto;
+		translate: 0 100vh;
+		transition: all $animation-duration cubic-bezier(0.63, 0.22, 0.38, 0.89);
+
+		&--show {
+			translate: 0 0;
+
+			#{$this}__back {
+				backdrop-filter: blur(5px);
+				transition: all $animation-duration cubic-bezier(0.63, 0.22, 0.38, 0.89);
+			}
+		}
+	}
+
+	&__inner {
+		background-color: $color-light;
+		padding: 2rem 0;
+		border-top-right-radius: $border-radius;
+		border-top-left-radius: $border-radius;
+		position: relative;
+
+		@include breakpoint(s) {
+			padding: 3rem 0;
+		}
+	}
+
+	&__back {
+		backdrop-filter: none;
+		border: none;
+		border-radius: 0;
+		background: transparent;
+		transition: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	&__close {
+		display: flex;
+		justify-content: flex-end;
+		right: $grid-vertical-space;
+		top: 1rem;
+		position: absolute;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+
+		@include breakpoint(s) {
+			top: 1.5rem;
+		}
+	}
+
+	&__icon {
+		width: 36px;
+		height: 36px;
+		color: $color-dark;
+
+		@include breakpoint(s) {
+			width: 48px;
+			height: 48px;
+		}
+	}
+}
