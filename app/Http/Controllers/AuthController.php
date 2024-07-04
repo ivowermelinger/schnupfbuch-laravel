@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         // Send response with status code 401
         return response()->json([
-            'message' => 'Unauthorized',
+            'message' => 'Benutzername oder Passwort falsch. Bitte versuchen Sie es erneut.',
             'success' => false
         ], 401);
     }

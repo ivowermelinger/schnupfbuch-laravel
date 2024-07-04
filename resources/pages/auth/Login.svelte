@@ -1,4 +1,5 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import Modal from '../components/Modal.svelte';
 	import { getHeaders } from '../helpers';
 	import { showLogin, flashMessage, dataAPI } from '../stores';
@@ -23,6 +24,8 @@
 	};
 
 	const handleLogin = async () => {
+		flashMessage.set(null);
+
 		const res = await fetch(`${$dataAPI}/auth/login`, {
 			method: 'POST',
 			headers: getHeaders(),
@@ -58,7 +61,7 @@
 				</form>
 
 				{#if flash}
-					<p class="login__message">{flash}</p>
+					<p transition:fade={{ duration: 150 }} class="login__message">{flash}</p>
 				{/if}
 
 				<div class="login__links">

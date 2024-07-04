@@ -38,6 +38,14 @@ class HandleInertiaRequests extends Middleware
     {
         $user = Auth::user();
 
+        if ($user) {
+          $user =  [
+                'id' => $user->id,
+                'nickname' => $user->nickname,
+                'email' => $user->email,
+          ];
+        }
+
         return array_merge(parent::share($request), [
             'user' => $user,
             'flash' => [
