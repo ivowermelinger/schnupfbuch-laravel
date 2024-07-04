@@ -1,0 +1,19 @@
+@use 'sass:math';
+
+@function use-spacer($factor: 3) {
+	// convert to rem
+	$minSize: 1;
+	$maxSize: $minSize * $factor;
+
+	$maxWidth: 1440 / 16;
+	$minWidth: 375 / 16;
+
+	$slope: ($maxSize - $minSize) / ($maxWidth - $minWidth);
+	$yAxisIntersection: calc($minWidth * -1 * $slope + $minSize);
+	$preferredValue: calc(($yAxisIntersection * 1rem) + ($slope * 100vw));
+
+	$minSize: $minSize * 1rem;
+	$maxSize: $maxSize * 1rem;
+
+	@return clamp($minSize, $preferredValue, $maxSize);
+}

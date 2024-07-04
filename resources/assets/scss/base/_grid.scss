@@ -6,7 +6,6 @@ $container-max: 1680px;
 $grid-gutter-width: 1rem;
 $gutter-vertical-space: 1rem;
 $grid-columns: 12;
-$spacer: 1rem;
 
 $breakpoints: (
 	s: 768px,
@@ -17,7 +16,7 @@ $breakpoints: (
 .container {
 	max-width: $container-max;
 	margin: 0 auto;
-	padding: 0 $gutter-vertical-space;
+	padding: 0 use-spacer(2);
 	box-sizing: border-box;
 	flex: 1;
 	width: 100%;

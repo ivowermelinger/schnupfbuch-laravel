@@ -1,0 +1,41 @@
+.form {
+	width: 100%;
+	@extend .text__content;
+
+	&__input {
+		width: 100%;
+		height: 2rem;
+		background-color: transparent;
+		border: 2px solid $color-light;
+		border-radius: $border-radius;
+		padding: 1em 0.5em;
+		transition:
+			border-color 250ms,
+			box-shadow 250ms;
+
+		&--dark {
+			border-color: $color-dark;
+			color: $color-dark;
+		}
+
+		&:focus {
+			box-shadow: $box-shadow;
+			border-color: $color-focus;
+			outline: none;
+		}
+	}
+
+	&__label {
+		margin-bottom: 0.425em;
+		display: inline-block;
+		color: $color-light;
+
+		&--dark {
+			color: $color-dark;
+		}
+	}
+
+	&__group {
+		margin-bottom: use-spacer(3);
+	}
+}

@@ -1,0 +1,19 @@
+.login {
+	&__wrapper {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: $layer-login;
+		display: grid;
+		grid-template-rows: 1fr auto;
+	}
+
+	&__inner {
+		background-color: $color-light;
+		padding: 2rem 0;
+		border-top-right-radius: $border-radius;
+		border-top-left-radius: $border-radius;
+	}
+}
