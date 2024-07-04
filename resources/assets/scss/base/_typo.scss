@@ -62,13 +62,6 @@ a {
 }
 
 ::selection {
-	background-color: $color-light;
+	background-color: $color-selection;
 	color: $color-dark;
-}
-
-.selection--inverted {
-	&::selection {
-		background-color: $color-light;
-		color: $color-dark;
-	}
 }
