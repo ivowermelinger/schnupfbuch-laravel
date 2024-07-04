@@ -1,7 +1,6 @@
 <script>
 	import Modal from '../components/Modal.svelte';
 	import { showLogin, flashMessage } from '../stores';
-	import Close from '../svg/Close.svelte';
 
 	$: show = false;
 	$: flash = null;

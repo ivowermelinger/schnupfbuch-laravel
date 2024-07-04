@@ -13,6 +13,7 @@
 	width: 100%;
 	cursor: pointer;
 	padding: 0.75em 0.325em;
+	border-radius: $border-radius;
 
 	&--primary {
 		&,
@@ -20,7 +21,24 @@
 		&:visited {
 			background-color: $color-light;
 			color: $color-dark;
-			border-radius: $border-radius;
+		}
+	}
+
+	&--dark {
+		&,
+		&:focus,
+		&:visited {
+			background-color: $color-dark;
+			color: $color-light;
+		}
+	}
+
+	&--light {
+		&,
+		&:focus,
+		&:visited {
+			background-color: $color-light;
+			color: $color-dark;
 		}
 	}
 }

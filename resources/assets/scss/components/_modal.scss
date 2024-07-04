@@ -12,7 +12,10 @@
 		display: grid;
 		grid-template-rows: 1fr auto;
 		translate: 0 100vh;
-		transition: all $animation-duration cubic-bezier(0.63, 0.22, 0.38, 0.89);
+		transition: translate $animation-duration cubic-bezier(0.63, 0.22, 0.38, 0.89);
+		max-height: 100vh;
+		max-height: 100svh;
+		overflow: auto;
 
 		&--show {
 			translate: 0 0;
@@ -25,6 +28,8 @@
 	}
 
 	&__inner {
+		@extend .text__content;
+		color: $color-dark;
 		background-color: $color-light;
 		padding: 2rem 0;
 		border-top-right-radius: $border-radius;

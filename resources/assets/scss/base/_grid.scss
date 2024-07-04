@@ -25,14 +25,22 @@ $breakpoints: (
 
 .row {
 	display: flex;
-	gap: $grid-gutter-width;
+	flex-wrap: wrap;
+	/* gap: $grid-gutter-width; */
+	row-gap: $grid-gutter-width;
+
+	.row {
+		margin-left: calc($grid-gutter-width / 2 * -1);
+		margin-right: calc($grid-gutter-width / 2 * -1);
+	}
 }
 
 .col {
 	@for $index from 1 through $grid-columns {
 		&-#{$index} {
-			flex: 0 1 auto;
-			width: calc($index / $grid-columns * 100%);
+			flex: 0 0 calc($index / $grid-columns * 100%);
+			max-width: calc($index / $grid-columns * 100%);
+			padding: 0 calc($grid-gutter-width / 2);
 		}
 	}
 
@@ -40,8 +48,8 @@ $breakpoints: (
 		@for $index from 1 through $grid-columns {
 			@include breakpoint($size) {
 				&-#{$size}-#{$index} {
-					flex: 0 1 auto;
-					width: calc($index / $grid-columns * 100%);
+					flex: 0 0 calc($index / $grid-columns * 100%);
+					max-width: calc($index / $grid-columns * 100%);
 				}
 			}
 		}

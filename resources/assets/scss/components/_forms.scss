@@ -25,13 +25,27 @@
 		}
 	}
 
+	textarea {
+		height: auto;
+		min-height: 8rem;
+	}
+
+	&__notice {
+		@extend .text__small;
+		margin-bottom: use-spacer(0.5, 1.5);
+	}
+
 	&__label {
-		margin-bottom: use-spacer(1, 0.425);
+		margin-bottom: use-spacer(0.5, 1.5);
 		display: inline-block;
 		color: $color-light;
 
 		&--dark {
 			color: $color-dark;
+		}
+
+		&--no-mb {
+			margin-bottom: 0;
 		}
 	}
 
