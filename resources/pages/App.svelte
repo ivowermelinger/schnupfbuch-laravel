@@ -4,7 +4,7 @@
 
 <script>
     import { get } from 'svelte/store'
-    import { activeLine, lines } from './stores';
+    import { activeLine, lines, interactionAPI } from './stores';
     import { onMount } from 'svelte';
     import LineButton from './components/LineButton.svelte';
 	import LikeButton from './components/LikeButton.svelte';
@@ -12,9 +12,13 @@
 	import { getHeaders } from './helpers';
 
     const lineAPI = 'api/v1/list';
-    const interactionAPI = 'api/v1/interaction';
 
     let counter = 0;
+    let item = {};
+
+    activeLine.subscribe(value => {
+        item = value;
+    });
 
 
     onMount(async () => {
@@ -32,13 +36,16 @@
     const addView = async () => {
         if (!get(activeLine).id) return;
 
-        const res = await fetch(`${interactionAPI}/${get(activeLine).id}/view`, {
+        const res = await fetch(`${get(interactionAPI)}/${get(activeLine).id}/view`, {
             method: 'POST',
             headers: getHeaders(),
         });
 
         const data = await res.json();
-        console.log(data);
+    }
+
+    const updateItem = item => {
+        activeLine.set(item);
     }
 
     const setLine = async () =>  {
@@ -63,14 +70,15 @@
     <div class="row full-height">
         <div class="col-12">
             <div class="touch__area">
-                <LineButton setLine={setLine} />
+
+                <LineButton bind:item={item} setLine={setLine} />
 
                 <div class="row">
                     <div class="col-6">
-                        <LikeButton />
+                        <LikeButton bind:item={item} updateItem={updateItem}/>
                     </div>
                     <div class="col-6">
-                        <DislikeButton />
+                        <DislikeButton bind:item={item} updateItem={updateItem}/>
                     </div>
                 </div>
             </div>

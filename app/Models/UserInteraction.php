@@ -20,30 +20,57 @@ class UserInteraction extends Model
         'user_id',
         'line_id',
         'liked',
+        'disliked',
     ];
 
-    // Eloquent event for when a new interaction is created
-    protected static function boot()
-    {
+     // Eloquent event for when a new interaction is created
+     protected static function boot()
+     {
         parent::boot();
 
         static::created(function ($interaction) {
             // Increment likes or dislikes based on 'liked' value
             if ($interaction->liked) {
                 $interaction->line->increment('likes');
-            } else {
+            } elseif ($interaction->disliked) {
                 $interaction->line->increment('dislikes');
             }
         });
 
-        static::deleted(function ($interaction) {
-            // Decrement likes or dislikes based on 'liked' value
-            if ($interaction->liked) {
-                $interaction->line->decrement('likes');
+        static::updated(function ($interaction) {
+            $original = $interaction->getOriginal();
+
+            if ($original) {
+                if ($original['liked'] && !$interaction->liked) {
+                    $interaction->line->decrement('likes');
+                } elseif (!$original['liked'] && $interaction->liked) {
+                    $interaction->line->increment('likes');
+                }
+
+                if ($original['disliked'] && !$interaction->disliked) {
+                    $interaction->line->decrement('dislikes');
+                } elseif (!$original['disliked'] && $interaction->disliked) {
+                    $interaction->line->increment('dislikes');
+                }
             } else {
-                $interaction->line->decrement('dislikes');
+                if ($interaction->liked) {
+                    $interaction->line->increment('likes');
+                }
+
+                if ($interaction->disliked) {
+                    $interaction->line->increment('dislikes');
+                }
             }
-        });
+         });
+
+        static::deleted(function ($interaction) {
+             // Decrement likes or dislikes based on 'liked' value
+             if ($interaction->liked) {
+                 $interaction->line->decrement('likes');
+             } elseif ($interaction->disliked) {
+                 $interaction->line->decrement('dislikes');
+             }
+         });
     }
 
     public function user()

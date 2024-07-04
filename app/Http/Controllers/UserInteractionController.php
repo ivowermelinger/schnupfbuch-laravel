@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserInteraction;
-use App\Models\View;
+use App\Models\Line;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class UserInteractionController extends Controller
 {
-      /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -20,122 +21,56 @@ class UserInteractionController extends Controller
         return response()->json($interactions);
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'line_id' => 'required|exists:lines,id',
-            'liked' => 'required|boolean',
-        ]);
-
-        $interaction = new UserInteraction();
-        $interaction->line_id = $request->line_id;
-        $interaction->liked = $request->liked;
-        $interaction->save();
-
-        return response()->json($interaction, 201);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserInteraction  $userInteraction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserInteraction $userInteraction)
-    {
-        $request->validate([
-            'liked' => 'required|boolean',
-        ]);
-
-        $userInteraction->liked = $request->liked;
-        $userInteraction->save();
-
-        return response()->json($userInteraction, 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\UserInteraction  $userInteraction
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserInteraction $userInteraction)
-    {
-        $userInteraction->delete();
-
-        return response()->json(null, 204);
-    }
-
-
     /**
      * Toggle the 'liked' attribute for a specific interaction.
      *
-     * @param  int  $id
+     * @param  int  $line
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function toggleLike($id, Request $request)
+    public function toggleLike($line, Request $request)
     {
+
         $request->validate([
             'liked' => 'required|boolean',
+            'disliked' => 'required|boolean',
         ]);
 
-        $userId = Auth::id();
-        $userId = 1;
-        $interaction = null;
+        $userId = Auth::id() ?? 1;
 
-        // Check if an interaction exists for the given line_id and user_id
-        $existingInteraction = UserInteraction::where([
-            'line_id' => $id,
-            'user_id' => $userId
-        ])->first();
-
-        if ($existingInteraction) {
-            // Update existing interaction
-            $existingInteraction->update([
+        // Find or create the UserInteraction record
+        $interaction = UserInteraction::updateOrCreate(
+            [
+                'user_id' => $userId,
+                'line_id' => $line,
+            ],
+            [
                 'liked' => $request->liked,
-            ]);
+                'disliked' => $request->disliked,
+            ]
+        );
 
-            $interaction = $existingInteraction;
-        } else {
-            // Create new interaction
-            $newInteraction = UserInteraction::create([
-                'line_id' => $id,
-                'user_id' => $userId ?? 1,
-                'liked' => $request->liked,
-            ]);
+        $lineModel = Line::find($line)->limit(1)
+        ->join('users', 'lines.author_id', '=', 'users.id')
+        ->leftJoin('user_interactions', function($join) use ($userId) {
+            $join->on('lines.id', '=', 'user_interactions.line_id')
+            ->where('user_interactions.user_id', '=', $userId);
+        })
+        ->select('lines.*', 'users.nickname', 'user_interactions.liked', 'user_interactions.disliked')
+        ->get();
 
-            $interaction = $newInteraction;
-        }
-
-        return response()->json($interaction, 200);
+        return response()->json($lineModel, 200);
     }
 
     /**
      * Add a view for a specific interaction.
      *
-     * @param  int  $id
+     * @param  int  $line
      * @return \Illuminate\Http\Response
      */
     public function addView($line)
     {
-        $userId = Auth::id();
-
-        if (!$userId) {
-            return response()->json([
-                'message' => 'Unauthorized',
-                'success' => false
-            ], 401);
-        }
+        $userId = Auth::id() ?? 1;
 
         // Create new interaction
         $view = View::create([
