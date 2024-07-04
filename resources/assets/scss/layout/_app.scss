@@ -4,7 +4,7 @@
 		'header'
 		'main'
 		'footer';
-	grid-template-rows: $header-height-s 1fr $footer-height-s;
+	grid-template-rows: auto 1fr auto;
 	grid-template-columns: 1fr;
 	height: 100vh;
 	height: 100svh;

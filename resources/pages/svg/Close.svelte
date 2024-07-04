@@ -1,11 +1,7 @@
 <script>
-	export let height = 24;
-	export let width = 24;
-
-	$: heightPx = `${height}px`;
-	$: widthPx = `${width}px`;
+	export let css = '';
 </script>
 
-<svg style:width={widthPx} style:height={heightPx} viewBox="0 0 24 24">
-	<path fill="currentColor" d="M21.1,12.5L22.5,13.91L15.97,20.5L12.5,17L13.9,15.59L15.97,17.67L21.1,12.5M10,17L13,20H3V18C3,15.79 6.58,14 11,14L12.89,14.11L10,17M11,4A4,4 0 0,1 15,8A4,4 0 0,1 11,12A4,4 0 0,1 7,8A4,4 0 0,1 11,4Z" />
+<svg class={css} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+	<path fill="currentColor" d="M9.15625 6.3125 6.3125 9.15625 22.15625 25 6.21875 40.96875l2.8125 2.8125L25 27.84375l15.9375 15.9375 2.84375-2.84375L27.84375 25 43.6875 9.15625 40.84375 6.3125 25 22.15625Z" />
 </svg>

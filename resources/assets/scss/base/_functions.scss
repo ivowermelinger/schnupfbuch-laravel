@@ -1,8 +1,7 @@
 @use 'sass:math';
 
-@function use-spacer($factor: 3) {
+@function use-spacer($minSize: 1, $factor: 3) {
 	// convert to rem
-	$minSize: 1;
 	$maxSize: $minSize * $factor;
 
 	$maxWidth: 1440 / 16;

@@ -8,6 +8,12 @@
 		z-index: $layer-login;
 		display: grid;
 		grid-template-rows: 1fr auto;
+		translate: 0 100vh;
+		transition: all 650ms ease-in-out;
+
+		&--show {
+			translate: 0 0;
+		}
 	}
 
 	&__inner {
@@ -15,5 +21,22 @@
 		padding: 2rem 0;
 		border-top-right-radius: $border-radius;
 		border-top-left-radius: $border-radius;
+		position: relative;
+	}
+
+	&__close {
+		display: flex;
+		justify-content: flex-end;
+		right: $grid-vertical-space;
+		top: 1rem;
+		position: absolute;
+		border: none;
+		background: transparent;
+	}
+
+	&__icon {
+		width: 48px;
+		height: 48px;
+		color: $color-dark;
 	}
 }

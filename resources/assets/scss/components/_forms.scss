@@ -26,7 +26,7 @@
 	}
 
 	&__label {
-		margin-bottom: 0.425em;
+		margin-bottom: use-spacer(1, 0.425);
 		display: inline-block;
 		color: $color-light;
 
@@ -36,6 +36,10 @@
 	}
 
 	&__group {
-		margin-bottom: use-spacer(3);
+		margin-bottom: use-spacer(1, 2.5);
+
+		:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
