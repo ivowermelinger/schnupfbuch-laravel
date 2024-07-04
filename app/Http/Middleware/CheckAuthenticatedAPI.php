@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAuthenticated
+class CheckAuthenticatedAPI
 {
     /**
      * Handle an incoming request.
@@ -20,11 +20,11 @@ class CheckAuthenticated
 
         if (!$userId) {
             return response()->json([
-                'message' => 'Unauthorized',
-                'success' => false
+                'message' => 'Für diese Aktion müssen Sie angemeldet sein.',
+                'success' => false,
             ], 401);
         }
-        
+
         return $next($request);
     }
 }

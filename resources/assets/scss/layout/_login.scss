@@ -1,4 +1,7 @@
 .login {
+	$this: &;
+	$animation-duration: 500ms;
+
 	&__wrapper {
 		position: fixed;
 		top: 0;
@@ -9,10 +12,15 @@
 		display: grid;
 		grid-template-rows: 1fr auto;
 		translate: 0 100vh;
-		transition: all 650ms ease-in-out;
+		transition: all $animation-duration cubic-bezier(0.63, 0.22, 0.38, 0.89);
 
 		&--show {
 			translate: 0 0;
+
+			#{$this}__back {
+				backdrop-filter: blur(5px);
+				transition: all $animation-duration cubic-bezier(0.63, 0.22, 0.38, 0.89);
+			}
 		}
 	}
 
@@ -22,6 +30,20 @@
 		border-top-right-radius: $border-radius;
 		border-top-left-radius: $border-radius;
 		position: relative;
+
+		@include breakpoint(s) {
+			padding: 3rem 0;
+		}
+	}
+
+	&__back {
+		backdrop-filter: none;
+		border: none;
+		border-radius: 0;
+		background: transparent;
+		transition: none;
+		margin: 0;
+		padding: 0;
 	}
 
 	&__close {
@@ -32,11 +54,40 @@
 		position: absolute;
 		border: none;
 		background: transparent;
+		cursor: pointer;
+
+		@include breakpoint(s) {
+			top: 1.5rem;
+		}
 	}
 
 	&__icon {
-		width: 48px;
-		height: 48px;
+		width: 36px;
+		height: 36px;
 		color: $color-dark;
+
+		@include breakpoint(s) {
+			width: 48px;
+			height: 48px;
+		}
+	}
+
+	&__message {
+		@extend .text__content;
+		color: $color-error;
+		margin-bottom: use-spacer(1, 1.5);
+	}
+
+	&__link {
+		@extend .text__content;
+		display: inline-block;
+	}
+
+	&__links {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: use-spacer(1, 1.5);
+		align-items: flex-start;
+		gap: 0.25em;
 	}
 }

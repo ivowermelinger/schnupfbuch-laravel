@@ -4,10 +4,10 @@
 	// convert to rem
 	$maxSize: $minSize * $factor;
 
-	$maxWidth: 1440 / 16;
-	$minWidth: 375 / 16;
+	$maxWidth: math.div(1440, 16);
+	$minWidth: math.div(375, 16);
 
-	$slope: ($maxSize - $minSize) / ($maxWidth - $minWidth);
+	$slope: math.div($maxSize - $minSize, $maxWidth - $minWidth);
 	$yAxisIntersection: calc($minWidth * -1 * $slope + $minSize);
 	$preferredValue: calc(($yAxisIntersection * 1rem) + ($slope * 100vw));
 
