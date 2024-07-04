@@ -41,7 +41,7 @@ class ListController extends Controller
 
         // Optionally, return a response indicating success
         return response()->json(['message' => 'Listing updated successfully', 'data' => $listing], 200);
-            }
+    }
 
 
 

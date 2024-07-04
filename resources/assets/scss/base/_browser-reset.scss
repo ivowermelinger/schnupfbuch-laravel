@@ -5,6 +5,13 @@
    License: none (public domain)
 */
 
+// Set box-sizing globally
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 html,
 body,
 div,

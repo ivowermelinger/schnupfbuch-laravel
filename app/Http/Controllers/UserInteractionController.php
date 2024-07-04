@@ -130,13 +130,6 @@ class UserInteractionController extends Controller
     {
         $userId = Auth::id();
 
-        if (!$userId) {
-            return response()->json([
-                'message' => 'Unauthorized',
-                'success' => false
-            ], 401);
-        }
-
         // Create new interaction
         $view = View::create([
             'line_id' => $line,
