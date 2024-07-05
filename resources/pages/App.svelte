@@ -3,6 +3,8 @@
 </script>
 
 <script>
+	import Footer from './layout/Footer.svelte';
+	import Header from './layout/Header.svelte';
 	import { page } from '@inertiajs/svelte';
 	import { activeLine, lines, interactionAPI } from './stores';
 	import { onMount } from 'svelte';
@@ -10,7 +12,6 @@
 	import LikeButton from './components/LikeButton.svelte';
 	import DislikeButton from './components/DislikeButton.svelte';
 	import { getHeaders } from './helpers';
-	import { writable } from 'svelte/store';
 
 	const lineAPI = 'api/v1/list';
 
@@ -55,20 +56,25 @@
 	};
 </script>
 
-<div class="container full-height">
-	<div class="row full-height">
-		<div class="col-12">
-			<div class="touch__area">
-				<LineButton {setLine} />
-				<div class="row">
-					<div class="col-6">
-						<LikeButton />
-					</div>
-					<div class="col-6">
-						<DislikeButton />
+<Header />
+<main class="main">
+	<div class="container full-height">
+		<div class="row full-height">
+			<div class="col-12">
+				<div class="touch__area">
+					<LineButton {setLine} />
+					<div class="row">
+						<div class="col-6">
+							<LikeButton />
+						</div>
+						<div class="col-6">
+							<DislikeButton />
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</main>
+
+<Footer />

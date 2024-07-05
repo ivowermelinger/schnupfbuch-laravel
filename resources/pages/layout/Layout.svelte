@@ -1,6 +1,4 @@
 <script>
-	import Header from './Header.svelte';
-	import Footer from './Footer.svelte';
 	import Login from '../auth/Login.svelte';
 	import FlashContainer from '../components/FlashContainer.svelte';
 	import { page } from '@inertiajs/svelte';
@@ -13,6 +11,10 @@
 </script>
 
 <svelte:head>
+	{#if $page.props.heading}
+		<title>{$page.props.heading}</title>
+	{/if}
+
 	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
@@ -36,11 +38,7 @@
 </svelte:head>
 
 <div class="app">
-	<Header />
-	<main class="main">
-		<slot />
-	</main>
+	<slot />
 	<Login />
 	<FlashContainer />
-	<Footer />
 </div>

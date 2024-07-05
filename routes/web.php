@@ -5,9 +5,12 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\UserInteractionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LineController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\CheckAuthenticatedAPI;
 
 Route::get('/', [ListController::class, 'show']);
+
+Route::get('/register', [RegisterController::class, 'show']);
 
 Route::apiResource('api/v1/list', ListController::class);
 Route::apiResource('api/v1/line', LineController::class);
