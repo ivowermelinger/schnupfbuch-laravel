@@ -54,7 +54,7 @@
 						<input class="form__input form__input--dark" type="password" name="password" id="password" required autocomplete="current-password" bind:value={password} />
 					</div>
 					<div class="form__group form__group--button">
-						<button class="btn btn--dark" type="submit">
+						<button class="btn btn--primary" type="submit">
 							<span>Login</span>
 						</button>
 					</div>

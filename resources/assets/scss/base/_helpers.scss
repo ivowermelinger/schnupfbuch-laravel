@@ -25,4 +25,21 @@
 	max-height: 0;
 	visibility: hidden;
 	overflow: hidden;
+	display: block;
+}
+
+%button-reset {
+	border: none;
+	background: none;
+	padding: 0;
+	margin: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+%list-reset {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }

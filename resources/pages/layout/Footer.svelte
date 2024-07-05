@@ -73,7 +73,7 @@
 						<input class="form__input form__input--dark" id="email" name="email" type="email" required />
 					</div>
 					<div class="form__group form__group--button">
-						<button class="btn btn--dark">
+						<button class="btn btn--primary">
 							<span>Spruch erfassen</span>
 						</button>
 					</div>

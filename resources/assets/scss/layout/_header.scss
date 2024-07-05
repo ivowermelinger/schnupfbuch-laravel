@@ -4,21 +4,22 @@
 	align-self: flex-start;
 	display: flex;
 	align-items: center;
-	padding: use-spacer(1, 1.5) 0;
+	padding: use-spacer(0.5, 1.5) 0;
 	text-align: start;
 	top: 0;
 	width: 100%;
 	height: 100%;
 	z-index: $layer-header;
+	box-shadow: $box-shadow;
 
 	&__user {
-		@extend .text__content;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		@extend %button-reset;
+		width: 48px;
+		height: 48px;
 
-		&--login {
-			justify-content: flex-end;
+		svg {
+			width: 48px;
+			height: 48px;
 		}
 	}
 }
