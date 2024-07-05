@@ -15,9 +15,12 @@
 
 		const avatar = creator.createAvatar(styles.funEmoji, {
 			seed: $user.nickname,
-			backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9'],
-			backgroundType: ['gradientLinear', 'solid'],
-			radius: 50,
+			backgroundColor: ['f2efea', '71a9f7'],
+			backgroundType: ['gradientLinear'],
+			mouth: ['cute', 'drip', 'lilSmile', 'pissed', 'plain', 'sad', 'shout', 'smileLol', 'smileTeeth', 'wideSmile'],
+			eyes: ['closed', 'closed2', 'cute', 'glasses', 'pissed', 'plain', 'sad', 'shades', 'sleepClose', 'wink', 'wink2'],
+			backgroundRotation: [90],
+			radius: 8,
 			size: 128,
 		});
 

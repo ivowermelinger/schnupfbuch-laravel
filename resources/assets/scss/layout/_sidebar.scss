@@ -23,11 +23,11 @@
 		background-color: $color-primary;
 		box-shadow: $box-shadow;
 		width: 70vw;
-		max-width: 320px;
+		max-width: 350px;
 		height: 100vh;
 		height: 100svh;
 		z-index: $layer-sidebar;
-		padding: use-spacer(2, 2) $gutter-vertical-space;
+		padding: use-spacer(2, 2) $grid-gutter-width;
 		translate: -102% 0;
 		transition: translate $sidebar-duration $transition-function;
 
@@ -97,7 +97,7 @@
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		gap: use-spacer(1, 2);
+		gap: use-spacer(2, 2);
 		margin-bottom: use-spacer(2, 2);
 
 		svg {
