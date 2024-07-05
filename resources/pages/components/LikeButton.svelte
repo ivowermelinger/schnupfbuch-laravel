@@ -1,6 +1,6 @@
 <script lang="ts">
 	import debounce from 'lodash/debounce';
-	import { interactionAPI, handleServerResponse, activeLine } from '../stores';
+	import { interactionAPI, handleAuthResponse, activeLine } from '../stores';
 	import { getHeaders } from '../helpers';
 	import ThumbUp from '../svg/ThumbUp.svelte';
 
@@ -16,11 +16,11 @@
 			}),
 		});
 
-		const like = await handleServerResponse(res);
+		const like = await handleAuthResponse(res);
 		like && activeLine.set(like);
 	};
 </script>
 
 <button class="btn btn--icon" on:click|preventDefault={debounce(() => addLike(), 1000, { leading: true, trailing: false })}>
-	<ThumbUp css="btn__icon {$activeLine?.liked ? 'btn--thumb' : ''}" />
+	<ThumbUp css="btn__icon btn__icon--lg {$activeLine?.liked ? 'btn--thumb' : ''}" />
 </button>

@@ -19,7 +19,7 @@
 	<div class="sidebar__wrapper">
 		<button class="sidebar__close" on:click|preventDefault={closeModal}>
 			<span class="visually-hidden">Sidebar schliessen</span>
-			<Close css="sidebar__picture" />
+			<Close css="sidebar__cross" />
 		</button>
 		<div class="sidebar__profile">
 			{#if picture}

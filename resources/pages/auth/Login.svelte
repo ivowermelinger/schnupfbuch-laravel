@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import Modal from '../components/Modal.svelte';
 	import { getHeaders } from '../helpers';
-	import { showLogin, flashMessage, dataAPI } from '../stores';
+	import { showLogin, flashMessageAuth, dataAPI } from '../stores';
 
 	$: show = false;
 	$: flash = null;
@@ -14,17 +14,17 @@
 		show = value;
 	});
 
-	flashMessage.subscribe((value) => {
+	flashMessageAuth.subscribe((value) => {
 		flash = value;
 	});
 
 	const hideForm = () => {
 		showLogin.set(false);
-		flashMessage.set(null);
+		flashMessageAuth.set(null);
 	};
 
 	const handleLogin = async () => {
-		flashMessage.set(null);
+		flashMessageAuth.set(null);
 
 		const res = await fetch(`${$dataAPI}/auth/login`, {
 			method: 'POST',
@@ -36,7 +36,7 @@
 		});
 
 		const login = await res.json();
-		login?.success ? window.location.reload() : flashMessage.set(login?.message);
+		login?.success ? window.location.reload() : flashMessageAuth.set(login?.message);
 	};
 </script>
 

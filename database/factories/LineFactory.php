@@ -20,6 +20,7 @@ class LineFactory extends Factory
             'line' => fake()->sentence(10, true),
             'likes' => 0,
             'dislikes' => 0,
+            'active' => 1,
             'author_id' => fake()->numberBetween(1, 5),
         ];
     }

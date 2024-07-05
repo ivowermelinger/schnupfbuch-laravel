@@ -39,7 +39,8 @@
 		margin-bottom: use-spacer(0.5, 1.5);
 	}
 
-	&__error {
+	&__error,
+	&__hint {
 		@extend .text__small;
 		color: $color-error;
 		padding-top: use-spacer(0.5, 1.5);
@@ -66,7 +67,8 @@
 			margin: use-spacer(1, 2.5) 0;
 		}
 
-		&--error {
+		&--error,
+		&--nickname {
 			.form__input {
 				border-color: $color-error;
 			}

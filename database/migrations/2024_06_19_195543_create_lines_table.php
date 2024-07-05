@@ -16,6 +16,7 @@ return new class extends Migration
             $table->longtext('line');
             $table->integer('likes')->default(0);
             $table->integer('dislikes')->default(0);
+            $table->boolean('active')->default(0);
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

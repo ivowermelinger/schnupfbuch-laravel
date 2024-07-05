@@ -21,6 +21,7 @@ class ListController extends Controller
 
         if ($userId) {
             $lines = Line::inRandomOrder()->limit(10)
+            ->where('lines.active', '=', 1)
             ->join('users', 'lines.author_id', '=', 'users.id')
             ->leftJoin('user_interactions', function($join) use ($userId) {
                 $join->on('lines.id', '=', 'user_interactions.line_id')
@@ -30,6 +31,7 @@ class ListController extends Controller
             ->get();
         } else {
             $lines = Line::inRandomOrder()->limit(10)
+            ->where('lines.active', '=', 1)
             ->join('users', 'lines.author_id', '=', 'users.id')
             ->select('lines.*', 'users.nickname')
             ->get();

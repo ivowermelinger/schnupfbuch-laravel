@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -15,6 +16,16 @@ class AuthController extends Controller
      */
     public function authenticate(Request $request)
     {
+        // Check if has no account
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user->has_account) {
+            return response()->json([
+                'message' => 'Für diese E-Mail-Adresse wurden bereits Sprüche erfasst, aber kein Konto erstellt. Bitte registrieren Sie sich zuerst.',
+                'success' => false
+            ], 401);
+        }
+
         // Define validation rules
         $rules = [
             'email' => ['required', 'email'],
@@ -32,6 +43,9 @@ class AuthController extends Controller
                 'success' => false
             ], 422);
         }
+
+
+
 
          // Get validated credentials
          $credentials = $validator->validated();

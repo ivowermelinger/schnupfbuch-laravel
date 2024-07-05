@@ -2,6 +2,7 @@
 	import Header from './Header.svelte';
 	import Footer from './Footer.svelte';
 	import Login from '../auth/Login.svelte';
+	import FlashContainer from '../components/FlashContainer.svelte';
 	import { page } from '@inertiajs/svelte';
 	import { user } from '../stores';
 
@@ -40,5 +41,6 @@
 		<slot />
 	</main>
 	<Login />
+	<FlashContainer />
 	<Footer />
 </div>
