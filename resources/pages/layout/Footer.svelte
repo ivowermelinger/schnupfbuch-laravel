@@ -86,9 +86,9 @@
 						<p class="form__hint"></p>
 					</div>
 					<div class="form__group" class:form__group--nickname={showNicknameError}>
-						<label class="form__label form__label--dark" for="author">Autor / Nickname</label>
+						<label class="form__label form__label--dark" for="nickname">Autor / Nickname</label>
 						<div class="form__notice">Nur Buchstaben, Zahlen, Unterstriche und Bindestriche erlaubt</div>
-						<input class="form__input form__input--dark" id="author" name="author" pattern="([A-Za-z0-9\-_]+)" required bind:value={nickname} on:keyup={debounce(() => checkNickname(), 250)} />
+						<input class="form__input form__input--dark" id="nickname" name="nickname" pattern="([A-Za-z0-9\-_]+)" required bind:value={nickname} on:keyup={debounce(() => checkNickname(), 250)} />
 						<p class="form__hint"></p>
 						{#if showNicknameError && nickname}
 							<p class="form__error">Verwende keine beleidigenden Wörter</p>
@@ -98,7 +98,7 @@
 						<div class="col-12 col-s-6">
 							<div class="form__group">
 								<label class="form__label form__label--dark form__label--no-mb" for="firstName">Vorname</label>
-								<div class="form__notice">wird nicht veröffentlicht</div>
+								<div class="form__notice">Wird nicht veröffentlicht</div>
 								<input class="form__input form__input--dark" type="text" id="firstName" name="firstName" required bind:value={first_name} />
 								<p class="form__hint"></p>
 							</div>
@@ -106,7 +106,7 @@
 						<div class="col-12 col-s-6">
 							<div class="form__group">
 								<label class="form__label form__label--dark form__label--no-mb" for="lastName">Nachname</label>
-								<div class="form__notice">wird nicht veröffentlicht</div>
+								<div class="form__notice">Wird nicht veröffentlicht</div>
 								<input class="form__input form__input--dark" type="text" id="lastName" name="lastName" required bind:value={last_name} />
 								<p class="form__hint"></p>
 							</div>
@@ -114,10 +114,11 @@
 					</div>
 					<div class="form__group">
 						<label class="form__label form__label--dark form__label--no-mb" for="email">E-Mail</label>
-						<div class="form__notice">wird nicht veröffentlicht</div>
+						<div class="form__notice">Wird nicht veröffentlicht</div>
 						<input class="form__input form__input--dark" id="email" name="email" type="email" required bind:value={email} />
 						<p class="form__hint"></p>
 					</div>
+
 					<div class="form__group form__group--button">
 						<button class="btn btn--primary">
 							<span>Spruch erfassen</span>

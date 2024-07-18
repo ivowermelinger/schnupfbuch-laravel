@@ -11,6 +11,7 @@
 	height: 100%;
 	z-index: $layer-header;
 	box-shadow: $box-shadow;
+	background-color: $color-dark;
 
 	&__user {
 		@extend %button-reset;

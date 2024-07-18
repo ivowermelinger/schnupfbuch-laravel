@@ -16,3 +16,13 @@
 
 	@return clamp($minSize, $preferredValue, $maxSize);
 }
+
+$spacers: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+.spacer {
+	@each $spacer in $spacers {
+		&--mb-#{$spacer} {
+			margin-bottom: use-spacer($spacer, 2);
+		}
+	}
+}

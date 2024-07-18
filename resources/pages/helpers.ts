@@ -33,7 +33,6 @@ export const validateForm = (form: HTMLFormElement): HTMLElement[] => {
 
 		// Validate required fields
 		if (!input.checkValidity()) {
-			console.log(input, input.checkValidity());
 			errors.push(input);
 		} else {
 			removeErrorMessage(input);

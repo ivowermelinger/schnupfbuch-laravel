@@ -32,3 +32,40 @@ export const handleServerResponse = async (res) => {
 
 	return json;
 };
+
+export const handleFormResponse = async (form: HTMLFormElement, res) => {
+	const json = await res.json();
+
+	const removeErrorClass = (input: HTMLElement) => {
+		input.parentElement?.classList.remove('form__group--error');
+	};
+
+	const addErrorClass = (input: HTMLElement) => {
+		input.parentElement?.classList.add('form__group--error');
+	};
+
+	if (res.ok) {
+		flashMessage.set({
+			message: json.message,
+			severity: res.ok ? 'success' : 'error',
+		});
+
+		return json;
+	}
+
+	const inputs = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea');
+
+	inputs.forEach((input) => {
+		const errors = json.errors[input.name];
+		removeErrorClass(input);
+		if (!errors) return;
+
+		addErrorClass(input);
+		const hint = input.parentElement?.querySelector<HTMLElement>('.form__hint');
+
+		if (!hint) return;
+		hint.textContent = errors.join(', ');
+	});
+
+	return json;
+};
