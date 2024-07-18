@@ -23,8 +23,7 @@ Route::get('/verify/error', [VerificationController::class, 'verifyError'])
 	->name('verification.error')
 ;
 
-Route::get('verify/resend', [VerificationController::class, 'resendMail'])
-	->middleware(['signed'])
+Route::get('verify/resend/{id}', [VerificationController::class, 'resendMail'])
 	->name('verification.resend')
 ;
 

@@ -52,6 +52,28 @@ class VerificationController extends Controller
 		return redirect('/')->with('verified', true);
 	}
 
+	public function resendMail(Request $request)
+	{
+
+		$id = $request->route('id');
+		$user = User::find($id);
+
+		if (!$user) {
+			return redirect('register')->with(['flash' => [
+				'message' => 'Dieser Benutzer wurde nicht gefunden! Bitte registrieren Sie sich erneut.',
+				'severity' => 'error',
+			]]);
+		}
+
+		// Resend verification email
+		$user->notify(new VerifyEmail());
+
+		return redirect('/')->with(['flash' => [
+			'message' => 'Die E-Mail wurde erneut versendet. Bitte überprüfen Sie Ihren Posteingang.',
+			'severity' => 'success',
+		]]);
+	}
+
 	private function getSignedErrorUrl()
 	{
 		return URL::temporarySignedRoute('verification.error', now()->addMinutes(5));
