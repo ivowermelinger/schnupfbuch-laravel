@@ -14,12 +14,12 @@
 	let form;
 	let matcher;
 
-	let nickname = 'w4Yne';
-	let email = 'ivo_wermelinger@hotmail.com';
+	let nickname = 'w4Yne' + Math.floor(Math.random() * 100) + 1;
+	let email = 'ivo_wermelinger' + Math.floor(Math.random() * 100) + 1 +'@hotmail.com';
 	let first_name = 'Ivo';
 	let last_name = 'Wermelinger';
-	let password = 'Wovi1996';
-	let password_confirmation = 'Wovi1996';
+	let password = 'password';
+	let password_confirmation = 'password';
 
 	const resetFields = () => {
 		nickname = '';
