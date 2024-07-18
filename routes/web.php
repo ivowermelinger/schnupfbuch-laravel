@@ -5,6 +5,7 @@ use App\Http\Controllers\LineController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserInteractionController;
+use App\Http\Controllers\VerificationController;
 use App\Http\Middleware\CheckAuthenticatedAPI;
 use Illuminate\Support\Facades\Route;
 
@@ -12,9 +13,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ListController::class, 'show']);
 Route::get('/register', [RegisterController::class, 'show']);
 
-Route::get('/email/verify/{id}/{hash}', [RegisterController::class, 'verifyEmail'])
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verifyEmail'])
 	->middleware(['signed'])
 	->name('verification.verify')
+;
+
+Route::get('/verify/error', [VerificationController::class, 'verifyError'])
+	->middleware(['signed'])
+	->name('verification.error')
+;
+
+Route::get('verify/resend', [VerificationController::class, 'resendMail'])
+	->middleware(['signed'])
+	->name('verification.resend')
 ;
 
 // API Routes public

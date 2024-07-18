@@ -6,17 +6,15 @@
 	export let item;
 	let message;
 
-	const duration = 5000;
+	const duration = 5100;
 	const fadeDuration = 400;
 
 	onMount(() => {
 		setTimeout(() => {
 			message.classList.add('message--show');
-
-			setTimeout(() => {
-				setTimeout(closeMessage, duration);
-			}, duration);
 		}, 100);
+
+		setTimeout(closeMessage, duration);
 	});
 
 	const closeMessage = () => {

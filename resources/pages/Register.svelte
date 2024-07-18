@@ -3,11 +3,14 @@
 </script>
 
 <script>
+	import { onMount } from 'svelte';
 	import SimpleHeader from './layout/SimpleHeader.svelte';
+	import { page } from '@inertiajs/svelte';
 	import { dataAPI, handleFormResponse } from './stores';
 	import { badWords } from './bad-words';
 	import debounce from 'lodash/debounce';
 	import { getHeaders, validateForm } from './helpers';
+	import {flashMessage} from './stores';
 
 	$: showNicknameError = false;
 
@@ -20,6 +23,12 @@
 	let last_name = 'Wermelinger';
 	let password = 'password';
 	let password_confirmation = 'password';
+
+	onMount(() => {
+		// Check for flash messages in inerita page
+		const flash = $page?.props?.flash;
+		flash && flashMessage.set(flash);
+	})
 
 	const resetFields = () => {
 		nickname = '';

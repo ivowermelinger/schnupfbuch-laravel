@@ -6,7 +6,7 @@
 	import Footer from './layout/Footer.svelte';
 	import Header from './layout/Header.svelte';
 	import { page } from '@inertiajs/svelte';
-	import { activeLine, lines, interactionAPI } from './stores';
+	import { activeLine, lines, interactionAPI, flashMessage } from './stores';
 	import { onMount } from 'svelte';
 	import LineButton from './components/LineButton.svelte';
 	import LikeButton from './components/LikeButton.svelte';
@@ -23,6 +23,10 @@
 	});
 
 	const getList = async () => {
+		// Check for flash messages in inerita page
+		const flash = $page?.props?.flash;
+		flash && flashMessage.set(flash);
+
 		const res = await fetch(lineAPI);
 		const list = await res.json();
 

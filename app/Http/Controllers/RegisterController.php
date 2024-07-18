@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class RegisterController extends Controller
@@ -20,38 +18,6 @@ class RegisterController extends Controller
 		return Inertia::render('Register', [
 			'heading' => 'Registrieren - '.env('APP_NAME', ''),
 		]);
-	}
-
-	/**
-	 * Display the verify page.
-	 */
-	public function verify()
-	{
-		return view('verify');
-	}
-
-	public function verifyEmail(Request $request)
-	{
-		$user = User::find($request->route('id'));
-
-		if (!$user) {
-			throw new AuthorizationException();
-		}
-
-		// Verify the email hash
-		if (!hash_equals(sha1($user->getEmailForVerification()), (string) $request->route('hash'))) {
-			throw new AuthorizationException();
-		}
-
-		// Mark the email as verified
-		if (!$user->hasVerifiedEmail()) {
-			$user->markEmailAsVerified();
-			$user->remember_token = Str::random(10);
-			$user->save();
-		}
-
-		// Redirect to login page with a success message
-		return redirect('/')->with('verified', true);
 	}
 
 	/**
