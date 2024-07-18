@@ -4,6 +4,7 @@
 	import Modal from '../components/Modal.svelte';
 	import debounce from 'lodash/debounce';
 	import { getHeaders, validateForm } from '../helpers';
+	import { user, showLogin, flashMessageAuth } from '../stores';
 
 	$: show = false;
 	$: showNicknameError = false;
@@ -26,6 +27,14 @@
 	};
 
 	const showForm = () => {
+
+		// Check if the user is authenticated
+		if (!$user) {
+			showLogin.set(true);
+			flashMessageAuth.set('Für diese Aktion müssen Sie angemeldet sein.');
+			return;
+		}
+
 		show = true;
 	};
 

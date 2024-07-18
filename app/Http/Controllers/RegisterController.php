@@ -46,7 +46,7 @@ class RegisterController extends Controller
 		// Mark the email as verified
 		if (!$user->hasVerifiedEmail()) {
 			$user->markEmailAsVerified();
-			$user->remember_token = Str::random(60);
+			$user->remember_token = Str::random(10);
 			$user->save();
 		}
 

@@ -21,6 +21,14 @@ class AuthController extends Controller
 		// Check if has no account
 		$user = User::where('email', $request->email)->first();
 
+		// Check if email is verified
+		if (!$user->hasVerifiedEmail()) {
+			return response()->json([
+				'message' => 'Bitte bestätigen Sie Ihre E-Mail-Adresse, um sich einloggen zu können.',
+				'success' => false,
+			], 401);
+		}
+
 		if (!$user->has_account) {
 			return response()->json([
 				'message' => 'Für diese E-Mail-Adresse wurden bereits Sprüche erfasst, aber kein Konto erstellt. Bitte registrieren Sie sich zuerst.',
