@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Controllers\Traits\HasVerificationMail;
 use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
-
 class RegisterController extends Controller
 {
+	use HasVerificationMail;
+
 	/**
 	 * Display the view.
 	 */
@@ -63,15 +64,7 @@ class RegisterController extends Controller
 			'password' => $request->password,
 		]);
 
-		// Customize the verification email
-		VerifyEmail::toMailUsing(function ($user, string $url) {
-			return (new MailMessage)
-			->greeting(__('Hallo :name', ['name' =>$user->first_name]))
-			->subject(__('E-Mail-Adresse bestätigen'))
-			->line(__('Bitte klicke auf den folgenden Link, um deine E-Mail-Adresse zu bestätigen.'))
-			->action(__('E-Mail-Adresse bestätigen'), $url)
-			->line(__('Wenn du kein Konto erstellt hast, ignoriere diese E-Mail.'));
-		});
+		$this->adjustVerificationMail($user);
 
 		// Send the verification email
 		$user->notify((new VerifyEmail())

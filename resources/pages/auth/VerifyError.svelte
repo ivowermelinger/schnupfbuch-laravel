@@ -27,11 +27,11 @@
                 </p>
 
                 <form
-                    action="/verify/resend/{$page.props.userToRefresh ?? -1}"
+                    action="/verify/resend/{$page.props.userToRefresh ?? 39}"
                     novalidate
                     method="POST"
                 >
-                    <button class="btn btn--primary" href=""
+                    <button class="btn btn--primary" type="submit"
                         >E-Mail erneut senden</button
                     >
                 </form>

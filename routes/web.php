@@ -13,18 +13,23 @@ use Illuminate\Support\Facades\Route;
 // Web Routes
 Route::get('/', [ListController::class, 'show']);
 Route::get('/register', [RegisterController::class, 'show']);
-Route::get('logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verifyEmail'])
     ->middleware(['signed'])
     ->name('verification.verify');
 
-Route::get('/verify/error', [VerificationController::class, 'verifyError'])
-    ->middleware(['signed'])
-    ->name('verification.error');
 
-Route::get('verify/resend/{id}', [VerificationController::class, 'resendMail'])
+Route::prefix('verify')->group(function () {
+    Route::get('/error', [VerificationController::class, 'verifyError'])
+        ->middleware(['signed'])
+        ->name('verification.error');
+
+    Route::post('/resend/{id}', [VerificationController::class, 'resendMail'])
+        ->name('verification.resend');
+    Route::get('/resend/{id}', [VerificationController::class, 'resendMail'])
     ->name('verification.resend');
+});
 
 // Public API Routes
 Route::prefix('api/v1')->group(function () {
@@ -34,8 +39,6 @@ Route::prefix('api/v1')->group(function () {
     Route::post('auth/register', [RegisterController::class, 'register']);
     Route::post('auth/login', [AuthController::class, 'authenticate']);
 });
-
-// Auth Routes
 
 
 // Private API Routes

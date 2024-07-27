@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Http\Controllers\Traits\HasVerificationMail;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class VerificationController extends Controller
 {
+	use HasVerificationMail;
+
 	/**
 	 * Display the verify page.
 	 */
@@ -27,6 +32,7 @@ class VerificationController extends Controller
 
 	public function verifyEmail(Request $request)
 	{
+
 		$user = User::find($request->route('id'));
 
 		if (!$user) {
@@ -35,7 +41,6 @@ class VerificationController extends Controller
 				'severity' => 'error',
 			]]);
 		}
-
 
 		if (!hash_equals(sha1($user->getEmailForVerification()), (string) $request->route('hash'))) {
 			return redirect($this->getSignedErrorUrl())->with(['userToRefresh' => $user->id]);
@@ -46,6 +51,11 @@ class VerificationController extends Controller
 			$user->markEmailAsVerified();
 			$user->remember_token = Str::random(10);
 			$user->save();
+		} else {
+			return redirect('/')->with(['flash' => [
+				'message' => 'Ihre E-Mail-Adresse wurde bereits bestätigt.',
+				'severity' => 'success',
+			]]);
 		}
 
 		return Inertia::render('Auth/VerifySuccess', [
@@ -65,6 +75,8 @@ class VerificationController extends Controller
 				'severity' => 'error',
 			]]);
 		}
+
+		$this->adjustVerificationMail($user);
 
 		// Resend verification email
 		$user->notify(new VerifyEmail());

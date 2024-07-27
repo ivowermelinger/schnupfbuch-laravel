@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\HandleInertiaRequests;
-use App\Http\Middleware\CheckAuthenticated;
-use App\Http\Middleware\AddAuthenticatedFlash;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,15 +14,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->validateCsrfTokens(except: [
-            // TODO Remove this line when you are ready to use CSRF protection
-            'api/*',
-        ]);
+        $middleware->validateCsrfTokens(except: []);
 
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (InvalidSignatureException $e, Request $request) {
+            // Redirect invalid signature exceptions to the error page
+            $singedURL = URL::temporarySignedRoute('verification.error', now()->addMinutes(5));
+            return redirect($singedURL)->with(['userToRefresh' => $request->route('id')]);
+        });
     })->create();
