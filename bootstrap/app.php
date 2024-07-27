@@ -23,7 +23,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (InvalidSignatureException $e, Request $request) {
             // Redirect invalid signature exceptions to the error page
-            $singedURL = URL::temporarySignedRoute('verification.error', now()->addMinutes(5));
-            return redirect($singedURL)->with(['userToRefresh' => $request->route('id')]);
+            return redirect('/verify/error')->with(['userToRefresh' => $request->route('id')]);
         });
     })->create();

@@ -65,7 +65,6 @@ class VerificationController extends Controller
 
 	public function resendMail(Request $request)
 	{
-
 		$id = $request->route('id');
 		$user = User::find($id);
 

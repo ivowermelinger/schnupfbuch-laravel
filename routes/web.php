@@ -22,13 +22,10 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verifyE
 
 Route::prefix('verify')->group(function () {
     Route::get('/error', [VerificationController::class, 'verifyError'])
-        ->middleware(['signed'])
         ->name('verification.error');
 
     Route::post('/resend/{id}', [VerificationController::class, 'resendMail'])
         ->name('verification.resend');
-    Route::get('/resend/{id}', [VerificationController::class, 'resendMail'])
-    ->name('verification.resend');
 });
 
 // Public API Routes

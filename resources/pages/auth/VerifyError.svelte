@@ -27,10 +27,15 @@
                 </p>
 
                 <form
-                    action="/verify/resend/{$page.props.userToRefresh ?? 39}"
+                    action="/verify/resend/{$page.props.userToRefresh ?? -1}"
                     novalidate
                     method="POST"
                 >
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value={$page.props.csrf_token}
+                    />
                     <button class="btn btn--primary" type="submit"
                         >E-Mail erneut senden</button
                     >
