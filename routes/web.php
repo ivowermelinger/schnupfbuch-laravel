@@ -11,6 +11,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Middleware\CheckAuthenticatedAPI;
 use App\Http\Middleware\BackendMiddleware;
+use App\Livewire\Pages\LineManagement;
 use Illuminate\Support\Facades\Route;
 
 // Unthrottled API Routes
@@ -79,6 +80,6 @@ Route::middleware(['throttle:api_auth'])->group(function () {
 // Admin routes
 Route::middleware(['auth', BackendMiddleware::class])->group(function () {
     Route::prefix('/backend')->group(function () {
-        Route::get('/', [AccountController::class, 'index']);
+        Route::get('/', LineManagement::class);
     });
 });
