@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->validateCsrfTokens(except: []);
 
+        $middleware->trustHosts(at: ['laravel.test']);;
+
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);

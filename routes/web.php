@@ -22,12 +22,10 @@ Route::middleware(['throttle:web'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/login', [AuthController::class, 'show'])->name('login');
 
-    // Password reset routes
-    Route::get('/password/forgot', [AuthController::class, 'logout']);
 
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verifyEmail'])
-    ->middleware(['signed'])
-    ->name('verification.verify');
+        ->middleware(['signed'])
+        ->name('verification.verify');
 
     // Private Application Routes
     Route::middleware('auth')->group(function () {
@@ -35,11 +33,23 @@ Route::middleware(['throttle:web'])->group(function () {
     });
 
     Route::prefix('verify')->group(function () {
-    Route::get('/error', [VerificationController::class, 'verifyError'])
-        ->name('verification.error');
+        Route::get('/error', [VerificationController::class, 'verifyError'])
+            ->name('verification.error');
 
-    Route::post('/resend/{id}', [VerificationController::class, 'resendMail'])
-        ->name('verification.resend');
+        Route::post('/resend/{id}', [VerificationController::class, 'resendMail'])
+            ->name('verification.resend');
+    });
+
+    // Password reset routes
+    Route::prefix('password')->group(function () {
+        Route::get('forgot', [AuthController::class, 'forgot'])
+            ->name('password.request');
+
+        Route::post('/forgot/send', [AuthController::class, 'forgotSend'])
+            ->name('password.email');
+
+        Route::get('reset/{token}', [AuthController::class, 'reset'])
+            ->name('password.reset');
     });
 });
 

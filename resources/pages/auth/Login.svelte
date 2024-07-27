@@ -1,52 +1,56 @@
 <script>
-import { fade } from 'svelte/transition';
-import Modal from '../components/Modal.svelte';
-import { getHeaders } from '../helpers';
-import { showLogin, flashMessageAuth, dataAPI } from '../stores';
+    import { fade } from 'svelte/transition';
+    import Modal from '../components/Modal.svelte';
+    import { getHeaders } from '../helpers';
+    import { showLogin, flashMessageAuth, dataAPI } from '../stores';
 
-$: show = false;
-$: flash = null;
+    $: show = false;
+    $: flash = null;
 
-let email = '';
-let password = '';
+    let email = '';
+    let password = '';
 
-showLogin.subscribe((value) => {
-    show = value;
-});
-
-flashMessageAuth.subscribe((value) => {
-    flash = value;
-});
-
-const hideForm = () => {
-    showLogin.set(false);
-    flashMessageAuth.set(null);
-};
-
-const handleLogin = async () => {
-    flashMessageAuth.set(null);
-
-    const res = await fetch(`${$dataAPI}/auth/login`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({
-            email,
-            password,
-        }),
+    showLogin.subscribe((value) => {
+        show = value;
     });
 
-    const login = await res.json();
-    login?.success
-        ? window.location.reload()
-        : flashMessageAuth.set(login?.message);
-};
+    flashMessageAuth.subscribe((value) => {
+        flash = value;
+    });
+
+    const hideForm = () => {
+        showLogin.set(false);
+        flashMessageAuth.set(null);
+    };
+
+    const handleLogin = async () => {
+        flashMessageAuth.set(null);
+
+        const res = await fetch(`${$dataAPI}/auth/login`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify({
+                email,
+                password,
+            }),
+        });
+
+        const login = await res.json();
+        login?.success
+            ? window.location.reload()
+            : flashMessageAuth.set(login?.message);
+    };
 </script>
 
-<Modal show={show} closeModal={hideForm} name="Login Formular">
+<Modal {show} closeModal={hideForm} name="Login Formular">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form class="form" on:submit|preventDefault={handleLogin}>
+                <form
+                    class="form"
+                    on:submit|preventDefault={handleLogin}
+                    novalidate
+                >
                     <div class="form__group">
                         <label class="form__label form__label--dark" for="email"
                             >E-Mail</label
@@ -93,7 +97,7 @@ const handleLogin = async () => {
 
                 <div class="login__links">
                     <a href="/register" class="login__link">Registrieren</a>
-                    <a href="/password/reset" class="login__link"
+                    <a href="/password/forgot" class="login__link"
                         >Passwort vergessen?</a
                     >
                 </div>
