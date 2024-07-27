@@ -7,6 +7,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserInteractionController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Middleware\CheckAuthenticatedAPI;
 use Illuminate\Support\Facades\Route;
 
@@ -42,14 +44,16 @@ Route::middleware(['throttle:web'])->group(function () {
 
     // Password reset routes
     Route::prefix('password')->group(function () {
-        Route::get('forgot', [AuthController::class, 'forgot'])
+        Route::get('forgot', [ForgotPasswordController::class, 'show'])
             ->name('password.request');
 
-        Route::post('/forgot/send', [AuthController::class, 'forgotSend'])
+        Route::post('/forgot/send', [ForgotPasswordController::class, 'send'])
             ->name('password.email');
 
-        Route::get('reset/{token}', [AuthController::class, 'reset'])
+        Route::get('/reset/{token}', [ResetPasswordController::class, 'show'])
             ->name('password.reset');
+
+        Route::post('/reset/save', [ResetPasswordController::class, 'reset']);
     });
 });
 

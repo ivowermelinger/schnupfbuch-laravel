@@ -39,7 +39,7 @@
     <div class="container">
         <div class="row flex--justify-center">
             <div class="col-12 col-s-10 col-m-6 spacer--mt-2">
-                <h1 class="text__title spacer--mb-2">Passwort zurücksetzen</h1>
+                <h1 class="text__title spacer--mb-2">Passwort vergessen?</h1>
 
                 <p class="spacer--mb-3 text__content">
                     Gib bitte deine E-Mail-Adresse ein, damit wir dir einen Link

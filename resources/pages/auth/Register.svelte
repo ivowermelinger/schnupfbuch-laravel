@@ -3,9 +3,9 @@
 </script>
 
 <script>
+    import { page } from '@inertiajs/svelte';
     import { onMount } from 'svelte';
     import SimpleHeader from '../layout/SimpleHeader.svelte';
-    import { page } from '@inertiajs/svelte';
     import { dataAPI, handleFormResponse } from '../stores';
     import { badWords } from '../bad-words';
     import debounce from 'lodash/debounce';
