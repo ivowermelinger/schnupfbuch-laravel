@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+
+	public function show()
+	{
+		return Inertia::render('App/LoginPage', [
+			'heading' => 'Login - '.env('APP_NAME', ''),
+		]);
+	}
+
 	/**
 	 * Handle an authentication attempt.
 	 *
@@ -18,6 +27,27 @@ class AuthController extends Controller
 	 */
 	public function authenticate(Request $request)
 	{
+		// Define validation rules
+		$rules = [
+			'email' => ['required', 'email'],
+			'password' => ['required'],
+		];
+
+		// Create a validator instance
+		$validator = Validator::make($request->all(), $rules, [
+			'email' => 'Bitte gib eine gültige E-Mail-Adresse ein',
+			'password.required' => 'Bitte gib dein Passwort ein',
+		]);
+
+		// Check if validation fails
+		if ($validator->fails()) {
+			return response()->json([
+				'message' => 'Validation Error',
+				'errors' => $validator->errors(),
+				'success' => false,
+			], 422);
+		}
+
 		// Check if has no account
 		$user = User::where('email', $request->email)->first();
 

@@ -10,7 +10,7 @@
 
 <main class="main">
     <div class="container">
-        <div class="row flex--justify-center flex--no-wrap">
+        <div class="row flex--justify-center flex--no-wrap spacer--mt-2">
             <div class="col-12 col-s-8 col-m-6">
                 <h1 class="text__title spacer--mb-1">Dein Account</h1>
                 <p class="text__content">Settings Coming soon...</p>

@@ -20,6 +20,10 @@ Route::middleware(['throttle:web'])->group(function () {
     Route::get('/', [ListController::class, 'show']);
     Route::get('/register', [RegisterController::class, 'show']);
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/login', [AuthController::class, 'show'])->name('login');
+
+    // Password reset routes
+    Route::get('/password/forgot', [AuthController::class, 'logout']);
 
     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verifyEmail'])
     ->middleware(['signed'])

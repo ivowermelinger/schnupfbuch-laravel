@@ -67,6 +67,8 @@ export const handleFormResponse = async (form: HTMLFormElement, res) => {
     >('input, select, textarea');
 
     inputs.forEach((input) => {
+        if (!input.name || !json.errors) return;
+
         const errors = json.errors[input.name];
         removeErrorClass(input);
         if (!errors) return;
