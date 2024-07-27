@@ -6,6 +6,7 @@ use App\Models\Line;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class LineController extends Controller
 {
@@ -16,11 +17,7 @@ class LineController extends Controller
 	{
 		// Define validation rules
 		$rules = [
-			'nickname' => ['required', 'string', 'max:255'],
 			'line' => ['required', 'string', 'max:255'],
-			'email' => ['required', 'email'],
-			'first_name' => ['required', 'string', 'max:255'],
-			'last_name' => ['required', 'string', 'max:255'],
 		];
 
 		// Create a validator instance
@@ -35,24 +32,12 @@ class LineController extends Controller
 			], 422);
 		}
 
-		// Check if a user exists with the provided email
-		$user = User::where('email', $request->email)->first();
-
-		// If no user exists, create a new user
-		if (!$user) {
-			$user = User::create([
-				'first_name' => $request->first_name,
-				'last_name' => $request->last_name,
-				'nickname' => $request->nickname,
-				'email' => $request->email,
-				'active' => true,
-			]);
-		}
+		$userId = Auth::id();
 
 		// Create a new line
 		$line = Line::create([
 			'line' => $request->line,
-			'author_id' => $user->id,
+			'author_id' => $userId,
 		]);
 
 		return response()->json([

@@ -40,7 +40,7 @@ Route::prefix('api/v1')->group(function () {
 
 // Private API Routes
 Route::prefix('api/v1')->middleware(CheckAuthenticatedAPI::class)->group(function () {
-    Route::post('line', [LineController::class]);
+    Route::post('line', [LineController::class, 'store']);
 
     Route::post('interaction/{line}/view', [UserInteractionController::class, 'addView']);
     Route::post('interaction/{line}/like', [UserInteractionController::class, 'toggleLike']);

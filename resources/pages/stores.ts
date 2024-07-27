@@ -23,7 +23,16 @@ export const handleAuthResponse = async (res) => {
 };
 
 export const handleServerResponse = async (res) => {
-    const json = await res.json();
+    let json = null;
+
+    try {
+        json = await res.json();
+    } catch (e) {
+        json = {
+            success: false,
+            message: 'Da ist etwas schief gelaufen. Bitte versuche es erneut.',
+        };
+    }
 
     flashMessage.set({
         message: json.message,

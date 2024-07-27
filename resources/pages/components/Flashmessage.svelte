@@ -1,29 +1,29 @@
 <script>
-import Close from '../svg/Close.svelte';
-import { onMount } from 'svelte';
-import { flashMessage } from '../stores';
+    import Close from '../svg/Close.svelte';
+    import { onMount } from 'svelte';
+    import { flashMessage } from '../stores';
 
-export let item;
-let message;
+    export let item;
+    let message;
 
-const duration = 5100;
-const fadeDuration = 400;
+    const duration = 5100;
+    const fadeDuration = 400;
 
-onMount(() => {
-    setTimeout(() => {
-        message.classList.add('message--show');
-    }, 100);
+    onMount(() => {
+        setTimeout(() => {
+            message.classList.add('message--show');
+        }, 100);
 
-    setTimeout(closeMessage, duration);
-});
+        setTimeout(closeMessage, duration);
+    });
 
-const closeMessage = () => {
-    message.classList.remove('message--show');
+    const closeMessage = () => {
+        message.classList.remove('message--show');
 
-    setTimeout(() => {
-        flashMessage.set(null);
-    }, fadeDuration);
-};
+        setTimeout(() => {
+            flashMessage.set(null);
+        }, fadeDuration);
+    };
 </script>
 
 {#if item}
