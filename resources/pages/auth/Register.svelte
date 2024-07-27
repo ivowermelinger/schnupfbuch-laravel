@@ -1,89 +1,93 @@
+<script context="module">
+    export { default as layout } from '../layout/Layout.svelte';
+</script>
+
 <script>
-import { onMount } from 'svelte';
-import SimpleHeader from '../layout/SimpleHeader.svelte';
-import { page } from '@inertiajs/svelte';
-import { dataAPI, handleFormResponse } from '../stores';
-import { badWords } from '../bad-words';
-import debounce from 'lodash/debounce';
-import { getHeaders, validateForm } from '../helpers';
-import { flashMessage } from '../stores';
+    import { onMount } from 'svelte';
+    import SimpleHeader from '../layout/SimpleHeader.svelte';
+    import { page } from '@inertiajs/svelte';
+    import { dataAPI, handleFormResponse } from '../stores';
+    import { badWords } from '../bad-words';
+    import debounce from 'lodash/debounce';
+    import { getHeaders, validateForm } from '../helpers';
+    import { flashMessage } from '../stores';
 
-$: showNicknameError = false;
+    $: showNicknameError = false;
 
-let form;
-let matcher;
+    let form;
+    let matcher;
 
-let nickname = 'w4Yne';
-let email = 'ivo_wermelinger@hotmail.com';
-let first_name = 'Ivo';
-let last_name = 'Wermelinger';
-let password = 'password';
-let password_confirmation = 'password';
+    let nickname = 'w4Yne';
+    let email = 'ivo_wermelinger@hotmail.com';
+    let first_name = 'Ivo';
+    let last_name = 'Wermelinger';
+    let password = 'password';
+    let password_confirmation = 'password';
 
-onMount(() => {
-    // Check for flash messages in inerita page
-    const flash = $page?.props?.flash;
-    flash && flashMessage.set(flash);
-});
-
-const resetFields = () => {
-    nickname = '';
-    email = '';
-    first_name = '';
-    last_name = '';
-    password = '';
-    password_confirmation = '';
-};
-
-const initMatcher = async () => {
-    const {
-        RegExpMatcher,
-        pattern,
-        englishDataset,
-        englishRecommendedTransformers,
-    } = await import('obscenity');
-
-    const blacklistedTerms = [];
-
-    badWords.forEach((word, index) => {
-        blacklistedTerms.push({ id: index, pattern: pattern`${word}` });
+    onMount(() => {
+        // Check for flash messages in inerita page
+        const flash = $page?.props?.flash;
+        flash && flashMessage.set(flash);
     });
 
-    matcher = new RegExpMatcher({
-        ...englishDataset.build(),
-        ...englishRecommendedTransformers,
-        blacklistedTerms: blacklistedTerms,
-    });
-};
+    const resetFields = () => {
+        nickname = '';
+        email = '';
+        first_name = '';
+        last_name = '';
+        password = '';
+        password_confirmation = '';
+    };
 
-const checkNickname = async () => {
-    if (!matcher) await initMatcher();
-    showNicknameError = matcher.hasMatch(nickname);
-};
+    const initMatcher = async () => {
+        const {
+            RegExpMatcher,
+            pattern,
+            englishDataset,
+            englishRecommendedTransformers,
+        } = await import('obscenity');
 
-const submitLine = async () => {
-    const errors = validateForm(form);
-    if (errors.length || showNicknameError) return;
+        const blacklistedTerms = [];
 
-    const res = await fetch(`${$dataAPI}/auth/register`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({
-            nickname,
-            email,
-            first_name,
-            last_name,
-            password,
-            password_confirmation,
-        }),
-    });
+        badWords.forEach((word, index) => {
+            blacklistedTerms.push({ id: index, pattern: pattern`${word}` });
+        });
 
-    const data = await handleFormResponse(form, res);
+        matcher = new RegExpMatcher({
+            ...englishDataset.build(),
+            ...englishRecommendedTransformers,
+            blacklistedTerms: blacklistedTerms,
+        });
+    };
 
-    if (data.success) {
-        resetFields();
-    }
-};
+    const checkNickname = async () => {
+        if (!matcher) await initMatcher();
+        showNicknameError = matcher.hasMatch(nickname);
+    };
+
+    const submitLine = async () => {
+        const errors = validateForm(form);
+        if (errors.length || showNicknameError) return;
+
+        const res = await fetch(`${$dataAPI}/auth/register`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify({
+                nickname,
+                email,
+                first_name,
+                last_name,
+                password,
+                password_confirmation,
+            }),
+        });
+
+        const data = await handleFormResponse(form, res);
+
+        if (data.success) {
+            resetFields();
+        }
+    };
 </script>
 
 <SimpleHeader />

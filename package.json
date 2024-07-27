@@ -6,6 +6,7 @@
         "build": "node delete-sw-assets.js && rimraf build && vite build"
     },
     "devDependencies": {
+        "@prettier/plugin-php": "^0.22.2",
         "@wordpress/prettier-config": "^4.4.0",
         "autoprefixer": "^10.4.19",
         "laravel-vite-plugin": "^1.0",

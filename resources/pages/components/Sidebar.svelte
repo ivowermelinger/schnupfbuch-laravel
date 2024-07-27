@@ -1,15 +1,15 @@
 <script>
-import Close from '../svg/Close.svelte';
-import { user } from '../stores';
-import Settings from '../svg/Settings.svelte';
-import Logout from '../svg/Logout.svelte';
+    import Close from '../svg/Close.svelte';
+    import { user } from '../stores';
+    import Settings from '../svg/Settings.svelte';
+    import Logout from '../svg/Logout.svelte';
 
-export let show = false;
-export let picture = '';
+    export let show = false;
+    export let picture = '';
 
-const closeModal = () => {
-    show = false;
-};
+    const closeModal = () => {
+        show = false;
+    };
 </script>
 
 <div class="sidebar" class:sidebar--show={show}>
@@ -31,7 +31,7 @@ const closeModal = () => {
         </div>
         <menu class="sidebar__menu">
             <li class="sidebar__item">
-                <a href="/profile" class="sidebar__link">
+                <a href="/account" class="sidebar__link">
                     <Settings css="sidebar__icon" />
                     <span>Account</span>
                 </a>

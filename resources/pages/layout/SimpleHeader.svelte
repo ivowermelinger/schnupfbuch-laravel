@@ -1,5 +1,5 @@
 <script>
-import ArrowLeft from '../svg/ArrowLeft.svelte';
+    import ArrowLeft from '../svg/ArrowLeft.svelte';
 </script>
 
 <header class="header" id="header">

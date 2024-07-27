@@ -20,7 +20,7 @@ class VerificationController extends Controller
 
 	public function verifyError(Request $request)
 	{
-		return Inertia::render('VerifyError', [
+		return Inertia::render('Auth/VerifyError', [
 			'heading' => 'Aktivierungslink abgelaufen - '.env('APP_NAME', ''),
 		]);
 	}
@@ -48,7 +48,7 @@ class VerificationController extends Controller
 			$user->save();
 		}
 
-		return Inertia::render('auth.VerifySuccess', [
+		return Inertia::render('Auth/VerifySuccess', [
 			'heading' => 'Registrierung erfolgreich - '.env('APP_NAME', ''),
 		]);
 	}
