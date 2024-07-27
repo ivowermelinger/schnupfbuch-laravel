@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\Roles;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\ResetPasswordNotification;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -22,9 +24,9 @@ class User extends Authenticatable implements MustVerifyEmail
 		'first_name',
 		'last_name',
 		'nickname',
-		'active',
 		'email',
-		'password'
+		'password',
+		'role'
 	];
 
 	/**
@@ -52,11 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
 		return $this->hasMany(View::class);
 	}
 
-	public function scopeActive($query)
-	{
-		return $query->where('active', true);
-	}
-
 	/**
 	 * Send a password reset notification to the user.
 	 *
@@ -78,6 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
 		return [
 			'email_verified_at' => 'datetime',
 			'password' => 'hashed',
+			'role' => Roles::class,
 		];
 	}
 }

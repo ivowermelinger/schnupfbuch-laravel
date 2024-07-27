@@ -22,7 +22,7 @@
                     nutzen.
                 </p>
 
-                <a href="/" class="btn btn--primary">Zur App</a>
+                <a href="/login" class="btn btn--primary">Zum Login</a>
             </div>
         </div>
     </div>

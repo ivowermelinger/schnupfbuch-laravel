@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nickname')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->boolean('active')->default(true);
+            $table->enum('role', ['king', 'peasant'])->default('peasant');
             $table->rememberToken()->nullable();
             $table->timestamps();
         });

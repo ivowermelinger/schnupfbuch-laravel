@@ -10,6 +10,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Middleware\CheckAuthenticatedAPI;
+use App\Http\Middleware\BackendMiddleware;
 use Illuminate\Support\Facades\Route;
 
 // Unthrottled API Routes
@@ -72,5 +73,12 @@ Route::middleware(['throttle:api_auth'])->group(function () {
     Route::prefix('api/v1')->group(function () {
         Route::post('auth/register', [RegisterController::class, 'register']);
         Route::post('auth/login', [AuthController::class, 'authenticate']);
+    });
+});
+
+// Admin routes
+Route::middleware(['auth', BackendMiddleware::class])->group(function () {
+    Route::prefix('/backend')->group(function () {
+        Route::get('/', [AccountController::class, 'index']);
     });
 });

@@ -42,6 +42,8 @@
     <div class="container">
         <div class="row flex--justify-center">
             <div class="col-12 col-s-10 col-m-6 spacer--mt-2">
+                <h1 class="text__title spacer--mb-2">Login</h1>
+
                 <form
                     class="form"
                     on:submit|preventDefault={handleLogin}

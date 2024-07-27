@@ -18,12 +18,12 @@
     let form;
     let matcher;
 
-    let nickname = 'w4Yne';
-    let email = 'ivo_wermelinger@hotmail.com';
-    let first_name = 'Ivo';
-    let last_name = 'Wermelinger';
-    let password = 'password';
-    let password_confirmation = 'password';
+    let nickname = '';
+    let email = '';
+    let first_name = '';
+    let last_name = '';
+    let password = '';
+    let password_confirmation = '';
 
     onMount(() => {
         // Check for flash messages in inerita page
