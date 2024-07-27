@@ -1,20 +1,20 @@
 .login {
-	&__message {
-		@extend .text__content;
-		color: $color-error;
-		margin-bottom: use-spacer(1, 1.5);
-	}
+    &__message {
+        @extend .text__content;
+        color: $color-error;
+        margin-bottom: use-spacer(1, 1.5);
+    }
 
-	&__link {
-		@extend .text__content;
-		display: inline-block;
-	}
+    &__link {
+        @extend .text__content;
+        display: inline-block;
+    }
 
-	&__links {
-		display: flex;
-		flex-direction: column;
-		margin-bottom: use-spacer(1, 1.5);
-		align-items: flex-start;
-		gap: 0.25em;
-	}
+    &__links {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: use-spacer(1, 1.5);
+        align-items: flex-start;
+        gap: 0.25em;
+    }
 }

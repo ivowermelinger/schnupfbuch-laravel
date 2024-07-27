@@ -36,9 +36,9 @@ class VerificationController extends Controller
 			]]);
 		}
 
-		return redirect($this->getSignedErrorUrl())->with(['userToRefresh' => $user->id]);
+
 		if (!hash_equals(sha1($user->getEmailForVerification()), (string) $request->route('hash'))) {
-			return redirect($this->getSignedErrorUrl($user->id));
+			return redirect($this->getSignedErrorUrl())->with(['userToRefresh' => $user->id]);
 		}
 
 		// Mark the email as verified
@@ -48,8 +48,9 @@ class VerificationController extends Controller
 			$user->save();
 		}
 
-		// Redirect to login page with a success message
-		return redirect('/')->with('verified', true);
+		return Inertia::render('auth.VerifySuccess', [
+			'heading' => 'Registrierung erfolgreich - '.env('APP_NAME', ''),
+		]);
 	}
 
 	public function resendMail(Request $request)

@@ -9,5 +9,11 @@ module.exports = {
                 parser: 'blade',
             },
         },
+        {
+            files: ['*.svelte'],
+            options: {
+                parser: 'svelte',
+            },
+        },
     ],
 };

@@ -1,56 +1,61 @@
 module.exports = {
-	env: {
-		browser: true,
-		es6: true,
-	},
+    env: {
+        browser: true,
+        es6: true,
+    },
 
-	extends: ['plugin:react/recommended', 'plugin:@wordpress/eslint-plugin/recommended', 'prettier', 'eslint-config-prettier'],
+    extends: [
+        'plugin:react/recommended',
+        'plugin:@wordpress/eslint-plugin/recommended',
+        'prettier',
+        'eslint-config-prettier',
+    ],
 
-	plugins: ['prettier'],
+    plugins: ['prettier'],
 
-	rules: {
-		'prettier/prettier': [
-			'error',
+    rules: {
+        'prettier/prettier': [
+            'error',
 
-			{
-				objectCurlySpacing: false,
+            {
+                objectCurlySpacing: false,
 
-				arrowParens: 'avoid',
+                arrowParens: 'avoid',
 
-				printWidth: 120,
-			},
-		],
+                printWidth: 120,
+            },
+        ],
 
-		'space-unary-ops': [
-			2,
+        'space-unary-ops': [
+            2,
 
-			{
-				words: false,
+            {
+                words: false,
 
-				nonwords: false,
-			},
-		],
+                nonwords: false,
+            },
+        ],
 
-		'arrow-parens': ['error', 'as-needed'],
+        'arrow-parens': ['error', 'as-needed'],
 
-		'computed-property-spacing': ['error', 'never'],
+        'computed-property-spacing': ['error', 'never'],
 
-		'array-bracket-spacing': ['error', 'never'],
+        'array-bracket-spacing': ['error', 'never'],
 
-		'space-in-parens': ['error', 'never'],
+        'space-in-parens': ['error', 'never'],
 
-		indent: ['error', 'tab'],
+        indent: ['error', 'tab'],
 
-		'react/jsx-curly-spacing': ['error', 'never'],
+        'react/jsx-curly-spacing': ['error', 'never'],
 
-		'linebreak-style': ['error', 'unix'],
+        'linebreak-style': ['error', 'unix'],
 
-		quotes: ['error', 'single'],
+        quotes: ['error', 'single'],
 
-		semi: ['error', 'always'],
+        semi: ['error', 'always'],
 
-		'react-hooks/rules-of-hooks': 'off',
+        'react-hooks/rules-of-hooks': 'off',
 
-		'max-len': ['error', { code: 120 }],
-	},
+        'max-len': ['error', { code: 120 }],
+    },
 };

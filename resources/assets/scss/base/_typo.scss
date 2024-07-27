@@ -1,67 +1,67 @@
 .text {
-	&__page {
-		@include responsive-font(3.6vw, 26px, 42px, 36px);
-		font-family: $font-family;
-		font-weight: $font-extra-bold;
-		font-optical-sizing: auto;
-		line-height: 1.1;
-	}
+    &__page {
+        @include responsive-font(3.6vw, 26px, 42px, 36px);
+        font-family: $font-family;
+        font-weight: $font-extra-bold;
+        font-optical-sizing: auto;
+        line-height: 1.1;
+    }
 
-	&__title {
-		@include responsive-font(2.5vw, 20px, 30px, 25px);
-		font-family: $font-family;
-		font-weight: $font-bold;
-		font-optical-sizing: auto;
-		line-height: 1.1;
-	}
+    &__title {
+        @include responsive-font(2.5vw, 20px, 30px, 25px);
+        font-family: $font-family;
+        font-weight: $font-bold;
+        font-optical-sizing: auto;
+        line-height: 1.1;
+    }
 
-	&__content {
-		@include responsive-font(2vw, 16px, 24px, 20px);
-		font-family: $font-family;
-		font-weight: $font-regular;
-		font-optical-sizing: auto;
-		line-height: 1.25;
-	}
+    &__content {
+        @include responsive-font(2vw, 16px, 24px, 20px);
+        font-family: $font-family;
+        font-weight: $font-regular;
+        font-optical-sizing: auto;
+        line-height: 1.25;
+    }
 
-	&__small {
-		@include responsive-font(1.6vw, 12px, 18px, 16px);
-		font-family: $font-family;
-		font-weight: $font-regular;
-		font-optical-sizing: auto;
-		line-height: 1.33;
-	}
+    &__small {
+        @include responsive-font(1.6vw, 12px, 18px, 16px);
+        font-family: $font-family;
+        font-weight: $font-regular;
+        font-optical-sizing: auto;
+        line-height: 1.33;
+    }
 
-	&--extra-bold {
-		font-weight: $font-extra-bold;
-	}
+    &--extra-bold {
+        font-weight: $font-extra-bold;
+    }
 
-	&--bold {
-		font-weight: $font-bold;
-	}
+    &--bold {
+        font-weight: $font-bold;
+    }
 
-	&--regular {
-		font-weight: $font-regular;
-	}
+    &--regular {
+        font-weight: $font-regular;
+    }
 
-	&--light {
-		font-weight: $font-light;
-	}
+    &--light {
+        font-weight: $font-light;
+    }
 }
 
 // Basics
 a {
-	text-decoration: underline;
-	color: $color-focus;
-	text-underline-offset: 0.125em;
+    text-decoration: underline;
+    color: $color-focus;
+    text-underline-offset: 0.125em;
 
-	@media (hover: hover) {
-		&:hover {
-			text-decoration: none;
-		}
-	}
+    @media (hover: hover) {
+        &:hover {
+            text-decoration: none;
+        }
+    }
 }
 
 ::selection {
-	background-color: $color-selection;
-	color: $color-dark;
+    background-color: $color-selection;
+    color: $color-dark;
 }

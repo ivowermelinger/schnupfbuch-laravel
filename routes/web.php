@@ -34,7 +34,6 @@ Route::apiResource('api/v1/list', ListController::class);
 Route::get('logout', [AuthController::class, 'logout']);
 
 // POST Routes public
-
 Route::post('api/v1/auth/register', [RegisterController::class, 'register']);
 Route::post('api/v1/auth/login', [AuthController::class, 'authenticate']);
 

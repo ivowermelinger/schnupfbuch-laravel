@@ -1,9 +1,9 @@
 .main {
-	grid-area: main;
-	display: flex;
-	flex-direction: column;
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
 }
 
 .page {
-	margin: use-spacer(1, 2) 0;
+    margin: use-spacer(1, 2) 0;
 }

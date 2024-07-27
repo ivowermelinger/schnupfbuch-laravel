@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    
-    @section('styles')
+        @section('styles')
         @vite(['resources/assets/scss/main.scss', 'resources/assets/ts/app.ts'])
-    @show
+        @show
 
-    @inertiaHead
-</head>
+        @inertiaHead
+    </head>
 
-<body class="body">
-    @inertia
-</body>
-
+    <body class="body">
+        @inertia
+    </body>
 </html>

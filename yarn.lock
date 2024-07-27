@@ -1550,6 +1550,11 @@
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
   integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
 
+"@wordpress/prettier-config@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@wordpress/prettier-config/-/prettier-config-4.4.0.tgz#31e41eb55ca0b6699855a23aebe4d998950cfd07"
+  integrity sha512-etguLCGd8r0solW9pkUeBHGuqrsCGL+d2JzCB3APhDo3mYD+TK2PUg3EfXKOvJzHsQwHg73h0eW9/C5DU+ll+Q==
+
 acorn@^8.10.0, acorn@^8.8.2, acorn@^8.9.0:
   version "8.12.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.12.0.tgz#1627bfa2e058148036133b8d9b51a700663c294c"
@@ -2923,10 +2928,20 @@ postcss@^8.4.38:
     picocolors "^1.0.0"
     source-map-js "^1.2.0"
 
-prettier-plugin-svelte@^3.2.5:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/prettier-plugin-svelte/-/prettier-plugin-svelte-3.2.5.tgz#ec004ed6626f59655cfd3fe88154c7cf41c90a2e"
-  integrity sha512-vP/M/Goc8z4iVIvrwXwbrYVjJgA0Hf8PO1G4LBh/ocSt6vUP6sLvyu9F3ABEGr+dbKyxZjEKLkeFsWy/yYl0HQ==
+prettier-plugin-blade@^2.1.16:
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-blade/-/prettier-plugin-blade-2.1.16.tgz#7e8bcd880b857abbae71fcb079409623d792d3a7"
+  integrity sha512-iG0mObGvWF/w5LmDPCK+5LvIKw/79RCxfX861NfuShiZ02Peedz9ErZVgN7PUWdpOXF/d4vvw6mz1tC8sFIQMw==
+
+prettier-plugin-svelte@^3.2.6:
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-svelte/-/prettier-plugin-svelte-3.2.6.tgz#22e5b6783a2c87bfe112e0f4b1886ea3db236bf4"
+  integrity sha512-Y1XWLw7vXUQQZmgv1JAEiLcErqUniAF2wO7QJsw8BVMvpLET2dI5WpEIEJx1r11iHVdSMzQxivyfrH9On9t2IQ==
+
+prettier-plugin-tailwindcss@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.6.5.tgz#e05202784a3f41889711ae38c75c5b8cad72f368"
+  integrity sha512-axfeOArc/RiGHjOIy9HytehlC0ZLeMaqY09mm8YCkMzznKiDkwFzOpBvtuhuv3xG5qB73+Mj7OCe2j/L1ryfuQ==
 
 prettier@^3.3.2:
   version "3.3.2"

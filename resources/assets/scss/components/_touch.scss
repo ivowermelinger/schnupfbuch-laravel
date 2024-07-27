@@ -1,36 +1,35 @@
 .touch {
-	$padding-y: 40px;
-	background-color: $color-dark;
-	color: $color-light;
-	padding: $padding-y 0;
-	justify-self: stretch;
-	flex: 1;
+    $padding-y: 40px;
+    background-color: $color-dark;
+    color: $color-light;
+    padding: $padding-y 0;
+    justify-self: stretch;
+    flex: 1;
 
-	&__area {
-		display: grid;
-		grid-template-areas:
-			'trigger'
-			'actions';
-		grid-template-rows: 1fr auto;
-		height: 100%;
-	}
+    &__area {
+        display: grid;
+        grid-template-areas:
+            'trigger'
+            'actions';
+        grid-template-rows: 1fr auto;
+        height: 100%;
+    }
 
-	&__trigger {
-		grid-area: trigger;
-		flex-direction: column;
-		gap: 1rem;
+    &__trigger {
+        grid-area: trigger;
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-	}
+    &__line {
+        @extend .text__title;
+    }
 
-	&__line {
-		@extend .text__title;
-	}
+    &__author {
+        @extend .text__content;
+    }
 
-	&__author {
-		@extend .text__content;
-	}
-
-	&__actions {
-		grid-area: actions;
-	}
+    &__actions {
+        grid-area: actions;
+    }
 }

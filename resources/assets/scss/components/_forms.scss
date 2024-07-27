@@ -1,78 +1,78 @@
 .form {
-	width: 100%;
-	@extend .text__content;
+    width: 100%;
+    @extend .text__content;
 
-	&__input {
-		width: 100%;
-		height: 3rem;
-		background-color: transparent;
-		border: 2px solid $color-light;
-		border-radius: $border-radius;
-		padding: 0.5em;
-		color: $color-light;
-		transition:
-			border-color 250ms,
-			box-shadow 250ms;
+    &__input {
+        width: 100%;
+        height: 3rem;
+        background-color: transparent;
+        border: 2px solid $color-light;
+        border-radius: $border-radius;
+        padding: 0.5em;
+        color: $color-light;
+        transition:
+            border-color 250ms,
+            box-shadow 250ms;
 
-		&--dark {
-			border-color: $color-dark;
-			color: $color-dark;
-		}
+        &--dark {
+            border-color: $color-dark;
+            color: $color-dark;
+        }
 
-		&:focus {
-			box-shadow: $box-shadow;
-			border-color: $color-focus;
-			outline: none;
-		}
+        &:focus {
+            box-shadow: $box-shadow;
+            border-color: $color-focus;
+            outline: none;
+        }
 
-		@include breakpoint(m) {
-			height: 3.5rem;
-		}
-	}
+        @include breakpoint(m) {
+            height: 3.5rem;
+        }
+    }
 
-	textarea {
-		height: auto;
-		min-height: 8rem;
-	}
+    textarea {
+        height: auto;
+        min-height: 8rem;
+    }
 
-	&__notice {
-		@extend .text__small;
-		margin-bottom: use-spacer(0.5, 1.5);
-	}
+    &__notice {
+        @extend .text__small;
+        margin-bottom: use-spacer(0.5, 1.5);
+    }
 
-	&__error,
-	&__hint {
-		@extend .text__small;
-		color: $color-error;
-		padding-top: use-spacer(0.5, 1.5);
-	}
+    &__error,
+    &__hint {
+        @extend .text__small;
+        color: $color-error;
+        padding-top: use-spacer(0.5, 1.5);
+    }
 
-	&__label {
-		margin-bottom: use-spacer(0.5, 1.5);
-		display: inline-block;
-		color: $color-light;
+    &__label {
+        margin-bottom: use-spacer(0.5, 1.5);
+        display: inline-block;
+        color: $color-light;
 
-		&--dark {
-			color: $color-dark;
-		}
+        &--dark {
+            color: $color-dark;
+        }
 
-		&--no-mb {
-			margin-bottom: 0;
-		}
-	}
+        &--no-mb {
+            margin-bottom: 0;
+        }
+    }
 
-	&__group {
-		margin-bottom: use-spacer(1, 2.5);
+    &__group {
+        margin-bottom: use-spacer(1, 2.5);
 
-		&--button {
-			margin: use-spacer(1, 2.5) 0;
-		}
+        &--button {
+            margin: use-spacer(1, 2.5) 0;
+        }
 
-		&--error,
-		&--nickname {
-			.form__input {
-				border-color: $color-error;
-			}
-		}
-	}
+        &--error,
+        &--nickname {
+            .form__input {
+                border-color: $color-error;
+            }
+        }
+    }
 }

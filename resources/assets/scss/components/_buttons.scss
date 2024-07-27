@@ -1,105 +1,105 @@
 .btn {
-	$this: &;
+    $this: &;
 
-	@extend .text__content;
+    @extend .text__content;
 
-	background-color: transparent;
-	border: none;
-	border-radius: 0;
-	padding: 0;
-	margin: 0;
-	color: $color-light;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	cursor: pointer;
-	padding: 0.75em 0.325em;
-	border-radius: $border-radius;
-	text-decoration: none;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    color: $color-light;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    cursor: pointer;
+    padding: 0.75em 0.325em;
+    border-radius: $border-radius;
+    text-decoration: none;
 
-	&--primary {
-		&,
-		&:focus,
-		&:visited {
-			background-color: $color-primary;
-			color: $color-light;
-		}
-	}
+    &--primary {
+        &,
+        &:focus,
+        &:visited {
+            background-color: $color-primary;
+            color: $color-light;
+        }
+    }
 
-	&--dark {
-		&,
-		&:focus,
-		&:visited {
-			background-color: $color-dark;
-			color: $color-light;
-		}
-	}
+    &--dark {
+        &,
+        &:focus,
+        &:visited {
+            background-color: $color-dark;
+            color: $color-light;
+        }
+    }
 
-	&--light {
-		&,
-		&:focus,
-		&:visited {
-			background-color: $color-light;
-			color: $color-dark;
-		}
-	}
+    &--light {
+        &,
+        &:focus,
+        &:visited {
+            background-color: $color-light;
+            color: $color-dark;
+        }
+    }
 
-	&--link {
-		display: inline-block;
-		width: auto;
-		text-decoration: none;
-		padding: 0.75rem 1rem;
-	}
+    &--link {
+        display: inline-block;
+        width: auto;
+        text-decoration: none;
+        padding: 0.75rem 1rem;
+    }
 
-	&--icon {
-		#{$this}__icon {
-			color: $color-light;
-		}
-	}
+    &--icon {
+        #{$this}__icon {
+            color: $color-light;
+        }
+    }
 
-	&__icon {
-		width: 2rem;
-		height: 2rem;
+    &__icon {
+        width: 2rem;
+        height: 2rem;
 
-		&--rotate {
-			transform: rotate(180deg);
-		}
+        &--rotate {
+            transform: rotate(180deg);
+        }
 
-		&--lg {
-			width: 3rem;
-			height: 3rem;
-		}
-	}
+        &--lg {
+            width: 3rem;
+            height: 3rem;
+        }
+    }
 
-	&--icon-filled {
-		display: inline-flex;
-		width: auto;
-		padding: 0.75em 1em;
-		gap: 0.75rem;
+    &--icon-filled {
+        display: inline-flex;
+        width: auto;
+        padding: 0.75em 1em;
+        gap: 0.75rem;
 
-		#{$this}__icon {
-			color: $color-dark;
+        #{$this}__icon {
+            color: $color-dark;
 
-			&--dark {
-				color: $color-light;
-			}
-		}
-	}
+            &--dark {
+                color: $color-light;
+            }
+        }
+    }
 
-	&--thumb {
-		color: $color-black;
-		stroke: $color-black;
-		fill: $color-primary;
-	}
+    &--thumb {
+        color: $color-black;
+        stroke: $color-black;
+        fill: $color-primary;
+    }
 
-	&--header {
-		display: inline-flex;
-		padding: 0.75em 1em 0.75em 0;
+    &--header {
+        display: inline-flex;
+        padding: 0.75em 1em 0.75em 0;
 
-		#{$this}__icon {
-			color: $color-light;
-		}
-	}
+        #{$this}__icon {
+            color: $color-light;
+        }
+    }
 }

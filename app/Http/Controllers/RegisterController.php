@@ -15,7 +15,7 @@ class RegisterController extends Controller
 	 */
 	public function show()
 	{
-		return Inertia::render('Register', [
+		return Inertia::render('Auth/Register', [
 			'heading' => 'Registrieren - '.env('APP_NAME', ''),
 		]);
 	}
@@ -59,7 +59,6 @@ class RegisterController extends Controller
 			'first_name' => $request->first_name,
 			'last_name' => $request->last_name,
 			'password' => $request->password,
-			'has_account' => true,
 		]);
 
 		// Send the verification email

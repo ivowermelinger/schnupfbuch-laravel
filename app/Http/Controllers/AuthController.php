@@ -29,13 +29,6 @@ class AuthController extends Controller
 			], 401);
 		}
 
-		if (!$user->has_account) {
-			return response()->json([
-				'message' => 'Für diese E-Mail-Adresse wurden bereits Sprüche erfasst, aber kein Konto erstellt. Bitte registrieren Sie sich zuerst.',
-				'success' => false,
-			], 401);
-		}
-
 		// Define validation rules
 		$rules = [
 			'email' => ['required', 'email'],

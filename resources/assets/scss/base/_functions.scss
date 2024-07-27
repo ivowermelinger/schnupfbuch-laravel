@@ -1,28 +1,28 @@
 @use 'sass:math';
 
 @function use-spacer($minSize: 1, $factor: 3) {
-	// convert to rem
-	$maxSize: $minSize * $factor;
+    // convert to rem
+    $maxSize: $minSize * $factor;
 
-	$maxWidth: math.div(1440, 16);
-	$minWidth: math.div(375, 16);
+    $maxWidth: math.div(1440, 16);
+    $minWidth: math.div(375, 16);
 
-	$slope: math.div($maxSize - $minSize, $maxWidth - $minWidth);
-	$yAxisIntersection: calc($minWidth * -1 * $slope + $minSize);
-	$preferredValue: calc(($yAxisIntersection * 1rem) + ($slope * 100vw));
+    $slope: math.div($maxSize - $minSize, $maxWidth - $minWidth);
+    $yAxisIntersection: calc($minWidth * -1 * $slope + $minSize);
+    $preferredValue: calc(($yAxisIntersection * 1rem) + ($slope * 100vw));
 
-	$minSize: $minSize * 1rem;
-	$maxSize: $maxSize * 1rem;
+    $minSize: $minSize * 1rem;
+    $maxSize: $maxSize * 1rem;
 
-	@return clamp($minSize, $preferredValue, $maxSize);
+    @return clamp($minSize, $preferredValue, $maxSize);
 }
 
 $spacers: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
 .spacer {
-	@each $spacer in $spacers {
-		&--mb-#{$spacer} {
-			margin-bottom: use-spacer($spacer, 2);
-		}
-	}
+    @each $spacer in $spacers {
+        &--mb-#{$spacer} {
+            margin-bottom: use-spacer($spacer, 2);
+        }
+    }
 }

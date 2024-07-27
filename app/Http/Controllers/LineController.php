@@ -46,7 +46,6 @@ class LineController extends Controller
 				'nickname' => $request->nickname,
 				'email' => $request->email,
 				'active' => true,
-				'has_account' => false,
 			]);
 		}
 

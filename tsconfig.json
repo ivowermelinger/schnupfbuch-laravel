@@ -1,9 +1,9 @@
 {
-	"compilerOptions": {
-		"module": "esnext",
-		"target": "esnext",
-		"sourceMap": true,
-		"types": ["vite/client"]
-	},
-	"exclude": ["node_modules"]
+    "compilerOptions": {
+        "module": "esnext",
+        "target": "esnext",
+        "sourceMap": true,
+        "types": ["vite/client"]
+    },
+    "exclude": ["node_modules"]
 }
