@@ -1,13 +1,20 @@
 <script>
-import Login from '../Auth/Login.svelte';
-import FlashContainer from '../components/FlashContainer.svelte';
-import { page } from '@inertiajs/svelte';
-import { user } from '../stores';
+    import Login from '../Auth/Login.svelte';
+    import FlashContainer from '../components/FlashContainer.svelte';
+    import { page } from '@inertiajs/svelte';
+    import { user } from '../stores';
 
-page.subscribe((value) => {
-    const propsUser = value.props.user || null;
-    user.set(propsUser);
-});
+    page.subscribe((value) => {
+        const propsUser = value.props.user || null;
+        user.set(propsUser);
+    });
+
+    // Remove x-cloak attribute
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[x-cloak]').forEach((element) => {
+            element.removeAttribute('x-cloak');
+        });
+    });
 </script>
 
 <svelte:head>
@@ -47,11 +54,11 @@ page.subscribe((value) => {
     <meta name="theme-color" content="#ffffff" />
 
     <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' });
-        });
-    }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' });
+            });
+        }
     </script>
 </svelte:head>
 

@@ -7,17 +7,17 @@
     export let show = false;
     export let picture = '';
 
-    const closeModal = () => {
+    const closeSidebar = () => {
         show = false;
     };
 </script>
 
-<div class="sidebar" class:sidebar--show={show}>
-    <button class="sidebar__drop" on:click|preventDefault={closeModal}>
+<div class="sidebar" class:sidebar--show={show} x-cloak>
+    <button class="sidebar__drop" on:click|preventDefault={closeSidebar}>
         <span class="visually-hidden">Sidebar schliessen</span>
     </button>
     <div class="sidebar__wrapper">
-        <button class="sidebar__close" on:click|preventDefault={closeModal}>
+        <button class="sidebar__close" on:click|preventDefault={closeSidebar}>
             <span class="visually-hidden">Sidebar schliessen</span>
             <Close css="sidebar__cross" />
         </button>

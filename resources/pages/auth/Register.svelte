@@ -13,6 +13,7 @@
     import { flashMessage } from '../stores';
 
     $: showNicknameError = false;
+    $: globalError = null;
 
     let form;
     let matcher;
@@ -86,6 +87,10 @@
 
         if (data.success) {
             resetFields();
+        } else {
+            if (data.errors.global) {
+                globalError = data.errors.global;
+            }
         }
     };
 </script>
@@ -228,6 +233,10 @@
                         />
                         <p class="form__hint"></p>
                     </div>
+
+                    {#if globalError}
+                        <p class="form__error">{globalError}</p>
+                    {/if}
 
                     <div class="form__group form__group--button">
                         <button type="submit" class="btn btn--primary">

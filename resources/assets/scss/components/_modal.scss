@@ -2,13 +2,46 @@
     $this: &;
     $animation-duration: 500ms;
 
+    isolation: isolate;
+    position: relative;
+    z-index: $layer-modal;
+
+    &--show {
+        #{$this}__wrapper {
+            translate: 0 0;
+        }
+
+        #{$this}__drop {
+            visibility: visible;
+            opacity: 1;
+            z-index: $layer-sidebar - 1;
+        }
+    }
+
+    &__drop {
+        @extend %button-reset;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+        z-index: -1;
+        backdrop-filter: blur(5px);
+        visibility: hidden;
+        opacity: 0;
+        transition: all $animation-duration ease;
+    }
+
     &__wrapper {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: $layer-login;
         display: grid;
         grid-template-rows: 1fr auto;
         translate: 0 100vh;
@@ -17,16 +50,7 @@
         max-height: 100vh;
         max-height: 100svh;
         overflow: auto;
-
-        &--show {
-            translate: 0 0;
-
-            #{$this}__back {
-                backdrop-filter: blur(5px);
-                transition: all $animation-duration
-                    cubic-bezier(0.63, 0.22, 0.38, 0.89);
-            }
-        }
+        z-index: $layer-modal;
     }
 
     &__inner {
@@ -37,6 +61,7 @@
         border-top-right-radius: $border-radius;
         border-top-left-radius: $border-radius;
         position: relative;
+        z-index: $layer-modal;
 
         @include breakpoint(s) {
             padding: 3rem 0;
@@ -44,13 +69,13 @@
     }
 
     &__back {
-        backdrop-filter: none;
         border: none;
         border-radius: 0;
         background: transparent;
         transition: none;
         margin: 0;
         padding: 0;
+        z-index: $layer-modal;
     }
 
     &__close {

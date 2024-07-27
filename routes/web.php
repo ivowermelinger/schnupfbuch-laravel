@@ -10,43 +10,49 @@ use App\Http\Controllers\AccountController;
 use App\Http\Middleware\CheckAuthenticatedAPI;
 use Illuminate\Support\Facades\Route;
 
-// Web Routes
-Route::get('/', [ListController::class, 'show']);
-Route::get('/register', [RegisterController::class, 'show']);
-Route::get('/logout', [AuthController::class, 'logout']);
+// Unthrottled API Routes
+Route::prefix('api/v1')->group(function () {
+    Route::apiResource('list', ListController::class);
+});
 
-Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verifyEmail'])
+// Web Routes
+Route::middleware(['throttle:web'])->group(function () {
+    Route::get('/', [ListController::class, 'show']);
+    Route::get('/register', [RegisterController::class, 'show']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verifyEmail'])
     ->middleware(['signed'])
     ->name('verification.verify');
 
+    // Private Application Routes
+    Route::middleware('auth')->group(function () {
+        Route::get('/account', [AccountController::class, 'show'])->name('account.show');
+    });
 
-Route::prefix('verify')->group(function () {
+    Route::prefix('verify')->group(function () {
     Route::get('/error', [VerificationController::class, 'verifyError'])
         ->name('verification.error');
 
     Route::post('/resend/{id}', [VerificationController::class, 'resendMail'])
         ->name('verification.resend');
+    });
 });
 
-// Public API Routes
-Route::prefix('api/v1')->group(function () {
-    Route::apiResource('list', ListController::class);
-
-	// Auth routes
-    Route::post('auth/register', [RegisterController::class, 'register']);
-    Route::post('auth/login', [AuthController::class, 'authenticate']);
+// Throttled API Routes
+Route::middleware(['throttle:api'])->group(function () {
+    Route::prefix('api/v1')->middleware(CheckAuthenticatedAPI::class)->group(function () {
+        Route::post('line', [LineController::class, 'store']);
+        Route::post('interaction/{line}/view', [UserInteractionController::class, 'addView']);
+        Route::post('interaction/{line}/like', [UserInteractionController::class, 'toggleLike']);
+    });
 });
 
-
-// Private API Routes
-Route::prefix('api/v1')->middleware(CheckAuthenticatedAPI::class)->group(function () {
-    Route::post('line', [LineController::class, 'store']);
-
-    Route::post('interaction/{line}/view', [UserInteractionController::class, 'addView']);
-    Route::post('interaction/{line}/like', [UserInteractionController::class, 'toggleLike']);
-});
-
-// Private Application Routes
-Route::middleware('auth')->group(function () {
-    Route::get('/account', [AccountController::class, 'show'])->name('account.show');
+// Stronger throttling for auth API routes
+Route::middleware(['throttle:api_auth'])->group(function () {
+    // Auth routes
+    Route::prefix('api/v1')->group(function () {
+        Route::post('auth/register', [RegisterController::class, 'register']);
+        Route::post('auth/login', [AuthController::class, 'authenticate']);
+    });
 });

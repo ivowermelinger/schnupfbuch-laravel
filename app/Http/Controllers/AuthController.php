@@ -21,6 +21,14 @@ class AuthController extends Controller
 		// Check if has no account
 		$user = User::where('email', $request->email)->first();
 
+		// Check if user exists
+		if (!$user) {
+			return response()->json([
+				'message' => 'Benutzername oder Passwort falsch. Bitte versuchen Sie es erneut.',
+				'success' => false,
+			], 401);
+		}
+
 		// Check if email is verified
 		if (!$user->hasVerifiedEmail()) {
 			return response()->json([
