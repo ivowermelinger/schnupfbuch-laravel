@@ -16,24 +16,32 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        environment: [staging, production]
-
     env:
       ADMIN_FIRST_NAME: ${{ vars.ADMIN_FIRST_NAME }}
       ADMIN_LAST_NAME: ${{ vars.ADMIN_LAST_NAME }}
       ADMIN_EMAIL: ${{ vars.ADMIN_EMAIL }}
       ADMIN_NICKNAME: ${{ vars.ADMIN_NICKNAME }}
-      DEPLOYPATH: /home/schnupf1/${{ matrix.environment }}
-      ENVIRONMENT: ${{ matrix.environment }}
-      APP_URL: ${{ vars[matrix.environment.toUpperCase()_APP_URL] }}
-      DB_DATABASE: ${{ secrets[matrix.environment.toUpperCase()_DB_DATABASE] }}
-      DB_USERNAME: ${{ secrets[matrix.environment.toUpperCase()_DB_USERNAME] }}
-      DB_PASSWORD: ${{ secrets[matrix.environment.toUpperCase()_DB_PASSWORD] }}
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
 
     steps:
+    - name: Set environment-specific variables
+      run: |
+        if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+          echo "APP_ENV=staging" >> $GITHUB_ENV
+          echo "APP_URL=${{ secrets.STAGING_APP_URL }}" >> $GITHUB_ENV
+          echo "DB_DATABASE=${{ secrets.STAGING_DB_DATABASE }}" >> $GITHUB_ENV
+          echo "DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DEPLOYPATH=/home/schnupf1/staging" >> $GITHUB_ENV
+        elif [ "${{ github.event.inputs.environment }}" == "production" ]; then
+          echo "APP_ENV=production" >> $GITHUB_ENV
+          echo "APP_URL=${{ secrets.PRODUCTION_APP_URL }}" >> $GITHUB_ENV
+          echo "DB_DATABASE=${{ secrets.PRODUCTION_DB_DATABASE }}" >> $GITHUB_ENV
+          echo "DB_USERNAME=${{ secrets.PRODUCTION_DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.PRODUCTION_DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DEPLOYPATH=/home/schnupf1/production" >> $GITHUB_ENV
+        fi
+
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -61,7 +69,7 @@ jobs:
     - name: Prepare environment file
       run: |
         cp .env.example .env
-        sed -i 's/^APP_ENV=.*/APP_ENV=${{ env.ENVIRONMENT }}/' .env
+        sed -i 's/^APP_ENV=.*/APP_ENV=${{ env.APP_ENV }}/' .env
         sed -i 's/^APP_URL=.*/APP_URL=${{ env.APP_URL }}/' .env
         sed -i 's/^DB_DATABASE=.*/DB_DATABASE=${{ env.DB_DATABASE }}/' .env
         sed -i 's/^DB_USERNAME=.*/DB_USERNAME=${{ env.DB_USERNAME }}/' .env
@@ -90,7 +98,7 @@ jobs:
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
-          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ matrix.environment }}
+          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ env.APP_ENV }}
           chmod 755 $DEPLOYPATH
         EOF
 
