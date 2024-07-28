@@ -16,18 +16,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        environment: [staging, production]
+
     env:
       ADMIN_FIRST_NAME: ${{ vars.ADMIN_FIRST_NAME }}
       ADMIN_LAST_NAME: ${{ vars.ADMIN_LAST_NAME }}
       ADMIN_EMAIL: ${{ vars.ADMIN_EMAIL }}
       ADMIN_NICKNAME: ${{ vars.ADMIN_NICKNAME }}
-      DB_DATABASE: ${{ secrets.DB_DATABASE }}
-      DB_USERNAME: ${{ secrets.DB_USERNAME }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DEPLOYPATH: /home/schnupf1/${{ matrix.environment }}
+      ENVIRONMENT: ${{ matrix.environment }}
+      APP_URL: ${{ vars[matrix.environment.toUpperCase()_APP_URL] }}
+      DB_DATABASE: ${{ secrets[matrix.environment.toUpperCase()_DB_DATABASE] }}
+      DB_USERNAME: ${{ secrets[matrix.environment.toUpperCase()_DB_USERNAME] }}
+      DB_PASSWORD: ${{ secrets[matrix.environment.toUpperCase()_DB_PASSWORD] }}
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-      DEPLOYPATH: /home/schnupf1/${{ github.event.inputs.environment }}
-      ENVIRONMENT: ${{ github.event.inputs.environment }}
-      APP_URL: ${{ vars.APP_URL }}
 
     steps:
     - name: Checkout code
@@ -86,7 +90,7 @@ jobs:
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
-          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ github.event.inputs.environment }}
+          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ matrix.environment }}
           chmod 755 $DEPLOYPATH
         EOF
 
