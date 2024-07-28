@@ -57,7 +57,7 @@ class UserInteractionController extends Controller
         }
 
         $newLine = Line::where('lines.id', $line)
-        ->join('users', 'lines.author_id', '=', 'users.id')
+        ->join('users', 'lines.user_id', '=', 'users.id')
         ->leftJoin('user_interactions', function($join) use ($userId) {
             $join->on('lines.id', '=', 'user_interactions.line_id')
                  ->where('user_interactions.user_id', '=', $userId);

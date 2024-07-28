@@ -37,7 +37,7 @@ class LineController extends Controller
 		// Create a new line
 		$line = Line::create([
 			'line' => $request->line,
-			'author_id' => $userId,
+			'user_id' => $userId,
 		]);
 
 		return response()->json([

@@ -51,6 +51,8 @@ class AuthController extends Controller
 		// Check if has no account
 		$user = User::where('email', $request->email)->first();
 
+
+
 		// Check if user exists
 		if (!$user) {
 			return response()->json([

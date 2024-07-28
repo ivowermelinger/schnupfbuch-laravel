@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_interactions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('line_id')->constrained('lines')->onDelete('cascade');
+            $table->id('id');
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('line_id')->constrained('lines')->onDelete('cascade');
             $table->boolean('liked')->default(false);
             $table->boolean('disliked')->default(false);
             $table->timestamps();
