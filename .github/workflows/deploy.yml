@@ -69,16 +69,16 @@ jobs:
     - name: Prepare environment file
       run: |
         cp .env.example .env
-        sed -i 's/^APP_ENV=.*/APP_ENV=${{ env.APP_ENV }}/' .env
-        sed -i 's/^APP_URL=.*/APP_URL=${{ env.APP_URL }}/' .env
-        sed -i 's/^DB_DATABASE=.*/DB_DATABASE=${{ env.DB_DATABASE }}/' .env
-        sed -i 's/^DB_USERNAME=.*/DB_USERNAME=${{ env.DB_USERNAME }}/' .env
-        sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=${{ env.DB_PASSWORD }}/' .env
-        sed -i 's/^ADMIN_FIRST_NAME=.*/ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}/' .env
-        sed -i 's/^ADMIN_LAST_NAME=.*/ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}/' .env
-        sed -i 's/^ADMIN_EMAIL=.*/ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}/' .env
-        sed -i 's/^ADMIN_NICKNAME=.*/ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}/' .env
-        sed -i 's/^ADMIN_PASSWORD=.*/ADMIN_PASSWORD="${{ env.ADMIN_PASSWORD }}"/' .env
+        sed -i 's|^APP_ENV=.*|APP_ENV=${{ env.APP_ENV }}|' .env
+        sed -i 's|^APP_URL=.*|APP_URL=${{ env.APP_URL }}|' .env
+        sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${{ env.DB_DATABASE }}|' .env
+        sed -i 's|^DB_USERNAME=.*|DB_USERNAME=${{ env.DB_USERNAME }}|' .env
+        sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=${{ env.DB_PASSWORD }}|' .env
+        sed -i 's|^ADMIN_FIRST_NAME=.*|ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}|' .env
+        sed -i 's|^ADMIN_LAST_NAME=.*|ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}|' .env
+        sed -i 's|^ADMIN_EMAIL=.*|ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}|' .env
+        sed -i 's|^ADMIN_NICKNAME=.*|ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}|' .env
+        sed -i 's|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD="${{ env.ADMIN_PASSWORD }}"|' .env
 
     - name: Log environment variables
       run: |
@@ -98,6 +98,16 @@ jobs:
     - name: Sync application files to the server
       run: |
         rsync -avz --delete-after --exclude='.git' --exclude='.github' --exclude='tests' --exclude='storage' $GITHUB_WORKSPACE/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }}:${{ env.DEPLOYPATH }}
+
+    - name: Clean up directories on the server
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          cd $DEPLOYPATH
+          rm -rf vendor
+          rm -rf node_modules
+          rm -rf public/build
+        EOF
 
     - name: Create symlink and set permissions on the server
       run: |
