@@ -4,6 +4,9 @@ deployment:
         - export DEPLOYPATH=/home/schnupf1/staging
         - export ENVIRONMENT=staging
 
+          # Create a symlink
+        - ln -s $DEPLOYPATH /home/schnupf1/www/$ENVIRONMENT
+
         # Navigate to the application directory
         - cd $DEPLOYPATH
 
@@ -33,6 +36,3 @@ deployment:
 
         # Run database migrations with seed
         - /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed
-
-        # Create a symlink
-        - ln -s $DEPLOYPATH /home/schnupf1/www/$ENVIRONMENT
