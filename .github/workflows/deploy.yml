@@ -62,7 +62,7 @@ jobs:
         php -r "file_put_contents('.env', str_replace('ADMIN_LAST_NAME=', 'ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}', file_get_contents('.env')));"
         php -r "file_put_contents('.env', str_replace('ADMIN_EMAIL=', 'ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}', file_get_contents('.env')));"
         php -r "file_put_contents('.env', str_replace('ADMIN_NICKNAME=', 'ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('ADMIN_PASSWORD=', 'ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}', file_get_contents('.env')));"
+        php -r "file_put_contents('.env', str_replace('ADMIN_PASSWORD=', 'ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}"', file_get_contents('.env')));"
 
     - name: Generate application key
       run: php artisan key:generate
