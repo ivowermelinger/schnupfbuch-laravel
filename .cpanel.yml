@@ -36,6 +36,3 @@ deployment:
 
         # Create a symlink
         - ln -s $DEPLOYPATH /home/schnupf1/www/$ENVIRONMENT
-
-        # Set permissions to 755
-        - chmod 755 $DEPLOYPATH
