@@ -89,6 +89,17 @@ jobs:
           chmod 755 $DEPLOYPATH
         EOF
 
+    - name: Ensure storage and cache directories exist and have proper permissions
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          cd $DEPLOYPATH
+          mkdir -p storage/framework/{sessions,views,cache}
+          mkdir -p bootstrap/cache
+          chmod -R 755 storage
+          chmod -R 755 bootstrap/cache
+        EOF
+
     - name: Run database migrations and optimizations on the server
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
