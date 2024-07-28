@@ -20,7 +20,7 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'  # Change to your required PHP version
+        php-version: '8.3'  # Change to your required PHP version
         extensions: mbstring, intl, pdo, pdo_mysql
         tools: composer
 
@@ -30,7 +30,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'  # Change to your required Node.js version
+        node-version: '20'  # Change to your required Node.js version
 
     - name: Install Node.js dependencies
       run: yarn install
