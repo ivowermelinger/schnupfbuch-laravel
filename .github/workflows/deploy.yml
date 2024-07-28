@@ -17,8 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DEPLOYPATH: /home/schnupf1/${{ github.event.inputs.environment }}
-      ENVIRONMENT: ${{ github.event.inputs.environment }}
       ADMIN_FIRST_NAME: ${{ vars.ADMIN_FIRST_NAME }}
       ADMIN_LAST_NAME: ${{ vars.ADMIN_LAST_NAME }}
       ADMIN_EMAIL: ${{ vars.ADMIN_EMAIL }}
@@ -56,7 +54,7 @@ jobs:
     - name: Prepare environment file
       run: |
         cp .env.example .env
-        php -r "file_put_contents('.env', str_replace('APP_ENV=local', 'APP_ENV=${{ env.ENVIRONMENT }}', file_get_contents('.env')));"
+        php -r "file_put_contents('.env', str_replace('APP_ENV=local', 'APP_ENV=${{ env.APP_ENV }}', file_get_contents('.env')));"
         php -r "file_put_contents('.env', str_replace('DB_DATABASE=', 'DB_DATABASE=${{ env.DB_DATABASE }}', file_get_contents('.env')));"
         php -r "file_put_contents('.env', str_replace('DB_USERNAME=', 'DB_USERNAME=${{ env.DB_USERNAME }}', file_get_contents('.env')));"
         php -r "file_put_contents('.env', str_replace('DB_PASSWORD=', 'DB_PASSWORD=${{ env.DB_PASSWORD }}', file_get_contents('.env')));"
@@ -75,6 +73,7 @@ jobs:
         SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
         SSH_USER: ${{ secrets.SSH_USER }}
         SSH_SERVER: ${{ secrets.SSH_SERVER }}
+        DEPLOYPATH: /home/schnupf1/${{ github.event.inputs.environment }}
       run: |
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
@@ -82,18 +81,21 @@ jobs:
         echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
 
         # Sync application files to the server
-        rsync -avz --delete-after $GITHUB_WORKSPACE/ $SSH_USER@$SSH_SERVER:$DEPLOYPATH
+        rsync -avz --delete-after --exclude='.git' --exclude='.github' --exclude='tests' --exclude='storage' $GITHUB_WORKSPACE/ $SSH_USER@$SSH_SERVER:$DEPLOYPATH
 
         # Run deployment commands on the server
-        ssh $SSH_USER@$SSH_SERVER "ln -sfn $DEPLOYPATH /home/schnupf1/www/$ENVIRONMENT"
-        ssh $SSH_USER@$SSH_SERVER "chmod 755 $DEPLOYPATH"
+        ssh $SSH_USER@$SSH_SERVER << EOF
+          cd $DEPLOYPATH
+          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ github.event.inputs.environment }}
+          chmod 755 $DEPLOYPATH
 
-        # Run database migrations with seed on the server
-        ssh $SSH_USER@$SSH_SERVER "cd $DEPLOYPATH && /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed"
+          # Run database migrations with seed on the server
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed
 
-        # Run Laravel optimizations on the server
-        ssh $SSH_USER@$SSH_SERVER "cd $DEPLOYPATH && /opt/cpanel/ea-php82/root/usr/bin/php artisan optimize"
-        ssh $SSH_USER@$SSH_SERVER "cd $DEPLOYPATH && /opt/cpanel/ea-php82/root/usr/bin/php artisan config:cache"
-        ssh $SSH_USER@$SSH_SERVER "cd $DEPLOYPATH && /opt/cpanel/ea-php82/root/usr/bin/php artisan event:cache"
-        ssh $SSH_USER@$SSH_SERVER "cd $DEPLOYPATH && /opt/cpanel/ea-php82/root/usr/bin/php artisan route:cache"
-        ssh $SSH_USER@$SSH_SERVER "cd $DEPLOYPATH && /opt/cpanel/ea-php82/root/usr/bin/php artisan view:cache"
+          # Run Laravel optimizations on the server
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan optimize
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan config:cache
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan event:cache
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan route:cache
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan view:cache
+        EOF
