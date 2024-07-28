@@ -25,6 +25,7 @@ jobs:
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
 
     steps:
     - name: Checkout code
@@ -54,15 +55,15 @@ jobs:
     - name: Prepare environment file
       run: |
         cp .env.example .env
-        php -r "file_put_contents('.env', str_replace('APP_ENV=local', 'APP_ENV=${{ env.APP_ENV }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('DB_DATABASE=', 'DB_DATABASE=${{ env.DB_DATABASE }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('DB_USERNAME=', 'DB_USERNAME=${{ env.DB_USERNAME }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('DB_PASSWORD=', 'DB_PASSWORD=${{ env.DB_PASSWORD }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('ADMIN_FIRST_NAME=', 'ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('ADMIN_LAST_NAME=', 'ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('ADMIN_EMAIL=', 'ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('ADMIN_NICKNAME=', 'ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}', file_get_contents('.env')));"
-        php -r "file_put_contents('.env', str_replace('ADMIN_PASSWORD=', 'ADMIN_PASSWORD="${{ secrets.ADMIN_PASSWORD }}"', file_get_contents('.env')));"
+        echo "APP_ENV=${{ env.APP_ENV }}" >> .env
+        echo "DB_DATABASE=${{ env.DB_DATABASE }}" >> .env
+        echo "DB_USERNAME=${{ env.DB_USERNAME }}" >> .env
+        echo "DB_PASSWORD=${{ env.DB_PASSWORD }}" >> .env
+        echo "ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}" >> .env
+        echo "ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}" >> .env
+        echo "ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}" >> .env
+        echo "ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}" >> .env
+        echo "ADMIN_PASSWORD=\"${{ env.ADMIN_PASSWORD }}\"" >> .env
 
     - name: Generate application key
       run: php artisan key:generate
