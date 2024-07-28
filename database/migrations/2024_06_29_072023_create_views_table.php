@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignUuid('line_id')->constrained('lines')->onDelete('cascade');
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

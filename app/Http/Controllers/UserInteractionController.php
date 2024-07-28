@@ -79,10 +79,12 @@ class UserInteractionController extends Controller
         $userId = Auth::id();
 
         // Create new interaction
-        $view = View::create([
+        $view = View::firstOrCreate([
             'line_id' => $line,
             'user_id' => $userId,
         ]);
+
+        $view->increment('views');
 
         return response()->json($view, 200);
     }
