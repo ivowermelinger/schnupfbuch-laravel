@@ -27,7 +27,7 @@ jobs:
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
       DEPLOYPATH: /home/schnupf1/${{ github.event.inputs.environment }}
       ENVIRONMENT: ${{ github.event.inputs.environment }}
-      APP_URL: ${{ secrets.APP_URL }}
+      APP_URL: ${{ vars.APP_URL }}
 
     steps:
     - name: Checkout code
