@@ -90,9 +90,21 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
 
+    - name: Clean up directories on the server
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          cd $DEPLOYPATH
+          rm -rf vendor
+          rm -rf node_modules
+          rm -rf public/build
+        EOF
+
     - name: Sync application files to the server
       run: |
         rsync -avz --delete-after --exclude='.git' --exclude='.github' --exclude='tests' --exclude='storage' $GITHUB_WORKSPACE/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }}:${{ env.DEPLOYPATH }}
+
+
 
     - name: Create symlink and set permissions on the server
       run: |
