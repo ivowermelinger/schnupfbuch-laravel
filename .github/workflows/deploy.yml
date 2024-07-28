@@ -21,7 +21,6 @@ jobs:
       ADMIN_LAST_NAME: ${{ vars.ADMIN_LAST_NAME }}
       ADMIN_EMAIL: ${{ vars.ADMIN_EMAIL }}
       ADMIN_NICKNAME: ${{ vars.ADMIN_NICKNAME }}
-      APP_ENV: ${{ secrets.APP_ENV }}
       DB_DATABASE: ${{ secrets.DB_DATABASE }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -57,15 +56,15 @@ jobs:
     - name: Prepare environment file
       run: |
         cp .env.example .env
-        echo "APP_ENV=${{ env.APP_ENV }}" >> .env
-        echo "DB_DATABASE=${{ env.DB_DATABASE }}" >> .env
-        echo "DB_USERNAME=${{ env.DB_USERNAME }}" >> .env
-        echo "DB_PASSWORD=${{ env.DB_PASSWORD }}" >> .env
-        echo "ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}" >> .env
-        echo "ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}" >> .env
-        echo "ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}" >> .env
-        echo "ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}" >> .env
-        echo "ADMIN_PASSWORD=\"${{ env.ADMIN_PASSWORD }}\"" >> .env
+        sed -i 's/^APP_ENV=.*/APP_ENV=${{ env.ENVIRONMENT }}/' .env
+        sed -i 's/^DB_DATABASE=.*/DB_DATABASE=${{ env.DB_DATABASE }}/' .env
+        sed -i 's/^DB_USERNAME=.*/DB_USERNAME=${{ env.DB_USERNAME }}/' .env
+        sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=${{ env.DB_PASSWORD }}/' .env
+        sed -i 's/^ADMIN_FIRST_NAME=.*/ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}/' .env
+        sed -i 's/^ADMIN_LAST_NAME=.*/ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}/' .env
+        sed -i 's/^ADMIN_EMAIL=.*/ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}/' .env
+        sed -i 's/^ADMIN_NICKNAME=.*/ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}/' .env
+        sed -i 's/^ADMIN_PASSWORD=.*/ADMIN_PASSWORD="${{ env.ADMIN_PASSWORD }}"/' .env
 
     - name: Generate application key
       run: php artisan key:generate
@@ -85,7 +84,7 @@ jobs:
       run: |
         ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
-          ln -sfn $DEPLOYPATH /home/schnupf1/www/$ENVIRONMENT
+          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ github.event.inputs.environment }}
           chmod 755 $DEPLOYPATH
         EOF
 
