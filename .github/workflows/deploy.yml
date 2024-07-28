@@ -123,8 +123,5 @@ jobs:
         ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
           cd $DEPLOYPATH
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan optimize
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan config:cache
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan event:cache
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed --force
         EOF
