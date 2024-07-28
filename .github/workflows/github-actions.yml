@@ -1,0 +1,21 @@
+name: Deploy to cpanel
+run-name: Deploy to cpanel
+on : []
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Deploy to cpanel
+              uses: jakejarvis/cpanel-deploy@v1
+              with:
+                  cpanel_host: ${{ secrets.CPANEL_HOST }}
+                  cpanel_username: ${{ secrets.CPANEL_USERNAME }}
+                  cpanel_password: ${{ secrets.CPANEL_PASSWORD }}
+                  cpanel_app: ${{ secrets.CPANEL_APP }}
+                  local_path: public_html
+                  remote_path: public_html
+                  exclude: "node_modules"
+                  delete: true
+                  verbose: true
