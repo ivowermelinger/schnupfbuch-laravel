@@ -3,36 +3,15 @@ deployment:
     tasks:
         - export DEPLOYPATH=/home/schnupf1/staging
         - export ENVIRONMENT=staging
-
-        # Navigate to the application directory
         - cd $DEPLOYPATH
-
-        # Install PHP dependencies
-        - /opt/cpanel/ea-php82/root/usr/bin/php /opt/cpanel/composer/bin/composer install
-
-        # Install Node.js dependencies
+        - /opt/cpanel/ea-php82/root/usr/bin/php /opt/cpanel/composer/bin/composer
+          install
         - yarn install
-
-        # Build assets with Yarn
         - yarn build
-
-        # Optimize Laravel
         - /opt/cpanel/ea-php82/root/usr/bin/php artisan optimize
-
-        # Cache configuration
         - /opt/cpanel/ea-php82/root/usr/bin/php artisan config:cache
-
-        # Cache events
         - /opt/cpanel/ea-php82/root/usr/bin/php artisan event:cache
-
-        # Cache routes
         - /opt/cpanel/ea-php82/root/usr/bin/php artisan route:cache
-
-        # Cache views
         - /opt/cpanel/ea-php82/root/usr/bin/php artisan view:cache
-
-        # Create a symlink
         - ln -s $DEPLOYPATH /home/schnupf1/www/$ENVIRONMENT
-
-        # Set permissions to 755
         - chmod 755 $DEPLOYPATH
