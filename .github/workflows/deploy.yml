@@ -127,6 +127,4 @@ jobs:
           /opt/cpanel/ea-php82/root/usr/bin/php artisan optimize
           /opt/cpanel/ea-php82/root/usr/bin/php artisan config:cache
           /opt/cpanel/ea-php82/root/usr/bin/php artisan event:cache
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan route:cache
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan view:cache
         EOF
