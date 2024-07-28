@@ -66,6 +66,9 @@ jobs:
     - name: Build assets
       run: yarn build
 
+    - name: List build output
+      run: ls -l build
+
     - name: Prepare environment file
       run: |
         cp .env.example .env
@@ -97,7 +100,7 @@ jobs:
 
     - name: Sync application files to the server
       run: |
-        rsync -avz --delete-after --exclude='.git' --exclude='.github' --exclude='tests' --exclude='storage' $GITHUB_WORKSPACE/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }}:${{ env.DEPLOYPATH }}
+        rsync -avz --delete-after --exclude='.git' --exclude='.github' --exclude='tests' --exclude='storage' --exclude='node_modules' --exclude='vendor' --exclude='*.log' build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }}:${{ env.DEPLOYPATH }}
 
     - name: Create symlink and set permissions on the server
       run: |
