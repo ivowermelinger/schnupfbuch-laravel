@@ -99,9 +99,19 @@ jobs:
       run: |
         rsync -avz --delete-after --exclude='.git' --exclude='.github' --exclude='tests' --exclude='storage' $GITHUB_WORKSPACE/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }}:${{ env.DEPLOYPATH }}
 
+    - name: Clean up directories on the server
+      run: |
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          cd $DEPLOYPATH
+          rm -rf vendor
+          rm -rf node_modules
+          rm -rf public/build
+        EOF
+
     - name: Create symlink and set permissions on the server
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
           ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ env.APP_ENV }}
           chmod 755 $DEPLOYPATH
@@ -109,7 +119,7 @@ jobs:
 
     - name: Ensure storage and cache directories exist and have proper permissions
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
           cd $DEPLOYPATH
           mkdir -p storage/framework/{sessions,views,cache}
@@ -120,7 +130,7 @@ jobs:
 
     - name: Run database migrations and optimizations on the server
       run: |
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
           cd $DEPLOYPATH
           /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed
@@ -129,4 +139,14 @@ jobs:
           /opt/cpanel/ea-php82/root/usr/bin/php artisan event:cache
           /opt/cpanel/ea-php82/root/usr/bin/php artisan route:cache
           /opt/cpanel/ea-php82/root/usr/bin/php artisan view:cache
+        EOF
+
+    - name: Verify application setup
+      run: |
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          cd $DEPLOYPATH
+          php artisan --version
+          php -m
+          php -i
         EOF
