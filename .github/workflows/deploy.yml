@@ -27,6 +27,7 @@ jobs:
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
       DEPLOYPATH: /home/schnupf1/${{ github.event.inputs.environment }}
       ENVIRONMENT: ${{ github.event.inputs.environment }}
+      APP_URL: ${{ secrets.APP_URL }}
 
     steps:
     - name: Checkout code
@@ -57,6 +58,7 @@ jobs:
       run: |
         cp .env.example .env
         sed -i 's/^APP_ENV=.*/APP_ENV=${{ env.ENVIRONMENT }}/' .env
+        sed -i 's/^APP_URL=.*/APP_URL=${{ env.APP_URL }}/' .env
         sed -i 's/^DB_DATABASE=.*/DB_DATABASE=${{ env.DB_DATABASE }}/' .env
         sed -i 's/^DB_USERNAME=.*/DB_USERNAME=${{ env.DB_USERNAME }}/' .env
         sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=${{ env.DB_PASSWORD }}/' .env
