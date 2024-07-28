@@ -5,7 +5,7 @@ createInertiaApp({
         const pages = import.meta.glob('../../Pages/**/*.svelte', {
             eager: true,
         });
-        console.log(pages, name);
+        console.log(pages);
         return pages[`../../Pages/${name}.svelte`];
     },
     setup({ el, App, props }) {
