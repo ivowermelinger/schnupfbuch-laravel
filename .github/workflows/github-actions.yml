@@ -1,6 +1,9 @@
 name: Deploy to cpanel
 run-name: Deploy to cpanel
-on : []
+on:
+    push:
+        branches:
+            - master
 jobs:
     deploy:
         runs-on: ubuntu-latest
