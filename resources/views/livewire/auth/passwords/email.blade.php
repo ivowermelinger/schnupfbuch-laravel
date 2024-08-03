@@ -14,7 +14,7 @@
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
             @if ($emailSentMessage)
-                <div class="rounded-md bg-green-50 p-4">
+                <div class="rounded-lg bg-green-50 p-4">
                     <div class="flex">
                         <div class="flex-shrink-0">
                             <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">

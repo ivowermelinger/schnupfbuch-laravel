@@ -16,4 +16,4 @@
     </div>
 </header>
 
-<x-sidebar />
+<x-app.sidebar />

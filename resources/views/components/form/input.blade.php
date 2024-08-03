@@ -10,10 +10,10 @@
         <p class="text-small">{{ $attributes->get('hint') }}</p>
     @endif
 
-    <div class="mt-2 rounded-md">
+    <div class="mt-2">
         <input
             {{
-                $attributes->merge(['class' => 'border-2 text-content block w-full appearance-none rounded-md m-0 py-2 px-2 focus:outline-none'])->class([
+                $attributes->merge(['class' => 'border-2 text-content block w-full appearance-none rounded-lg m-0 py-2 px-2 focus:outline-none'])->class([
                     'border-error' => $errors->has($attributes->get('name')),
                 ])
             }}

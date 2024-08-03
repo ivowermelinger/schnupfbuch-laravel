@@ -2,7 +2,7 @@
 
 @section('body')
     <main>
-        <x-simple-header />
+        <x-app.simple-header />
         @yield('content')
 
         @isset($slot)

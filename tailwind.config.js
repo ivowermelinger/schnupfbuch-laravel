@@ -41,6 +41,13 @@ module.exports = {
                     fontWeight: '400',
                 },
             ],
+            lead: [
+                'clamp(1.125rem, 1.0179rem + 0.5357vw, 1.5rem)',
+                {
+                    lineHeight: '1.3',
+                    fontWeight: '700',
+                },
+            ],
             heading: [
                 'clamp(1.625rem, 1.5179rem + 0.5357vw, 2rem)',
                 {

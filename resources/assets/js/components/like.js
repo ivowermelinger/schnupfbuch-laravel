@@ -5,8 +5,9 @@ document.addEventListener('alpine:init', () => {
             const { default: confetti } = await import('canvas-confetti');
             this.confetti = confetti;
         },
-        fire: function () {
+        like: function () {
             const random = (min, max) => Math.random() * (max - min) + min;
+
             if (!this.$refs.origin || !this.confetti || random(0, 100) > 50) {
                 return;
             }

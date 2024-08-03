@@ -56,17 +56,6 @@ class User extends Authenticatable implements MustVerifyEmail
 	}
 
 	/**
-	 * Send a password reset notification to the user.
-	 *
-	 * @param  string  $token
-	 */
-	public function sendPasswordResetNotification($token): void
-    {
-        $resetUrl = url('/password/reset/' . $token . '?email=' . $this->email);
-        $this->notify(new ResetPasswordNotification($resetUrl));
-    }
-
-	/**
 	 * Get the attributes that should be cast.
 	 *
 	 * @return array<string, string>
