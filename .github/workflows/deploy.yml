@@ -15,8 +15,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    concurrency: ${{ inputs.environment }}
 
     env:
       ADMIN_FIRST_NAME: ${{ vars.ADMIN_FIRST_NAME }}
@@ -26,138 +24,104 @@ jobs:
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
 
     steps:
-      - name: Set environment-specific variables
-        run: |
-          if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
-            echo "APP_ENV=staging" >> $GITHUB_ENV
-            echo "APP_URL=${{ vars.STAGING_APP_URL }}" >> $GITHUB_ENV
-            echo "DB_DATABASE=${{ secrets.STAGING_DB_DATABASE }}" >> $GITHUB_ENV
-            echo "DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}" >> $GITHUB_ENV
-            echo "DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}" >> $GITHUB_ENV
-            echo "DEPLOYPATH=/home/schnupf1/staging" >> $GITHUB_ENV
-          elif [ "${{ github.event.inputs.environment }}" == "production" ]; then
-            echo "APP_ENV=production" >> $GITHUB_ENV
-            echo "APP_URL=${{ vars.PRODUCTION_APP_URL }}" >> $GITHUB_ENV
-            echo "DB_DATABASE=${{ secrets.PRODUCTION_DB_DATABASE }}" >> $GITHUB_ENV
-            echo "DB_USERNAME=${{ secrets.PRODUCTION_DB_USERNAME }}" >> $GITHUB_ENV
-            echo "DB_PASSWORD=${{ secrets.PRODUCTION_DB_PASSWORD }}" >> $GITHUB_ENV
-            echo "DEPLOYPATH=/home/schnupf1/production" >> $GITHUB_ENV
-          fi
+    - name: Set environment-specific variables
+      run: |
+        if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+          echo "APP_ENV=staging" >> $GITHUB_ENV
+          echo "APP_URL=${{ vars.STAGING_APP_URL }}" >> $GITHUB_ENV
+          echo "DB_DATABASE=${{ secrets.STAGING_DB_DATABASE }}" >> $GITHUB_ENV
+          echo "DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DEPLOYPATH=/home/schnupf1/staging" >> $GITHUB_ENV
+        elif [ "${{ github.event.inputs.environment }}" == "production" ]; then
+          echo "APP_ENV=production" >> $GITHUB_ENV
+          echo "APP_URL=${{ vars.PRODUCTION_APP_URL }}" >> $GITHUB_ENV
+          echo "DB_DATABASE=${{ secrets.PRODUCTION_DB_DATABASE }}" >> $GITHUB_ENV
+          echo "DB_USERNAME=${{ secrets.PRODUCTION_DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.PRODUCTION_DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DEPLOYPATH=/home/schnupf1/production" >> $GITHUB_ENV
+        fi
 
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          extensions: mbstring, intl, pdo, pdo_mysql
-          tools: composer
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, intl, pdo, pdo_mysql
+        tools: composer
 
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+    - name: Install Composer dependencies
+      run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
 
-      - name: Install Composer dependencies
-        run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev
+    - name: Install Node.js dependencies
+      run: yarn install
 
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '20'
+    - name: Build assets
+      run: yarn build
 
-      - name: Get yarn cache directory
-        id: yarn-cache
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+    - name: Prepare environment file
+      run: |
+        cp .env.example .env
+        sed -i 's|^APP_ENV=.*|APP_ENV=${{ env.APP_ENV }}|' .env
+        sed -i 's|^APP_URL=.*|APP_URL=${{ env.APP_URL }}|' .env
+        sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${{ env.DB_DATABASE }}|' .env
+        sed -i 's|^DB_USERNAME=.*|DB_USERNAME=${{ env.DB_USERNAME }}|' .env
+        sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=${{ env.DB_PASSWORD }}|' .env
+        sed -i 's|^ADMIN_FIRST_NAME=.*|ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}|' .env
+        sed -i 's|^ADMIN_LAST_NAME=.*|ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}|' .env
+        sed -i 's|^ADMIN_EMAIL=.*|ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}|' .env
+        sed -i 's|^ADMIN_NICKNAME=.*|ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}|' .env
+        sed -i 's|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD="${{ env.ADMIN_PASSWORD }}"|' .env
 
-      - name: Cache yarn dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+    - name: Log environment variables
+      run: |
+        echo "Environment variables:"
+        cat .env
 
-      - name: Install yarn dependencies
-        run: yarn install --frozen-lockfile --check-files
+    - name: Generate application key
+      run: php artisan key:generate
 
-      - name: Build assets
-        run: yarn build
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
 
-      - name: Prepare environment file
-        run: |
-          cp .env.example .env
-          sed -i 's|^APP_ENV=.*|APP_ENV=${{ env.APP_ENV }}|' .env
-          sed -i 's|^APP_URL=.*|APP_URL=${{ env.APP_URL }}|' .env
-          sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${{ env.DB_DATABASE }}|' .env
-          sed -i 's|^DB_USERNAME=.*|DB_USERNAME=${{ env.DB_USERNAME }}|' .env
-          sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=${{ env.DB_PASSWORD }}|' .env
-          sed -i 's|^ADMIN_FIRST_NAME=.*|ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}|' .env
-          sed -i 's|^ADMIN_LAST_NAME=.*|ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}|' .env
-          sed -i 's|^ADMIN_EMAIL=.*|ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}|' .env
-          sed -i 's|^ADMIN_NICKNAME=.*|ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}|' .env
-          sed -i 's|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD="${{ env.ADMIN_PASSWORD }}"|' .env
+    - name: Sync application files to the server
+      run: |
+        rsync -avz --delete-after --exclude='.git' --exclude='.github' --exclude='tests' --exclude='storage' $GITHUB_WORKSPACE/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }}:${{ env.DEPLOYPATH }}
 
+    - name: Create symlink and set permissions on the server
+      run: |
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ env.APP_ENV }}
+          chmod 755 $DEPLOYPATH
+        EOF
 
-      - name: Generate application key
-        run: php artisan key:generate
+    - name: Ensure storage and cache directories exist and have proper permissions
+      run: |
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          cd $DEPLOYPATH
+          mkdir -p storage/framework/{sessions,views,cache}
+          mkdir -p bootstrap/cache
+          chmod -R 755 storage
+          chmod -R 755 bootstrap/cache
+        EOF
 
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-
-      - name: Rsync files
-        uses: burnett01/rsync-deployments@5.2.1
-        with:
-          switches: --recursive --no-perms --no-owner --no-group --ignore-times --compress --verbose --delete --exclude-from=.rsyncignore
-          remote_path: ${{ env.DEPLOYPATH }}
-          remote_host: ${{ vars.SSH_HOST }}
-          remote_port: ${{ vars.SSH_PORT }}
-          remote_user: ${{ vars.SSH_USER }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Create symlink and set permissions on the server
-        run: |
-          ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
-            set -e
-            ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ env.APP_ENV }}
-            chmod 755 $DEPLOYPATH
-          EOF
-
-      - name: Ensure storage and cache directories exist and have proper permissions
-        run: |
-          ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
-            set -e
-            cd $DEPLOYPATH
-            mkdir -p storage/framework/{sessions,views,cache}
-            mkdir -p bootstrap/cache
-            chmod -R 755 storage
-            chmod -R 755 bootstrap/cache
-          EOF
-
-      - name: Run database migrations and optimizations on the server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ vars.SSH_HOST }}
-          username: ${{ vars.SSH_USER }}
-          port: ${{ vars.SSH_PORT }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ env.DEPLOYPATH }}
-            rm -rf bootstrap/cache/*
-            ${{ vars.PHP_EXEC }} artisan optimize:clear
-            ${{ vars.PHP_EXEC }} artisan storage:link
-            ${{ vars.PHP_EXEC }} artisan migrate --force
-            ${{ vars.PHP_EXEC }} artisan auth:clear-resets
-            ${{ vars.PHP_EXEC }} artisan optimize
-            sudo service php8.3-fpm restart
-            ${{ vars.PHP_EXEC }} artisan up
+    - name: Run database migrations and optimizations on the server
+      run: |
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          cd $DEPLOYPATH
+          /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed --force
+        EOF
