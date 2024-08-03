@@ -4,13 +4,15 @@
 
 <header
     x-data="header"
-    class="bg-dark fixed left-0 top-0 z-40 w-full py-2 shadow-md md:py-4"
+    class="bg-dark fixed left-0 top-0 z-30 w-full py-2 shadow-md md:py-4"
 >
     <div class="container">
         @auth
             <button class="header__user">
                 <span class="sr-only">Sidebar öffnen</span>
-                <x-app.profile-picture :$user />
+                <button @click="open">
+                    <x-app.profile-picture class="w-12 md:w-16" :$user />
+                </button>
             </button>
         @else
             <div class="header__login">
@@ -25,6 +27,6 @@
             </div>
         @endauth
     </div>
-</header>
 
-<x-app.sidebar />
+    <x-app.sidebar :$user />
+</header>

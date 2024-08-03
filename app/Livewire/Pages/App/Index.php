@@ -25,7 +25,10 @@ class Index extends Component
     public function mount()
     {
 		$this->getLines();
-        $this->user = Auth::user();
+
+        if (Auth::check()) {
+            $this->user = Auth::user();
+        }
 
     }
 

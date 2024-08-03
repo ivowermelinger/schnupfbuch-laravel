@@ -1,34 +1,62 @@
-<aside class="sidebar sidebar--show" x-cloak>
-    <button class="sidebar__drop" on:click|preventDefault="{closeSidebar}">
-        <span class="visually-hidden">Sidebar schliessen</span>
-    </button>
-    <div class="sidebar__wrapper">
-        <button class="sidebar__close" on:click|preventDefault="{closeSidebar}">
-            <span class="visually-hidden">Sidebar schliessen</span>
-            <Close css="sidebar__cross" />
-        </button>
-        <div class="sidebar__profile">
-            {{--
-                {#if picture} {
-                @html
-                picture} {/if} {#if $user}
-                <span>{$user.nickname}</span>
-                {/if}
-            --}}
+@props([
+    'user',
+])
+
+@php
+    $itemClasses = 'first:border-t border-light border-b ';
+    $linkClasses = 'text-lead  flex items-center gap-4 py-4 font-semibold ';
+@endphp
+
+@if ($user)
+    <aside
+        x-show="showSidebar"
+        x-transition:enter="transition duration-300 ease-out"
+        class="fixed left-0 top-0 z-40 h-full w-full backdrop-blur-sm"
+        x-cloak
+    >
+        <div
+            x-show="showSidebar"
+            x-transition:enter="-translate-x-full transition duration-300 ease-out"
+            x-transition:enter-start="-translate-x-full"
+            x-transition:enter-end="translate-x-0 "
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave="-translate-x-full transition duration-300 ease-out"
+            @click.outside="close"
+            class="bg-primary text-light flex h-full w-80 max-w-full flex-col md:w-96 xl:w-3/12"
+        >
+            <div class="container">
+                <div class="flex flex-col items-center justify-center py-8">
+                    <span class="text-heading">
+                        Hi, {{ $user->nickname }}!
+                    </span>
+                    <div class="mt-6">
+                        <x-app.profile-picture class="w-20" :$user />
+                    </div>
+
+                    <nav class="mt-12 w-full">
+                        <ul class="flex w-full flex-col">
+                            <li class="{{ $itemClasses }}">
+                                <a
+                                    href="{{ route('settings') }}"
+                                    class="{{ $linkClasses }}"
+                                >
+                                    <x-icon.settings class="w-7" />
+                                    <span>{{ __('Profil') }}</span>
+                                </a>
+                            </li>
+                            <li class="{{ $itemClasses }}">
+                                <a
+                                    href="{{ route('logout') }}"
+                                    class="{{ $linkClasses }}"
+                                >
+                                    <x-icon.logout class="w-6" />
+                                    <span>{{ __('Logout') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
-        <menu class="sidebar__menu">
-            <li class="sidebar__item">
-                <a href="/account" class="sidebar__link">
-                    <Settings css="sidebar__icon" />
-                    <span>Account</span>
-                </a>
-            </li>
-            <li class="sidebar__item">
-                <a href="/logout" class="sidebar__link">
-                    <Logout css="sidebar__icon" />
-                    <span>Logout</span>
-                </a>
-            </li>
-        </menu>
-    </div>
-</aside>
+    </aside>
+@endif

@@ -14,6 +14,7 @@ module.exports = {
             primary: '#de3c4b',
             error: '#e0491b',
             success: '#82a759',
+            focus: '#85addb',
         },
 
         container: {
