@@ -1,17 +1,8 @@
-<header class="header" id="header">
+<header class="sticky left-0 top-0 w-full py-2 shadow-md">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="header__login">
-                    <a
-                        class="btn btn--icon-filled btn--header"
-                        href="{{ route('home') }}"
-                    >
-                        arrow left icon
-                        <span>Zurück</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+        <x-link href="{{ route('home') }}" class="py-2">
+            <x-icon.arrow-left class="w-6" />
+            <span>Zurück</span>
+        </x-link>
     </div>
 </header>

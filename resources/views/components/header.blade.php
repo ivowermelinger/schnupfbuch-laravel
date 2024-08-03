@@ -2,17 +2,22 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <button class="header__user">
-                    <span class="visually-hidden">Sidebar öffnen</span>
-                    cooles user picture
-                </button>
-
-                <div class="header__login">
-                    <button class="btn btn--icon-filled btn--header">
-                        <Login css="btn__icon" />
-                        <span>Login</span>
+                @auth
+                    <button class="header__user">
+                        <span class="visually-hidden">Sidebar öffnen</span>
+                        cooles user picture
                     </button>
-                </div>
+                @else
+                    <div class="header__login">
+                        <a
+                            href="{{ route('login') }}"
+                            class="btn btn--icon-filled btn--header"
+                        >
+                            <x-icon.login class="w-8" />
+                            <span>Login</span>
+                        </a>
+                    </div>
+                @endauth
             </div>
         </div>
     </div>
