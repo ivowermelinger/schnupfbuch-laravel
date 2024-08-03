@@ -1,5 +1,5 @@
 <footer
-    class="flex h-full flex-col items-end justify-end"
+    class="flex h-full flex-col items-center justify-center"
     @auth
         @click="$dispatch('open-line')"
     @else

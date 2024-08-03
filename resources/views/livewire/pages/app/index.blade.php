@@ -5,11 +5,11 @@
         class="main--app bg-dark text-light container grid grid-cols-none grid-rows-12 pb-4 pt-20"
     >
         <div
-            class="relative row-span-10 grid grid-rows-10"
+            class="relative row-span-11 grid grid-rows-11"
             x-data="app({{ $lines->toJson() }})"
             wire:ignore
         >
-            <div class="row-span-8">
+            <div class="row-span-9">
                 <button
                     @click="nextLine"
                     class="x-cloak relative flex h-full w-full flex-col items-center justify-center"
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="row-span-2">
+        <div class="row-span-1">
             <livewire:components.app.footer />
         </div>
 
