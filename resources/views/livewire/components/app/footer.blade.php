@@ -1,7 +1,5 @@
-<footer class="footer">
-    <div class="container">
-        <button class="btn btn--primary">
-            <span>Spruch erfassen</span>
-        </button>
-    </div>
+<footer class="flex h-full flex-col items-end justify-end">
+    <x-button class="bg-primary text-light">
+        <span>Spruch erfassen</span>
+    </x-button>
 </footer>

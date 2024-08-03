@@ -1,25 +1,18 @@
-<header class="header" id="header">
+<header class="bg-dark fixed left-0 top-0 z-50 w-full py-2 shadow-md">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                @auth
-                    <button class="header__user">
-                        <span class="visually-hidden">Sidebar öffnen</span>
-                        cooles user picture
-                    </button>
-                @else
-                    <div class="header__login">
-                        <a
-                            href="{{ route('login') }}"
-                            class="btn btn--icon-filled btn--header"
-                        >
-                            <x-icon.login class="w-8" />
-                            <span>Login</span>
-                        </a>
-                    </div>
-                @endauth
+        @auth
+            <button class="header__user">
+                <span class="visually-hidden">Sidebar öffnen</span>
+                cooles user picture
+            </button>
+        @else
+            <div class="header__login">
+                <x-link href="{{ route('login') }}" class="py-2">
+                    <x-icon.login class="w-6" />
+                    <span>Login</span>
+                </x-link>
             </div>
-        </div>
+        @endauth
     </div>
 </header>
 

@@ -15,12 +15,12 @@
             rel="stylesheet"
         />
 
-        @vite(['resources/assets/scss/main.scss', 'resources/assets/js/app.js'])
+        @vite(['resources/assets/scss/main.scss', 'resources/assets/js/main.js'])
         @livewireStyles
         @livewireScripts
     </head>
 
-    <body class="bg-dark text-light min-h-screen">
+    <body class="bg-dark">
         <x-header />
 
         @yield('content')
@@ -28,7 +28,5 @@
         @isset($slot)
             {{ $slot }}
         @endisset
-
-        <livewire:components.app.footer />
     </body>
 </html>

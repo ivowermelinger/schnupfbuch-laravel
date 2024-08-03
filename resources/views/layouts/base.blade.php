@@ -14,7 +14,7 @@
             rel="stylesheet"
         />
 
-        @vite(['resources/assets/scss/main.scss', 'resources/assets/js/app.js'])
+        @vite(['resources/assets/scss/main.scss', 'resources/assets/js/main.js'])
 
         @livewireStyles
         @livewireScripts
