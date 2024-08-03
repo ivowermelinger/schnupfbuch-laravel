@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Components\App;
 
+use App\Models\Line;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class Footer extends Component
 {
 
-    public $line;
+    public $line = 'Ist der Hund im Zwinger am knurren, gehe ich lieber aussen durren!';
 
     public function render()
     {
@@ -26,6 +28,12 @@ class Footer extends Component
         $line->save();
 
         $this->line = '';
-        $this->getLines();
+
+        session()->flash('message', [
+            'success' => true,
+            'text' => 'Dein Spruch wurde erfolgreich gespeichert! Sobald er geprüft wurde, wird er angezeigt. Danke!',
+        ]);
+
+        return redirect()->intended(route('home'));
     }
 }

@@ -3,10 +3,12 @@
 
     <main
         class="main--app bg-dark text-light container grid grid-cols-none grid-rows-12 pb-4 pt-20"
-        x-data="app({{ $lines->toJson() }})"
-        wire:ignore
     >
-        <div class="relative row-span-10 grid grid-rows-10">
+        <div
+            class="relative row-span-10 grid grid-rows-10"
+            x-data="app({{ $lines->toJson() }})"
+            wire:ignore
+        >
             <div class="row-span-8">
                 <button
                     @click="nextLine"

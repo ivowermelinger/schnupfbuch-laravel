@@ -12,6 +12,7 @@ trait HasAuthenticationMethods
 
     public function authenticate()
     {
+
         $this->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'min:8'],

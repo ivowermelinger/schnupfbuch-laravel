@@ -14,7 +14,7 @@ class Index extends Component
     use HasAuthenticationMethods;
 
     public $lines;
-    public $limit = 25;
+    public $limit = 2;
     public User $user;
 
     public function render()

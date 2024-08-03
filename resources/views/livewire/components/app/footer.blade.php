@@ -18,12 +18,11 @@
         >
             <div class="text-dark my-8">
                 <form wire:submit.prevent="store" novalidate>
-                    <div>
-                        <x-form.input
-                            type="textarea"
+                    <div class="mt-6">
+                        <x-form.textarea
                             name="line"
+                            rows="4"
                             id="line"
-                            label="Spruch"
                             class="bg-light border-dark"
                             wire:model="line"
                         />
