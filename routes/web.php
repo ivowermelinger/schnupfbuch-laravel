@@ -9,6 +9,7 @@ use App\Livewire\Auth\Passwords\Reset;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use App\Livewire\Pages\App;
+use App\Livewire\Pages\Settings;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,22 +25,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', App\Index::class)->name('home');
 
+Route::get('password/reset', Email::class)
+    ->name('password.request');
+
+Route::get('password/reset/{token}', Reset::class)
+    ->name('password.reset');
+
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
 
     Route::get('register', Register::class)
         ->name('register');
-
-
-
 });
 
-Route::get('password/reset', Email::class)
-    ->name('password.request');
-
-Route::get('password/reset/{token}', Reset::class)
-    ->name('password.reset');
 
 Route::middleware('auth')->group(function () {
     Route::get('email/verify', Verify::class)
@@ -48,9 +47,8 @@ Route::middleware('auth')->group(function () {
 
 /*     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm'); */
-});
 
-Route::middleware('auth')->group(function () {
+
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');
@@ -58,6 +56,8 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', LogoutController::class)
         ->name('logout');
 
-
-    Route::get('/settings', App\Index::class )->name('settings');
+    Route::prefix('settings')->group(function () {
+        Route::get('/', Settings\Index::class)->name('settings.index');
+    });
 });
+

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Pages\Admin;
 
 use Illuminate\Http\Request;
 use Livewire\Component;
 use App\Models\Line;
 
-class LineManagement extends Component
+class Index extends Component
 {
     public ?Line $line;
 

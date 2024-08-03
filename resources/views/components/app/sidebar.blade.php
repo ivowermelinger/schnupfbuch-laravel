@@ -4,7 +4,7 @@
 
 @php
     $itemClasses = 'first:border-t border-light border-b ';
-    $linkClasses = 'text-lead  flex items-center gap-4 py-4 font-semibold ';
+    $linkClasses = 'text-lead  flex items-center gap-6 py-4 font-semibold ';
 @endphp
 
 @if ($user)
@@ -26,18 +26,28 @@
         >
             <div class="container">
                 <div class="flex flex-col items-center justify-center py-8">
-                    <span class="text-heading">
-                        Hi, {{ $user->nickname }}!
-                    </span>
                     <div class="mt-6">
                         <x-app.profile-picture class="w-20" :$user />
                     </div>
+
+                    <span class="text-heading my-6">
+                        Hi, {{ $user->nickname }}!
+                    </span>
 
                     <nav class="mt-12 w-full">
                         <ul class="flex w-full flex-col">
                             <li class="{{ $itemClasses }}">
                                 <a
-                                    href="{{ route('settings') }}"
+                                    href="{{ route('home') }}"
+                                    class="{{ $linkClasses }}"
+                                >
+                                    <x-icon.snuff class="h-7" />
+                                    <span>{{ __('Schnupfsprüche') }}</span>
+                                </a>
+                            </li>
+                            <li class="{{ $itemClasses }}">
+                                <a
+                                    href="{{ route('settings.index') }}"
                                     class="{{ $linkClasses }}"
                                 >
                                     <x-icon.settings class="w-7" />
