@@ -16,7 +16,7 @@ class CheckAuthenticatedAPI
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $userId = Auth::id();
+/*         $userId = Auth::id();
 
         if (!$userId) {
             return response()->json([
@@ -25,6 +25,6 @@ class CheckAuthenticatedAPI
             ], 401);
         }
 
-        return $next($request);
+        return $next($request); */
     }
 }

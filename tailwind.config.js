@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     theme: {
@@ -7,11 +7,18 @@ module.exports = {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
         },
+        colors: {
+            dark: '#231f20',
+            light: '#f2efea',
+            primary: '#de3c4b',
+            error: '#e0491b',
+            success: '#82a759',
+        },
     },
     variants: {
         extend: {
             backgroundColor: ['active'],
-        }
+        },
     },
     content: [
         './app/**/*.php',
@@ -28,4 +35,4 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
     ],
-}
+};
