@@ -34,15 +34,7 @@ module.exports = {
         },
         fontSize: {
             content: [
-                'clamp(1.125rem, 1.0536rem + 0.3571vw, 1.375rem)',
-                {
-                    lineHeight: '1.3',
-
-                    fontWeight: '400',
-                },
-            ],
-            base: [
-                'clamp(1.125rem, 1.0536rem + 0.3571vw, 1.375rem)',
+                'clamp(1rem, 0.9286rem + 0.3571vw, 1.25rem)',
                 {
                     lineHeight: '1.3',
 
@@ -50,7 +42,7 @@ module.exports = {
                 },
             ],
             heading: [
-                'clamp(1.5rem, 1.4286rem + 0.3571vw, 1.75rem)',
+                'clamp(1.625rem, 1.5179rem + 0.5357vw, 2rem)',
                 {
                     lineHeight: '1.3',
                     fontWeight: '700',

@@ -6,10 +6,10 @@
     </h2>
 
     @if (Route::has('register'))
-        <p class="max-w mt-2 text-center text-sm leading-5 text-gray-600">
-            <span class="text-content">{{ __('oder') }}</span>
+        <p class="mt-4 text-center">
             <x-link href="{{ route('register') }}">
-                <span>{{ __('einen neuen Account erstellen') }}</span>
+                <x-icon.login class="w-7" />
+                <span>{{ __('Neuen Account erstellen') }}</span>
             </x-link>
         </p>
     @endif

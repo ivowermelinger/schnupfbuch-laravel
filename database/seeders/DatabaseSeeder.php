@@ -34,11 +34,6 @@ class DatabaseSeeder extends Seeder
             'email' => $adminEmail,
         ]);
 
-        // Check if any of the required environment variables are missing
-        if (empty($adminFirstName) || empty($adminLastName) || empty($adminNickname) || empty($adminEmail) || empty($adminPassword)) {
-            throw new \Exception('Missing environment variables for admin user.');
-        }
-
         // Create an admin user
         User::create([
             'first_name' => $adminFirstName,

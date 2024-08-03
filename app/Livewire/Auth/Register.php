@@ -11,35 +11,32 @@ use Livewire\Component;
 
 class Register extends Component
 {
-    public $name = '';
-    public $email = '';
-    public $password = '';
-    public $passwordConfirmation = '';
-    public $first_name = '';
-    public $last_name = '';
-    public $nickname = '';
+    public $email = 'email@email.com';
+    public $password = 'password';
+    public $password_confirmation = 'password';
+    public $first_name = 'Maxi';
+    public $last_name = 'Muster';
+    public $nickname = 'Maxi';
 
     public function register()
     {
         $this->validate([
-            'name' => ['required'],
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'same:passwordConfirmation'],
+            'password' => ['required', 'min:8', 'same:password_confirmation'],
             'first_name' => ['required'],
             'last_name' => ['required'],
-            'nickname' => ['required', 'min:5', 'unique:users'],
+            'nickname' => ['required', 'min:4', 'unique:users'],
         ]);
 
         $user = User::create([
             'email' => $this->email,
-            'name' => $this->name,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'nickname' => $this->nickname,
             'password' => Hash::make($this->password),
         ]);
 
         event(new Registered($user));
-
-        Auth::login($user, true);
-
         return redirect()->intended(route('home'));
     }
 

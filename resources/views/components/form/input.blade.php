@@ -3,8 +3,12 @@
         for="{{ $attributes->get('id', '') }}"
         class="text-content font-medium"
     >
-        {{ $attributes->get('label', '') }}
+        <span>{{ $attributes->get('label', '') }} @if ($attributes->has('required')) <span class="text-white">*</span> @endif</span></span>
     </label>
+
+    @if ($attributes->has('hint'))
+        <p class="text-small">{{ $attributes->get('hint') }}</p>
+    @endif
 
     <div class="mt-2 rounded-md">
         <input

@@ -6,18 +6,17 @@
             {{ __('Neuen Account erstellen') }}
         </h1>
 
-        <p class="mt-4 flex items-center justify-center text-center">
-            <span class="text-content mr-4">{{ __('oder') }}</span>
+        <p class="mt-4 text-center">
             <x-link href="{{ route('login') }}">
                 <x-icon.login class="w-7" />
-                <span>{{ __('zum Login') }}</span>
+                <span>{{ __('Login') }}</span>
             </x-link>
         </p>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-            <form novalidate wire:submit.prevent="register">
+            <form novalidate @submit.prevent="submit" x-data="register">
                 <x-form.input
                     label="Nickname"
                     id="nickname"
@@ -25,7 +24,19 @@
                     name="nickname"
                     required
                     class="bg-dark border-light"
+                    x-model="nickname"
+                    @keyup="checkNickname"
+                    x-ref="nickname"
+                    wire:model="nickname"
+                    value="Max"
                 />
+                <p
+                    x-show="showNicknameError"
+                    class="text-small text-error mt-2"
+                >
+                    {{ __('Verwende keine beleidigenden Wörter!') }}
+                </p>
+
                 <div class="mt-6">
                     <x-form.input
                         label="Vorname"
@@ -35,6 +46,7 @@
                         name="first_name"
                         required
                         class="bg-dark border-light"
+                        wire:model="first_name"
                     />
                 </div>
                 <div class="mt-6">
@@ -46,6 +58,7 @@
                         name="last_name"
                         required
                         class="bg-dark border-light"
+                        wire:model="last_name"
                     />
                 </div>
 
@@ -57,6 +70,7 @@
                         name="email"
                         required
                         class="bg-dark border-light"
+                        wire:model="email"
                     />
                 </div>
 
@@ -68,6 +82,7 @@
                         name="password"
                         required
                         class="bg-dark border-light"
+                        wire:model="password"
                     />
                 </div>
                 <div class="mt-6">
@@ -78,6 +93,7 @@
                         name="password_confirmation"
                         required
                         class="bg-dark border-light"
+                        wire:model="password_confirmation"
                     />
                 </div>
 
