@@ -13,11 +13,10 @@ return [
     |
     */
 
-    'reset' => 'Dein Paswort wurde zurückgesetzt.',
-    'sent' => 'Wir haben eine E-Mail zum Zurücksetzen des Passworts versendet.',
-    'throttled' => 'Bitte warte bevor du es erneut versuchst.',
-    'token' => 'Der Token zum Zurücksetzen des Passworts ist ungültig.',
-    'user' => "Wir können keinen Benutzer mit dieser E-Mail-Adresse finden.",
-    'reset_expiration' => 'Dieser Link zum Zurücksetzen des Passworts läuft in :count Minuten ab.',
+    'reset' => 'Dein Passwort wurde zurückgesetzt.',
+    'sent' => 'Wir haben dir eine E-Mail mit dem Link zum Zurücksetzen des Passwortes gesendet.',
+    'throttled' => 'Bitte warte einen Moment bevor du es erneut versuchts.',
+    'token' => 'Dieses Token ist abgelaufen.',
+    'user' => "Wir können keinen Account mit dieser E-Mail-Adresse finden.",
 
 ];

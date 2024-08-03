@@ -6,7 +6,7 @@
         {{ $attributes->get('label', '') }}
     </label>
 
-    <div class="mt-1 rounded-md">
+    <div class="mt-2 rounded-md">
         <input
             {{
                 $attributes->merge(['class' => 'border-2 text-content block w-full appearance-none rounded-md m-0 py-2 px-2 focus:outline-none'])->class([

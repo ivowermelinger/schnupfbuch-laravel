@@ -7,7 +7,7 @@
 
     @if (Route::has('register'))
         <p class="max-w mt-2 text-center text-sm leading-5 text-gray-600">
-            <span>{{ __('oder') }}</span>
+            <span class="text-content">{{ __('oder') }}</span>
             <x-link href="{{ route('register') }}">
                 <span>{{ __('einen neuen Account erstellen') }}</span>
             </x-link>
@@ -34,12 +34,9 @@
                 />
             </div>
 
-            <div class="mt-6">
-                <x-button
-                    class="bg-primary text-light flex items-center justify-center rounded-md px-2 py-2"
-                    type="submit"
-                >
-                    Sign in
+            <div class="mt-8">
+                <x-button type="submit" class="bg-primary text-light">
+                    <span>{{ __('Login') }}</span>
                 </x-button>
             </div>
 
