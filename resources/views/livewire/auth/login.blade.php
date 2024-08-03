@@ -22,6 +22,7 @@
                 name="email"
                 class="bg-dark text-light border-light"
                 type="email"
+                wire:model="email"
             />
 
             <div class="mt-6">
@@ -31,6 +32,7 @@
                     name="password"
                     type="password"
                     class="bg-dark text-light border-light"
+                    wire:model="password"
                 />
             </div>
 

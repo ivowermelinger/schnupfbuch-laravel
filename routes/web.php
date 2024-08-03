@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/', App\Index::class)->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
@@ -31,7 +31,7 @@ Route::middleware('guest')->group(function () {
     Route::get('register', Register::class)
         ->name('register');
 
-    Route::get('/', App\Index::class)->name('home');
+
 
 });
 
@@ -46,8 +46,8 @@ Route::middleware('auth')->group(function () {
         ->middleware('throttle:6,1')
         ->name('verification.notice');
 
-    Route::get('password/confirm', Confirm::class)
-        ->name('password.confirm');
+/*     Route::get('password/confirm', Confirm::class)
+        ->name('password.confirm'); */
 });
 
 Route::middleware('auth')->group(function () {

@@ -6,9 +6,13 @@ use Livewire\Component;
 use App\Models\Line;
 use App\Models\UserInteraction;
 use Illuminate\Support\Facades\Auth;
+use App\LiveWire\Auth\Login;
+use App\Livewire\Traits\HasAuthenticationMethods;
 
 class Index extends Component
 {
+    use HasAuthenticationMethods;
+
     public $lines;
     public $limit = 25;
 

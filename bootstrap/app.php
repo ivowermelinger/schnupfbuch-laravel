@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\HandleInertiaRequests;
+
 use Illuminate\Routing\Exceptions\InvalidSignatureException;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -17,14 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: []);
 
         $middleware->trustHosts(at: ['laravel.test']);;
-
-        $middleware->web(append: [
-            HandleInertiaRequests::class,
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (InvalidSignatureException $e, Request $request) {
-            // Redirect invalid signature exceptions to the error page
-            return redirect('/verify/error')->with(['userToRefresh' => $request->route('id')]);
-        });
+
     })->create();
