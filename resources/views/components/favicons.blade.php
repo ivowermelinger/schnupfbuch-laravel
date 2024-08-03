@@ -15,7 +15,10 @@
     sizes="16x16"
     href="/favicons/favicon-16x16.png"
 />
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#000000" />
+<link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+<link rel="icon" type="image/png" href="/favicons/favicon.png" />
+
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#de3c4b" />
 <link rel="shortcut icon" href="/favicons/favicon.ico" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
 
