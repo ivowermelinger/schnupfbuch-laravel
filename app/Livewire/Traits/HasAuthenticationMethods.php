@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Livewire\Traits;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Auth;
 
 trait HasAuthenticationMethods
 {
@@ -10,14 +10,12 @@ trait HasAuthenticationMethods
     public $password = '';
     public $remember = false;
 
-    protected $rules = [
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ];
-
     public function authenticate()
     {
-        $this->validate();
+        $this->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:8'],
+        ]);
 
         if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             $this->addError('email', trans('auth.failed'));
@@ -26,5 +24,4 @@ trait HasAuthenticationMethods
 
         return redirect()->intended(route('home'));
     }
-
 }

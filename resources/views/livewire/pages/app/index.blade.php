@@ -43,37 +43,43 @@
             <livewire:components.app.footer />
         </div>
 
-        <x-app.dialog id="login" title="Login" @open-login.window="open">
-            <div class="text-dark my-8">
-                <form novalidate wire:submit.prevent="authenticate">
-                    <div>
-                        <x-form.input
-                            type="email"
-                            name="email"
-                            id="email"
-                            label="E-Mail"
-                            class="bg-light border-dark"
-                            wire:model="email"
-                        />
-                    </div>
-                    <div class="mt-6">
-                        <x-form.input
-                            type="password"
-                            name="password"
-                            id="password"
-                            label="Passwort"
-                            class="bg-light border-dark"
-                            wire:model="password"
-                        />
-                    </div>
+        @auth
+        @else
+            <x-app.dialog id="login" title="Login" @open-login.window="open">
+                <div class="text-dark my-8">
+                    <form wire:submit.prevent="authenticate" novalidate>
+                        <div>
+                            <x-form.input
+                                type="email"
+                                name="email"
+                                id="email"
+                                label="E-Mail"
+                                class="bg-light border-dark"
+                                wire:model="email"
+                            />
+                        </div>
+                        <div class="mt-6">
+                            <x-form.input
+                                type="password"
+                                name="password"
+                                id="password"
+                                label="Passwort"
+                                class="bg-light border-dark"
+                                wire:model="password"
+                            />
+                        </div>
 
-                    <div class="mt-8">
-                        <x-button type="submit" class="bg-primary text-light">
-                            <span>{{ __('Login') }}</span>
-                        </x-button>
-                    </div>
-                </form>
-            </div>
-        </x-app.dialog>
+                        <div class="mt-8">
+                            <x-button
+                                type="submit"
+                                class="bg-primary text-light"
+                            >
+                                <span>{{ __('Login') }}</span>
+                            </x-button>
+                        </div>
+                    </form>
+                </div>
+            </x-app.dialog>
+        @endauth
     </main>
 </div>

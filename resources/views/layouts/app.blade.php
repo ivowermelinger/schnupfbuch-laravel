@@ -21,8 +21,6 @@
     </head>
 
     <body class="bg-dark">
-      
-
         @yield('content')
 
         @isset($slot)

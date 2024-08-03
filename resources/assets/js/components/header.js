@@ -1,6 +1,6 @@
 document.addEventListener('alpine:init', () => {
     window.Alpine.data('header', () => ({
-        showSidebar: true,
+        showSidebar: false,
         init: async function () {},
 
         open: function () {

@@ -17,7 +17,7 @@
             <h3 class="text-heading font-bold">
                 {{ $attributes->get('title') ?? '' }}
             </h3>
-            <button x-on:click="close">
+            <button @click="close">
                 <span class="sr-only">{{ __('Dialog schliessen') }}</span>
                 <x-icon.close class="w-8" />
             </button>
