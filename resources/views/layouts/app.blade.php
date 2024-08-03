@@ -21,7 +21,7 @@
     </head>
 
     <body class="bg-dark">
-        <x-app.header />
+      
 
         @yield('content')
 

@@ -4,9 +4,9 @@ namespace App\Livewire\Pages\App;
 
 use Livewire\Component;
 use App\Models\Line;
+use App\Models\User;
 use App\Models\UserInteraction;
 use Illuminate\Support\Facades\Auth;
-use App\LiveWire\Auth\Login;
 use App\Livewire\Traits\HasAuthenticationMethods;
 
 class Index extends Component
@@ -15,6 +15,7 @@ class Index extends Component
 
     public $lines;
     public $limit = 25;
+    public User $user;
 
     public function render()
     {
@@ -24,6 +25,8 @@ class Index extends Component
     public function mount()
     {
 		$this->getLines();
+        $this->user = Auth::user();
+
     }
 
     public function getLines()
