@@ -90,9 +90,6 @@ jobs:
       - name: Build assets
         run: yarn build
 
-      - name: List build output
-        run: ls -R build
-
       - name: Prepare environment file
         run: |
           cp .env.example .env
@@ -107,10 +104,6 @@ jobs:
           sed -i 's|^ADMIN_NICKNAME=.*|ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}|' .env
           sed -i 's|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD="${{ env.ADMIN_PASSWORD }}"|' .env
 
-      - name: Log environment variables
-        run: |
-          echo "Environment variables:"
-          cat .env
 
       - name: Generate application key
         run: php artisan key:generate
