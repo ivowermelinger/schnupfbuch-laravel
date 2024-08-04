@@ -4,7 +4,8 @@
 
 @php
     $itemClasses = 'first:border-t border-light border-b ';
-    $linkClasses = 'text-lead  flex items-center gap-6 py-4 font-semibold ';
+    $linkClasses =
+        'text-lead  flex items-center gap-6 py-4 font-semibold transition-all hover:pl-6 ';
 @endphp
 
 @if ($user)
@@ -21,16 +22,24 @@
             x-transition:enter-end="translate-x-0 "
             x-transition:leave-start="translate-x-0"
             x-transition:leave="-translate-x-full transition duration-300 ease-out"
-            @click.outside="close"
-            class="bg-primary text-light flex h-full w-80 max-w-full flex-col md:w-96 xl:w-3/12"
+            x-on:click.outside="close"
+            class="flex h-full w-80 max-w-full flex-col bg-primary text-light md:w-96 xl:w-3/12"
         >
-            <div class="container">
-                <div class="flex flex-col items-center justify-center py-8">
+            <div class="container py-8">
+                <div class="flex justify-end">
+                    <button x-on:click="close">
+                        <span class="sr-only">
+                            {{ __('Sidebar schliessen') }}
+                        </span>
+                        <x-icon.close class="w-8 text-light" />
+                    </button>
+                </div>
+                <div class="flex flex-col items-center justify-center">
                     <div class="mt-6">
                         <x-app.profile-picture class="w-20" :$user />
                     </div>
 
-                    <span class="text-heading my-6">
+                    <span class="my-6 text-heading">
                         Hi, {{ $user->nickname }}!
                     </span>
 
@@ -41,8 +50,17 @@
                                     href="{{ route('home') }}"
                                     class="{{ $linkClasses }}"
                                 >
+                                    <x-icon.planet class="w-7" />
+                                    <span>{{ __('Start') }}</span>
+                                </a>
+                            </li>
+                            <li class="{{ $itemClasses }}">
+                                <a
+                                    href="{{ route('settings.lines') }}"
+                                    class="{{ $linkClasses }}"
+                                >
                                     <x-icon.snuff class="h-7" />
-                                    <span>{{ __('Schnupfsprüche') }}</span>
+                                    <span>{{ __('Deine Sprüche') }}</span>
                                 </a>
                             </li>
                             <li class="{{ $itemClasses }}">
@@ -51,7 +69,7 @@
                                     class="{{ $linkClasses }}"
                                 >
                                     <x-icon.settings class="w-7" />
-                                    <span>{{ __('Profil') }}</span>
+                                    <span>{{ __('Account') }}</span>
                                 </a>
                             </li>
                             <li class="{{ $itemClasses }}">

@@ -11,7 +11,7 @@
         >
             <div class="row-span-9">
                 <button
-                    @click="nextLine"
+                    x-on:click="nextLine"
                     class="x-cloak relative flex h-full w-full flex-col items-center justify-center"
                 >
                     <span

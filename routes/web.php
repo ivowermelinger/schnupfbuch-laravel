@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('throttle:6,1')
         ->name('verification.notice');
 
-/*     Route::get('password/confirm', Confirm::class)
+    /*     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm'); */
 
 
@@ -58,6 +58,6 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('settings')->group(function () {
         Route::get('/', Settings\Index::class)->name('settings.index');
+        Route::get('/my-lines', Settings\UserLines::class)->name('settings.lines');
     });
 });
-

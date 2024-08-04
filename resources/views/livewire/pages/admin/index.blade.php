@@ -1,3 +1,7 @@
+<x-page-heading>
+    {{ __('Alle Sprüche') }}
+</x-page-heading>
+
 <div class="container" wire:model="filter">
     <div class="row spacer--mt-2">
         <div class="col-12">
