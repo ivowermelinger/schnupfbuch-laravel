@@ -4,7 +4,7 @@
         @auth
             x-on:click="like"
         @else
-            x-on:click"$dispatch('open-login')"
+            x-on:click="$dispatch('open-login')"
         @endauth
     >
         <span class="sr-only">{{ __("Dislike hinzufügen") }}</span>
