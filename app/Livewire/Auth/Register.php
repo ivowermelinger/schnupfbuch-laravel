@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\App;
 
 class Register extends Component
 {
-    public $email = 'email@email.com';
-    public $password = 'password';
-    public $password_confirmation = 'password';
-    public $first_name = 'Maxi';
-    public $last_name = 'Muster';
-    public $nickname = 'Maxi';
+    public $email = '';
+    public $password = '';
+    public $password_confirmation = '';
+    public $first_name = '';
+    public $last_name = '';
+    public $nickname = '';
 
     public function register()
     {
