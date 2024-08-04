@@ -2,9 +2,8 @@
 
 namespace App\Livewire\Auth;
 
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use App\Livewire\Traits\HasAuthenticationMethods;
+use App\Traits\HasAuthenticationMethods;
 
 class Login extends Component
 {

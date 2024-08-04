@@ -26,5 +26,7 @@
         @isset($slot)
             {{ $slot }}
         @endisset
+
+        <x-app.toast-handler />
     </body>
 </html>

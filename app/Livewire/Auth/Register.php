@@ -4,7 +4,7 @@ namespace App\Livewire\Auth;
 
 
 use App\Models\User;
-
+use App\Traits\HasFlashMessage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Livewire\Component;
@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\App;
 
 class Register extends Component
 {
+    use HasFlashMessage;
+
     public $email = '';
     public $password = '';
     public $password_confirmation = '';
@@ -38,6 +40,9 @@ class Register extends Component
         ]);
 
         event(new Registered($user));
+
+        $this->flash('success', __('Dein Account wurde erstellt. Du hast eine E-Mail erhalten, um deine E-Mail-Adresse zu bestätigen.'));
+
         return redirect()->intended(route('home'));
     }
 

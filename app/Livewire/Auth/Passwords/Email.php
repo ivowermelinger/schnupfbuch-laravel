@@ -4,7 +4,6 @@ namespace App\Livewire\Auth\Passwords;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\App;
 
 class Email extends Component
 {

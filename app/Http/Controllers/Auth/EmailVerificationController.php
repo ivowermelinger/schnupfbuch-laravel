@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Traits\HasFlashMessage;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -11,6 +12,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class EmailVerificationController extends Controller
 {
+    use HasFlashMessage;
+
     public function __invoke(string $id, string $hash): RedirectResponse
     {
 
@@ -33,6 +36,7 @@ class EmailVerificationController extends Controller
         }
 
         if (Auth::user()->hasVerifiedEmail()) {
+            $this->flash('success', __('Deine E-Mail-Adresse wurde bereits bestätigt.'));
             return redirect(route('login'));
         }
 
@@ -40,6 +44,7 @@ class EmailVerificationController extends Controller
             event(new Verified(Auth::user()));
         }
 
+        $this->flash('success', __('Deine E-Mail-Adresse wurde erfolgreich bestätigt.'));
         return redirect(route('home'));
     }
 }

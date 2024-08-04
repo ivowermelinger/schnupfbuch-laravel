@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\View;
 use App\Models\UserInteraction;
 use Illuminate\Support\Facades\Auth;
-use App\Livewire\Traits\HasAuthenticationMethods;
+use App\Traits\HasAuthenticationMethods;
 
 class Index extends Component
 {
@@ -116,6 +116,7 @@ class Index extends Component
 
     public function render()
     {
+
         return view('livewire.pages.app.index')->extends('layouts.app');
     }
 }
