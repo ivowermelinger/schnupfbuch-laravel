@@ -2,7 +2,7 @@
 
 <div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h1 class="text-heading mt-6 text-center">
+        <h1 class="mt-6 text-center text-heading">
             {{ __('Neuen Account erstellen') }}
         </h1>
 
@@ -23,7 +23,7 @@
                     type="text"
                     name="nickname"
                     required
-                    class="bg-dark border-light"
+                    class="border-light bg-dark"
                     x-model="nickname"
                     @keyup="checkNickname"
                     x-ref="nickname"
@@ -32,7 +32,7 @@
                 />
                 <p
                     x-show="showNicknameError"
-                    class="text-small text-error mt-2"
+                    class="mt-2 text-small text-error"
                 >
                     {{ __('Verwende keine beleidigenden Wörter!') }}
                 </p>
@@ -45,7 +45,7 @@
                         type="text"
                         name="first_name"
                         required
-                        class="bg-dark border-light"
+                        class="border-light bg-dark"
                         wire:model="first_name"
                     />
                 </div>
@@ -57,7 +57,7 @@
                         type="text"
                         name="last_name"
                         required
-                        class="bg-dark border-light"
+                        class="border-light bg-dark"
                         wire:model="last_name"
                     />
                 </div>
@@ -69,7 +69,7 @@
                         type="email"
                         name="email"
                         required
-                        class="bg-dark border-light"
+                        class="border-light bg-dark"
                         wire:model="email"
                     />
                 </div>
@@ -81,7 +81,7 @@
                         type="password"
                         name="password"
                         required
-                        class="bg-dark border-light"
+                        class="border-light bg-dark"
                         wire:model="password"
                     />
                 </div>
@@ -92,7 +92,7 @@
                         type="password"
                         name="password_confirmation"
                         required
-                        class="bg-dark border-light"
+                        class="border-light bg-dark"
                         wire:model="password_confirmation"
                     />
                 </div>

@@ -52,15 +52,16 @@ class Reset extends Component
                 $user->save();
 
                 event(new PasswordReset($user));
-
-                $this->guard()->login($user);
             }
         );
 
         if ($response == Password::PASSWORD_RESET) {
-            session()->flash(trans($response));
+            session()->flash('message', [
+                'success' => true,
+                'text' => 'Dein Passwort wurde erfolgreich zurückgesetzt!',
+            ]);
 
-            return redirect(route('home'));
+            return redirect(route('login'));
         }
 
         $this->addError('email', trans($response));

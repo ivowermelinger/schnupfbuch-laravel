@@ -78,6 +78,22 @@
                             <span>{{ __('Login') }}</span>
                         </x-button>
                     </div>
+
+                    <div class="mt-6">
+                        <x-link href="{{ route('password.request') }}">
+                            <span class="text-dark">
+                                {{ __('Passwort vergessen?') }}
+                            </span>
+                        </x-link>
+                    </div>
+
+                    <div class="mt-4">
+                        <x-link href="{{ route('register') }}">
+                            <span class="text-dark">
+                                {{ __('Registrieren') }}
+                            </span>
+                        </x-link>
+                    </div>
                 </form>
             </x-app.dialog>
         @endauth

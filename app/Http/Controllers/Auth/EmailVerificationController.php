@@ -3,16 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class EmailVerificationController extends Controller
 {
     public function __invoke(string $id, string $hash): RedirectResponse
     {
+
+        // Get user from id
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new AuthorizationException();
+        }
+
+        // Login user
+        Auth::login($user);
+
         if (!hash_equals((string) $id, (string) Auth::user()->getKey())) {
             throw new AuthorizationException();
         }
@@ -22,7 +33,7 @@ class EmailVerificationController extends Controller
         }
 
         if (Auth::user()->hasVerifiedEmail()) {
-            return redirect(route('home'));
+            return redirect(route('login'));
         }
 
         if (Auth::user()->markEmailAsVerified()) {

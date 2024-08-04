@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Auth;
 
-use App\Providers\RouteServiceProvider;
+
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Livewire\Component;
+use Illuminate\Support\Facades\App;
 
 class Register extends Component
 {

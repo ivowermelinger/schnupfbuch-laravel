@@ -15,7 +15,7 @@ return [
 
     'reset' => 'Dein Passwort wurde zurückgesetzt.',
     'sent' => 'Wir haben dir eine E-Mail mit dem Link zum Zurücksetzen des Passwortes gesendet.',
-    'throttled' => 'Bitte warte einen Moment bevor du es erneut versuchts.',
+    'throttled' => 'Bitte warte einen Moment, bevor du es erneut versuchst.',
     'token' => 'Dieses Token ist abgelaufen.',
     'user' => "Wir können keinen Account mit dieser E-Mail-Adresse finden.",
 

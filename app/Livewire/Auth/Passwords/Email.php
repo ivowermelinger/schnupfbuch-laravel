@@ -4,6 +4,7 @@ namespace App\Livewire\Auth\Passwords;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\App;
 
 class Email extends Component
 {
@@ -15,6 +16,7 @@ class Email extends Component
 
     public function sendResetPasswordLink()
     {
+
         $this->validate([
             'email' => ['required', 'email'],
         ]);
