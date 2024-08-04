@@ -15,11 +15,11 @@ class Index extends Component
 
     public function render(Request $request)
     {
-       $this->active = $request->active;
+        $this->active = $request->active;
 
         if (isset($this->active)) {
             $lines = Line::all()->where('active', $request->active);
-        }else{
+        } else {
             $lines = Line::all();
         }
         return view('livewire.pages.line-management')->with([

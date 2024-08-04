@@ -11,7 +11,7 @@ class UserInteraction extends Model
 
     protected $table = 'user_interactions';
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -23,9 +23,9 @@ class UserInteraction extends Model
         'disliked',
     ];
 
-     // Eloquent event for when a new interaction is created
-     protected static function boot()
-     {
+    // Eloquent event for when a new interaction is created
+    protected static function boot()
+    {
         parent::boot();
 
         static::created(function ($interaction) {
@@ -61,16 +61,16 @@ class UserInteraction extends Model
                     $interaction->line->increment('dislikes');
                 }
             }
-         });
+        });
 
         static::deleted(function ($interaction) {
-             // Decrement likes or dislikes based on 'liked' value
-             if ($interaction->liked) {
-                 $interaction->line->decrement('likes');
-             } elseif ($interaction->disliked) {
-                 $interaction->line->decrement('dislikes');
-             }
-         });
+            // Decrement likes or dislikes based on 'liked' value
+            if ($interaction->liked) {
+                $interaction->line->decrement('likes');
+            } elseif ($interaction->disliked) {
+                $interaction->line->decrement('dislikes');
+            }
+        });
     }
 
     public function user()

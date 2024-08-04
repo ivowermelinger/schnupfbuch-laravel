@@ -4,12 +4,12 @@
     <main
         class="main--app container grid grid-cols-none grid-rows-12 bg-dark pb-4 pt-20 text-light"
     >
-        <div class="relative row-span-11 grid grid-rows-11">
-            <div
-                class="row-span-9"
-                x-data="app({{ $lines->toJson() }})"
-                wire:ignore
-            >
+        <div
+            class="relative row-span-11 grid grid-rows-11"
+            x-data="app({{ $lines->toJson() }})"
+            wire:ignore
+        >
+            <div class="row-span-9">
                 <button
                     @click="nextLine"
                     class="x-cloak relative flex h-full w-full flex-col items-center justify-center"

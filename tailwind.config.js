@@ -15,6 +15,7 @@ module.exports = {
             error: '#AD343E',
             success: '#82a759',
             focus: '#2374AB',
+            active: '#C8963E',
         },
 
         container: {

@@ -1,25 +1,35 @@
-<div x-data="userFeedback" class="flex h-full w-full justify-center gap-4">
+<div class="flex h-full w-full justify-center gap-4">
     <button
         class="flex h-full w-full items-center justify-center"
         @auth
-            @click="like"
+            x-on:click="like"
         @else
-            @click="$dispatch('open-login')"
+            x-on:click"$dispatch('open-login')"
         @endauth
     >
         <span class="sr-only">{{ __("Dislike hinzufügen") }}</span>
-        <x-icon.thumb class="w-10 md:w-14" x-ref="origin" />
+        <span
+            class="transition-all"
+            :class="{'text-active': activeLine?.liked}"
+        >
+            <x-icon.thumb class="w-10 md:w-14" x-ref="origin" />
+        </span>
     </button>
 
     <button
         class="flex h-full w-full items-center justify-center"
         @auth
-            @click="dislike"
+            x-on:click="dislike"
         @else
-            @click="$dispatch('open-login')"
+            x-on:click="$dispatch('open-login')"
         @endauth
     >
         <span class="sr-only">{{ __("Dislike hinzufügen") }}</span>
-        <x-icon.thumb class="w-10 rotate-180 md:w-14" />
+        <span
+            class="transition-all"
+            :class="{'text-active': activeLine?.disliked}"
+        >
+            <x-icon.thumb class="w-10 rotate-180 md:w-14" />
+        </span>
     </button>
 </div>
