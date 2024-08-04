@@ -2,42 +2,42 @@
     <x-app.header :$user />
 
     <main
-        class="main--app bg-dark text-light container grid grid-cols-none grid-rows-12 pb-4 pt-20"
+        class="main--app container grid grid-cols-none grid-rows-12 bg-dark pb-4 pt-20 text-light"
     >
-        <div
-            class="relative row-span-11 grid grid-rows-11"
-            x-data="app({{ $lines->toJson() }})"
-            wire:ignore
-        >
-            <div class="row-span-9">
+        <div class="relative row-span-11 grid grid-rows-11">
+            <div
+                class="row-span-9"
+                x-data="app({{ $lines->toJson() }})"
+                wire:ignore
+            >
                 <button
                     @click="nextLine"
                     class="x-cloak relative flex h-full w-full flex-col items-center justify-center"
                 >
                     <span
-                        class="text-lead text-light font-bold"
+                        class="text-lead font-bold text-light"
                         x-text="activeLine.line"
                     ></span>
                     <span
-                        class="text-lead text-light mt-4 font-light"
+                        class="mt-4 text-lead font-light text-light"
                         x-text="activeLine.nickname"
                     ></span>
                 </button>
+
+                <div
+                    x-show="loading"
+                    x-transition
+                    class="absolute inset-0 z-10 flex items-center justify-center bg-dark"
+                >
+                    <div class="spinner text-primary">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
             </div>
 
             <div class="row-span-2">
                 <x-app.user-interaction />
-            </div>
-
-            <div
-                x-show="loading"
-                x-transition
-                class="bg-dark absolute inset-0 flex items-center justify-center"
-            >
-                <div class="spinner text-primary">
-                    <div></div>
-                    <div></div>
-                </div>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
         @auth
         @else
             <x-app.dialog id="login" title="Login" @open-login.window="open">
-                <div class="text-dark my-8">
+                <div class="my-8 text-dark">
                     <form wire:submit.prevent="authenticate" novalidate>
                         <div>
                             <x-form.input
@@ -56,7 +56,7 @@
                                 name="email"
                                 id="email"
                                 label="E-Mail"
-                                class="bg-light border-dark"
+                                class="border-dark bg-light"
                                 wire:model="email"
                             />
                         </div>
@@ -66,7 +66,7 @@
                                 name="password"
                                 id="password"
                                 label="Passwort"
-                                class="bg-light border-dark"
+                                class="border-dark bg-light"
                                 wire:model="password"
                             />
                         </div>

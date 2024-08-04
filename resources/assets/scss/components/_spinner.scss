@@ -1,10 +1,12 @@
-.spinner {
-    $aimation-speed: 1.5s;
+$aimation-speed: 1.5s;
+$max-width: 90px;
+$animation-width: 42px;
 
+.spinner {
     display: inline-block;
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: $max-width;
+    height: $max-width;
 
     div {
         box-sizing: border-box;
@@ -23,22 +25,22 @@
 
 @keyframes spinner-animation {
     0% {
-        top: 36px;
-        left: 36px;
+        top: $animation-width;
+        left: $animation-width;
         width: 8px;
         height: 8px;
         opacity: 0;
     }
     4.9% {
-        top: 36px;
-        left: 36px;
+        top: $animation-width;
+        left: $animation-width;
         width: 8px;
         height: 8px;
         opacity: 0;
     }
     5% {
-        top: 36px;
-        left: 36px;
+        top: $animation-width;
+        left: $animation-width;
         width: 8px;
         height: 8px;
         opacity: 1;
@@ -46,8 +48,8 @@
     100% {
         top: 0;
         left: 0;
-        width: 80px;
-        height: 80px;
+        width: $max-width;
+        height: $max-width;
         opacity: 0;
     }
 }
