@@ -9,7 +9,7 @@ class Verify extends Component
 {
     public function mount()
     {
-        if (Auth::user()->hasVerifiedEmail()) {
+        if (Auth::user()?->hasVerifiedEmail()) {
             redirect(route('home'));
         }
     }
