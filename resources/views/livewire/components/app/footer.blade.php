@@ -1,12 +1,9 @@
-<footer
-    class="flex h-full flex-col items-center justify-center"
-    @auth
-        @click="$dispatch('open-line')"
-    @else
-        @click="$dispatch('open-login')"
-    @endauth
->
-    <x-button class="bg-primary text-light">
+@php
+    $clickAction = auth()->check() ? '$dispatch(\'open-line\')' : '$dispatch(\'open-login\')';
+@endphp
+
+<footer class="flex h-full flex-col items-center justify-center">
+    <x-button class="bg-primary text-light" x-on:click="{{$clickAction}}">
         <span>Spruch erfassen</span>
     </x-button>
 
@@ -16,25 +13,23 @@
             title="Spruch erfassen"
             @open-line.window="open"
         >
-            <div class="text-dark my-8">
-                <form wire:submit.prevent="store" novalidate>
-                    <div class="mt-6">
-                        <x-form.textarea
-                            name="line"
-                            rows="4"
-                            id="line"
-                            class="bg-light border-dark"
-                            wire:model="line"
-                        />
-                    </div>
+            <form class="text-dark" wire:submit.prevent="store" novalidate>
+                <div class="mt-6">
+                    <x-form.textarea
+                        name="line"
+                        rows="4"
+                        id="line"
+                        class="border-dark bg-light"
+                        wire:model="line"
+                    />
+                </div>
 
-                    <div class="mt-8">
-                        <x-button type="submit" class="bg-primary text-light">
-                            <span>{{ __("Spruch erfassen") }}</span>
-                        </x-button>
-                    </div>
-                </form>
-            </div>
+                <div class="mt-8">
+                    <x-button type="submit" class="bg-primary text-light">
+                        <span>{{ __('Spruch erfassen') }}</span>
+                    </x-button>
+                </div>
+            </form>
         </x-app.dialog>
     @endauth
 </footer>

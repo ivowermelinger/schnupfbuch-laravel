@@ -48,39 +48,37 @@
         @auth
         @else
             <x-app.dialog id="login" title="Login" @open-login.window="open">
-                <div class="my-8 text-dark">
-                    <form wire:submit.prevent="authenticate" novalidate>
-                        <div>
-                            <x-form.input
-                                type="email"
-                                name="email"
-                                id="email"
-                                label="E-Mail"
-                                class="border-dark bg-light"
-                                wire:model="email"
-                            />
-                        </div>
-                        <div class="mt-6">
-                            <x-form.input
-                                type="password"
-                                name="password"
-                                id="password"
-                                label="Passwort"
-                                class="border-dark bg-light"
-                                wire:model="password"
-                            />
-                        </div>
+                <form
+                    class="text-dark"
+                    wire:submit.prevent="authenticate"
+                    novalidate
+                >
+                    <x-form.input
+                        type="email"
+                        name="email"
+                        id="email"
+                        label="E-Mail"
+                        class="border-dark bg-light"
+                        wire:model="email"
+                    />
 
-                        <div class="mt-8">
-                            <x-button
-                                type="submit"
-                                class="bg-primary text-light"
-                            >
-                                <span>{{ __('Login') }}</span>
-                            </x-button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="mt-6">
+                        <x-form.input
+                            type="password"
+                            name="password"
+                            id="password"
+                            label="Passwort"
+                            class="border-dark bg-light"
+                            wire:model="password"
+                        />
+                    </div>
+
+                    <div class="mt-8">
+                        <x-button type="submit" class="bg-primary text-light">
+                            <span>{{ __('Login') }}</span>
+                        </x-button>
+                    </div>
+                </form>
             </x-app.dialog>
         @endauth
     </main>

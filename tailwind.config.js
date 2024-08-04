@@ -12,9 +12,9 @@ module.exports = {
             dark: '#231f20',
             light: '#f2efea',
             primary: '#de3c4b',
-            error: '#e0491b',
+            error: '#AD343E',
             success: '#82a759',
-            focus: '#85addb',
+            focus: '#2374AB',
         },
 
         container: {
