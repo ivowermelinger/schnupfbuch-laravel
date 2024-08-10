@@ -36,6 +36,7 @@ class Register extends Component
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'nickname' => $this->nickname,
+            'profile_seed' => $this->nickname,
             'password' => Hash::make($this->password),
         ]);
 

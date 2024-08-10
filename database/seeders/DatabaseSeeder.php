@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             'first_name' => $adminFirstName,
             'last_name' => $adminLastName,
             'nickname' => $adminNickname,
+            'profile_seed' => $adminNickname,
             'email' => $adminEmail,
             'password' => bcrypt($adminPassword),
             'email_verified_at' => now(),
