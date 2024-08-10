@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Traits\HasFlashMessage;
 
+
 class Index extends Component
 {
     use HasFlashMessage;
@@ -21,6 +22,8 @@ class Index extends Component
         if (Auth::check()) {
             $this->user = Auth::user();
         }
+
+        abort(404);
     }
 
     public function render()

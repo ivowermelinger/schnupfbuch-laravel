@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\ProfilePictureController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Passwords\Email;
 use App\Livewire\Auth\Passwords\Reset;
@@ -62,6 +63,9 @@ Route::middleware([
     Route::prefix('settings')->group(function () {
         Route::get('/', Settings\Index::class)->name('settings.index');
         Route::get('/my-lines', Settings\UserLines::class)->name('settings.lines');
+        Route::get('/profile-image', [ProfilePictureController::class, 'store'])
+            ->middleware('throttle:6,1')
+            ->name('settings.seed');
     });
 
     Route::prefix('backend')->group(function () {
