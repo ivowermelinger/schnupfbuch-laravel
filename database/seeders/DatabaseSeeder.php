@@ -16,9 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(5)->create();
-        Line::factory(5)->create();
-
         // Get environment variables for admin user
         $adminFirstName = env('ADMIN_FIRST_NAME');
         $adminLastName = env('ADMIN_LAST_NAME');
@@ -35,7 +32,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Create an admin user
-        User::create([
+        $admin = User::create([
             'first_name' => $adminFirstName,
             'last_name' => $adminLastName,
             'nickname' => $adminNickname,
@@ -44,6 +41,51 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'role' => Roles::ADMIN,
             'remember_token' => Str::random(12),
+        ]);
+
+
+        // Create my lines
+        Line::create([
+            'line' => 'Ist der Hund im Zwinger am knurren, gehe ich lieber aussen durren!',
+            'active' => true,
+            'user_id' => $admin->id,
+        ]);
+
+        Line::create([
+            'line' => 'Auf dem Berg da steht ein Gitzi, und es luegt nitzi!',
+            'active' => true,
+            'user_id' => $admin->id,
+        ]);
+
+        Line::create([
+            'line' => 'Ide Migros gits alles zum haube Priiiis!',
+            'active' => true,
+            'user_id' => $admin->id,
+        ]);
+
+        Line::create([
+            'line' => 'Schneewittchen hat einen geilen Po, super Titten sowieso. Jeden Abend wilden Sex, mit den Zwegen eins bis sechs.
+Nur der siebte schwule Zwerg, fickt mit Hänschen hinter dem Berg!',
+            'active' => true,
+            'user_id' => $admin->id,
+        ]);
+
+        Line::create([
+            'line' => 'Prinzesschen warum seit so errötet, hat euch jemand durchgeflötet?
+
+Ja mein Herr, Prinz Theodor, mit sienem langen Ofenrohr!
+
+Prinz Theodor warst du der Schufft, der mein Prinzesschen in den Arsch gepufft?
+
+Oh ja, bitte lass Gnade walten!
+
+Nein,ich werde dir die Eier spalten!
+
+Ein kurzer Schnitt ein langer Schrei und über den Tisch rollt ein halbes Ei!
+
+Und die Moral von der Geschicht halbe Eier rollen nicht!',
+            'active' => true,
+            'user_id' => $admin->id,
         ]);
     }
 }

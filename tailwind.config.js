@@ -46,7 +46,7 @@ module.exports = {
             lead: [
                 'clamp(1.125rem, 1.0179rem + 0.5357vw, 1.5rem)',
                 {
-                    lineHeight: '1.3',
+                    lineHeight: '1.4',
                     fontWeight: '700',
                 },
             ],

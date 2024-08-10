@@ -63,4 +63,8 @@ Route::middleware([
         Route::get('/', Settings\Index::class)->name('settings.index');
         Route::get('/my-lines', Settings\UserLines::class)->name('settings.lines');
     });
+
+    Route::prefix('backend')->group(function () {
+        Route::get('/lines', Settings\Index::class)->name('admin.lines');
+    });
 });

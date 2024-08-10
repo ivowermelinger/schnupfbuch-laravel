@@ -1,11 +1,11 @@
+@inject('navigationService', 'App\Services\NavigationService')
+
 @props([
     'user',
 ])
 
 @php
-    $itemClasses = 'first:border-t border-light border-b ';
-    $linkClasses =
-        'text-lead  flex items-center gap-6 py-4 font-semibold transition-all hover:pl-6 ';
+    $navItems = $navigationService->getNavigationItems();
 @endphp
 
 @if ($user)
@@ -45,42 +45,25 @@
 
                     <nav class="mt-12 w-full">
                         <ul class="flex w-full flex-col">
-                            <li class="{{ $itemClasses }}">
-                                <a
-                                    href="{{ route('home') }}"
-                                    class="{{ $linkClasses }}"
+                            @foreach ($navItems as $item)
+                                <li
+                                    class="border-b border-light first:border-t"
                                 >
-                                    <x-icon.planet class="w-7" />
-                                    <span>{{ __('Start') }}</span>
-                                </a>
-                            </li>
-                            <li class="{{ $itemClasses }}">
-                                <a
-                                    href="{{ route('settings.lines') }}"
-                                    class="{{ $linkClasses }}"
-                                >
-                                    <x-icon.snuff class="h-7" />
-                                    <span>{{ __('Deine Sprüche') }}</span>
-                                </a>
-                            </li>
-                            <li class="{{ $itemClasses }}">
-                                <a
-                                    href="{{ route('settings.index') }}"
-                                    class="{{ $linkClasses }}"
-                                >
-                                    <x-icon.settings class="w-7" />
-                                    <span>{{ __('Account') }}</span>
-                                </a>
-                            </li>
-                            <li class="{{ $itemClasses }}">
-                                <a
-                                    href="{{ route('logout') }}"
-                                    class="{{ $linkClasses }}"
-                                >
-                                    <x-icon.logout class="w-6" />
-                                    <span>{{ __('Logout') }}</span>
-                                </a>
-                            </li>
+                                    <a
+                                        href="{{ $item->route }}"
+                                        @class([
+                                            'font-bold text-dark' => $item->active,
+                                            'text-lead flex items-center gap-6 py-4 font-semibold transition-all hover:pl-6 ',
+                                        ])
+                                    >
+                                        <x-dynamic-component
+                                            :component="'icon.'.$item->icon"
+                                            class="w-7"
+                                        />
+                                        <span>{{ __($item->name) }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </nav>
                 </div>

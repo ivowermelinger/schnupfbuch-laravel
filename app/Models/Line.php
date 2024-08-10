@@ -11,7 +11,7 @@ class Line extends Model
     use HasFactory;
     use HasUuids;
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -21,6 +21,7 @@ class Line extends Model
         'likes',
         'dislikes',
         'user_id',
+        'active',
     ];
 
     public function user()

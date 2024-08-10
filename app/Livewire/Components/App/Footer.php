@@ -11,7 +11,7 @@ class Footer extends Component
 {
     use HasFlashMessage;
 
-    public $line = 'Ist der Hund im Zwinger am knurren, gehe ich lieber aussen durren!';
+    public $line = '';
 
     public function render()
     {
