@@ -6,14 +6,12 @@
     </x-page-heading>
 
     @if ($emailSentMessage)
-        <div class="flex items-start">
+        <div class="flex flex-col items-center justify-center gap-3">
             <x-icon.check class="w-20 text-success" />
 
-            <div class="ml-3">
-                <p class="text-content text-light">
-                    {{ $emailSentMessage }}
-                </p>
-            </div>
+            <p class="text-center text-content text-light">
+                {{ $emailSentMessage }}
+            </p>
         </div>
     @else
         <form wire:submit.prevent="sendResetPasswordLink" novalidate>
