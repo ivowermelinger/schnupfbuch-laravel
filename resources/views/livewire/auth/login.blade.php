@@ -2,7 +2,7 @@
 
 <div>
     <x-page-heading class="mb-6 text-center">
-        {{ __('Jetzt einloggen') }}
+        {{ __('Login') }}
     </x-page-heading>
 
     @if (Route::has('register'))
