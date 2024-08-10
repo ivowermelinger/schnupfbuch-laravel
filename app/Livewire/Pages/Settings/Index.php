@@ -11,18 +11,13 @@ use App\Traits\HasFlashMessage;
 class Index extends Component
 {
     use HasFlashMessage;
-    public User $user;
+
 
     public $old_password;
     public $new_password;
     public $password_confirm;
 
-    public function mount()
-    {
-        if (Auth::check()) {
-            $this->user = Auth::user();
-        }
-    }
+    public function mount() {}
 
     public function render()
     {

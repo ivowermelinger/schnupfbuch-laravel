@@ -15,8 +15,9 @@
                     class="x-cloak relative flex h-full w-full flex-col items-center justify-center overflow-auto py-8"
                 >
                     <span
+                        x-show="activeLine"
                         class="text-lead font-bold text-light"
-                        x-html="convertLine(activeLine.line)"
+                        x-html="activeLine.line"
                     ></span>
                     <span
                         class="mt-4 text-lead font-light text-light"

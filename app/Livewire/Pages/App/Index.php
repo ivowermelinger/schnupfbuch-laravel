@@ -16,15 +16,11 @@ class Index extends Component
 
     public $lines;
     public $limit = 25;
-    public User $user;
+
 
     public function mount()
     {
         $this->getLines();
-
-        if (Auth::check()) {
-            $this->user = Auth::user();
-        }
     }
 
     public function refreshLines()

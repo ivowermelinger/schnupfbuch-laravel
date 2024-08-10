@@ -5,9 +5,6 @@ document.addEventListener('alpine:init', () => {
         count: 0,
         loading: false,
         confetti: null,
-        convertLine(line) {
-            return line.replace(/\n/g, '<br/>');
-        },
         init: async function () {
             const { default: confetti } = await import('canvas-confetti');
             this.confetti = confetti;

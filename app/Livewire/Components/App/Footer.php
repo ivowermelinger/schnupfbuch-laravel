@@ -25,7 +25,7 @@ class Footer extends Component
         ]);
 
         $line = new Line;
-        $line->line = $this->line;
+        $line->line = nl2br(e($this->line));
         $line->user_id = Auth::id();
         $line->save();
 

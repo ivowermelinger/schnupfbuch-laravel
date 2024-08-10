@@ -9,14 +9,9 @@ use App\Models\User;
 class UserLines extends Component
 {
 
-    public User $user;
 
-    public function mount()
-    {
-        if (Auth::check()) {
-            $this->user = Auth::user();
-        }
-    }
+
+    public function mount() {}
 
 
     public function render()

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('role', ['KING', 'PEASANT'])->default('PEASANT');
             $table->rememberToken()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
