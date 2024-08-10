@@ -1,5 +1,5 @@
 <div>
-    <x-app.header :$user />
+    <x-app.header />
     <div class="container text-center">
         <x-page-heading>{{ __('Deine Sprüche') }}</x-page-heading>
     </div>

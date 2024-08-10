@@ -1,11 +1,8 @@
 @inject('navigationService', 'App\Services\NavigationService')
 
-@props([
-    'user',
-])
-
 @php
     $navItems = $navigationService->getNavigationItems();
+    $user = auth()->user();
 @endphp
 
 @if ($user)

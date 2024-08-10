@@ -1,7 +1,3 @@
-@props([
-    'user',
-])
-
 <header
     x-data="header"
     class="fixed left-0 top-0 z-30 w-full bg-dark py-2 shadow-md md:py-4"
@@ -11,7 +7,7 @@
             <button class="header__user">
                 <span class="sr-only">Sidebar öffnen</span>
                 <button x-on:click="open">
-                    <x-app.profile-picture class="w-12 md:w-16" :$user />
+                    <x-app.profile-picture class="w-12 md:w-16" />
                 </button>
             </button>
         @else
@@ -28,5 +24,5 @@
         @endauth
     </div>
 
-    <x-app.sidebar :$user />
+    <x-app.sidebar />
 </header>

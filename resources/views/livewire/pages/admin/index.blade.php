@@ -1,14 +1,9 @@
 <div>
-    <x-app.header :$user />
+    <x-app.header />
     <div class="container text-center">
-        <x-page-heading>{{ __('Manage alle Sprüche') }}</x-page-heading>
+        <x-page-heading>{{ __('Sprüche zu prüfen') }}</x-page-heading>
     </div>
     <div class="container">
-        <div class="mt-10 text-center">
-            <img
-                class="mx-auto"
-                src="{{ Vite::asset('resources/assets/images/work-in-progress.gif') }}"
-            />
-        </div>
+        <div class="mt-10"></div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 <div>
-    <x-app.header :$user />
+    <x-app.header />
 
     <div
         class="container mt-32 grid grid-cols-12 gap-4 text-light md:mt-40 md:gap-16"
