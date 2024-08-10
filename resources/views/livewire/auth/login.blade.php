@@ -1,7 +1,7 @@
 @section('title', 'Sign in to your account')
 
 <div>
-    <x-page-heading class="mb-6">
+    <x-page-heading class="mb-6 text-center">
         {{ __('Jetzt einloggen') }}
     </x-page-heading>
 

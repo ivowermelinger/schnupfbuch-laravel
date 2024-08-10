@@ -1,7 +1,8 @@
 <div>
     <x-app.header :$user />
-    <x-page-heading>{{ __('Deine Sprüche') }}</x-page-heading>
-
+    <div class="container">
+        <x-page-heading>{{ __('Deine Sprüche') }}</x-page-heading>
+    </div>
     <div class="container">
         <div class="mt-10 text-center">
             <img

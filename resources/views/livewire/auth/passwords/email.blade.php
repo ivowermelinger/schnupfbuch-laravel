@@ -1,7 +1,7 @@
 @section('title', 'Passwort zurücksetzen')
 
 <div>
-    <x-page-heading class="mb-6">
+    <x-page-heading class="mb-6 text-center">
         {{ __('Passwort zurücksetzen') }}
     </x-page-heading>
 

@@ -1,14 +1,14 @@
 @section('title', 'Registieren')
 
 <div>
-    <x-page-heading class="mb-6">
+    <x-page-heading class="mb-6 text-center">
         {{ __('Neuen Account erstellen') }}
     </x-page-heading>
 
     <p class="mt-4 text-center">
         <x-link href="{{ route('login') }}">
             <x-icon.login class="w-7" />
-            <span>{{ __('Login') }}</span>
+            <span>{{ __('Zum Login') }}</span>
         </x-link>
     </p>
 
@@ -92,7 +92,7 @@
             />
         </div>
 
-        <div class="mt-8">
+        <div class="mb-16 mt-8">
             <x-button type="submit" class="bg-primary text-light">
                 <span>{{ __('Registrieren') }}</span>
             </x-button>
