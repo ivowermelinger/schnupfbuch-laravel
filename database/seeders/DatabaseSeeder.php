@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory(1)->create();
+
         // Get environment variables for admin user
         $adminFirstName = env('ADMIN_FIRST_NAME');
         $adminLastName = env('ADMIN_LAST_NAME');
