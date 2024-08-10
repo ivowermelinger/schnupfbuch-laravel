@@ -39,7 +39,7 @@
             </div>
 
             <div class="mt-12">
-                <x-button class="bg-primary text-light">
+                <x-button>
                     <span>{{ __('Speichern') }}</span>
                 </x-button>
             </div>

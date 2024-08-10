@@ -29,7 +29,7 @@
                 <span class="block w-full rounded-md shadow-sm">
                     <x-button
                         type="submit"
-                        class="w-full bg-primary text-light"
+                        class="w-full"
                     >
                         {{ __('E-Mail senden') }}
                     </x-button>

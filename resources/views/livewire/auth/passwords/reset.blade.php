@@ -46,7 +46,7 @@
 
         <div class="mt-8">
             <span class="block w-full rounded-md shadow-sm">
-                <x-button tpye="submit" class="bg-primary text-light">
+                <x-button tpye="submit">
                     <span>{{ __('Passwort zurücksetzen') }}</span>
                 </x-button>
             </span>

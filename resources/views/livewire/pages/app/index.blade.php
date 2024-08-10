@@ -74,24 +74,26 @@
                     </div>
 
                     <div class="mt-8">
-                        <x-button type="submit" class="bg-primary text-light">
+                        <x-button type="submit">
                             <span>{{ __('Login') }}</span>
                         </x-button>
                     </div>
 
                     <div class="mt-6">
-                        <x-link href="{{ route('password.request') }}">
-                            <span class="text-dark">
-                                {{ __('Passwort vergessen?') }}
-                            </span>
+                        <x-link
+                            href="{{ route('password.request') }}"
+                            class="text-dark"
+                        >
+                            <span>{{ __('Passwort vergessen?') }}</span>
                         </x-link>
                     </div>
 
                     <div class="mt-4">
-                        <x-link href="{{ route('register') }}">
-                            <span class="text-dark">
-                                {{ __('Registrieren') }}
-                            </span>
+                        <x-link
+                            href="{{ route('register') }}"
+                            class="text-dark"
+                        >
+                            <span>{{ __('Registrieren') }}</span>
                         </x-link>
                     </div>
                 </form>

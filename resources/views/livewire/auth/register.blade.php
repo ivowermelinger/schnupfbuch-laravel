@@ -93,7 +93,7 @@
         </div>
 
         <div class="mb-16 mt-8">
-            <x-button type="submit" class="bg-primary text-light">
+            <x-button type="submit">
                 <span>{{ __('Registrieren') }}</span>
             </x-button>
         </div>

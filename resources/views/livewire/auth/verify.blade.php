@@ -20,8 +20,10 @@
             {{ __('Deine E-Mail-Adresse wurde noch nicht bestätigt. Bitte prüfe deine  E-Mails, um die Bestätigung abzuschließen. Sollte die E-Mail nicht in deinem Posteingang sein, überprüfe bitte auch deinen Spam-Ordner.') }}
         </p>
 
-        <x-button class="text-ligh mt-8 bg-primary" wire:click="resend">
-            <span>{{ __('Neuen Link anfordern') }}</span>
-        </x-button>
+        <div class="mt-8">
+            <x-button wire:click="resend">
+                <span>{{ __('Neuen Link anfordern') }}</span>
+            </x-button>
+        </div>
     @endif
 </div>

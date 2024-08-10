@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="mt-8">
-                    <x-button type="submit" class="bg-primary text-light">
+                    <x-button type="submit">
                         <span>{{ __('Spruch erfassen') }}</span>
                     </x-button>
                 </div>

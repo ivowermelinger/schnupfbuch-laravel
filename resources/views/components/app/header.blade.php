@@ -16,14 +16,14 @@
             </button>
         @else
             <div class="header__login">
-                <x-button
+                <x-link
                     x-data
                     x-on:click="$dispatch('open-login')"
                     class="inline-flex items-center gap-2 py-2 text-light"
                 >
                     <x-icon.login class="w-8" />
-                    <span class="text-light">Login</span>
-                </x-button>
+                    <span>{{ __('Login') }}</span>
+                </x-link>
             </div>
         @endauth
     </div>
