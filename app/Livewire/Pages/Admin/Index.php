@@ -5,9 +5,13 @@ namespace App\Livewire\Pages\Admin;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use App\Models\Line;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
+    public User $user;
+
     public ?Line $line;
 
     public $active;
@@ -15,6 +19,11 @@ class Index extends Component
 
     public function mount()
     {
+
+        if (Auth::check()) {
+            $this->user = Auth::user();
+        }
+
         if (isset($this->active)) {
             $this->lines = Line::all()->where('active', $request->active);
         } else {
@@ -27,7 +36,7 @@ class Index extends Component
         $this->active = $request->active;
 
 
-        return view('livewire.pages.line-management');
+        return view('livewire.pages.admin.index')->extends('layouts.app');
     }
 
     public function toggleLineStatus($lineId)

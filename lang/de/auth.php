@@ -15,6 +15,5 @@ return [
 
     'failed' => 'Benutzername oder Passwort falsch. Bitte versuche es erneut.',
     'password' => 'Benutzername oder Passwort falsch. Bitte versuche es erneut.',
-    'throttle' => 'Zu viele Versuche. Bitte versuche es in :seconds Sekunden erneut.',
-
+    'throttle' => 'Zu viele Versuche. Bitte versuche es in :seconds Sekunden erneut.'
 ];

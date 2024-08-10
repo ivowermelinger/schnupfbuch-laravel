@@ -22,8 +22,6 @@ class Index extends Component
         if (Auth::check()) {
             $this->user = Auth::user();
         }
-
-        abort(404);
     }
 
     public function render()

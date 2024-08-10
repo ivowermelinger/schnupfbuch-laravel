@@ -52,7 +52,9 @@
         <div class="col-span-12 my-12 md:col-span-6 md:my-0">
             <h2 class="mb-6 text-lead">{{ __('Profilbild ändern') }}</h2>
             <x-link href="{{ route('settings.seed') }}" class="w-auto">
-                <span>{{ __('Neues Profilbild generieren') }}</span>
+                <x-button>
+                    <span>{{ __('Neues Profilbild generieren') }}</span>
+                </x-button>
             </x-link>
         </div>
     </div>

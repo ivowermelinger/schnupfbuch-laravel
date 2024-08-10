@@ -1,21 +1,14 @@
-<x-page-heading>
-    {{ __('Alle Sprüche') }}
-</x-page-heading>
-
-<div class="container" wire:model="filter">
-    <div class="row spacer--mt-2">
-        <div class="col-12">
-            <h1 class="text__title spacer--mb-2">hello there</h1>
-
-            <button x-on:click="location.href = location.href + '?active=0'">
-                nur zu prüfen
-            </button>
-
-            <x-lines.list>
-                @foreach ($lines as $line)
-                    <x-lines.item :key="$line->id" :$line />
-                @endforeach
-            </x-lines.list>
+<div>
+    <x-app.header :$user />
+    <div class="container text-center">
+        <x-page-heading>{{ __('Manage alle Sprüche') }}</x-page-heading>
+    </div>
+    <div class="container">
+        <div class="mt-10 text-center">
+            <img
+                class="mx-auto"
+                src="{{ Vite::asset('resources/assets/images/work-in-progress.gif') }}"
+            />
         </div>
     </div>
 </div>

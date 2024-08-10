@@ -10,6 +10,7 @@ use App\Livewire\Auth\Register;
 use App\Livewire\Auth\Verify;
 use App\Livewire\Pages\App;
 use App\Livewire\Pages\Settings;
+use App\Livewire\Pages\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\EmailVerificationMiddleware;
 
@@ -69,6 +70,6 @@ Route::middleware([
     });
 
     Route::prefix('backend')->group(function () {
-        Route::get('/lines', Settings\Index::class)->name('admin.lines');
+        Route::get('/lines', Admin\Index::class)->name('admin.lines');
     });
 });
