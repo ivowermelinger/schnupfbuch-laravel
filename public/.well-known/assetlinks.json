@@ -3,6 +3,6 @@
     "target": {
       "namespace": "android_app",
       "package_name": "ch.schnupfbuch.twa",
-      "sha256_cert_fingerprints": ["31:0B:AA:7D:61:6F:5B:07:CC:92:BA:F3:52:F8:D1:0C:0D:3D:7A:DB:DA:F5:F9:45:A4:5A:FB:06:01:14:F5:04"]
+      "sha256_cert_fingerprints": ["66:01:52:60:E2:56:23:02:41:F1:8A:4D:1F:A2:E1:11:22:51:9A:CD:45:01:21:F0:05:EE:E9:67:CC:FA:76:3A"]
     }
   }]
