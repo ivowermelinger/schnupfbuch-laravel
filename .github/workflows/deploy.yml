@@ -35,10 +35,10 @@ jobs:
           echo "DEPLOYPATH=/home/schnupf1/staging" >> $GITHUB_ENV
         elif [ "${{ github.event.inputs.environment }}" == "production" ]; then
           echo "APP_ENV=production" >> $GITHUB_ENV
-          echo "APP_URL=${{ vars.PRODUCTION_APP_URL }}" >> $GITHUB_ENV
-          echo "DB_DATABASE=${{ secrets.PRODUCTION_DB_DATABASE }}" >> $GITHUB_ENV
-          echo "DB_USERNAME=${{ secrets.PRODUCTION_DB_USERNAME }}" >> $GITHUB_ENV
-          echo "DB_PASSWORD=${{ secrets.PRODUCTION_DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "APP_URL=${{ vars.STAGING_APP_URL }}" >> $GITHUB_ENV
+          echo "DB_DATABASE=${{ secrets.STAGING_DB_DATABASE }}" >> $GITHUB_ENV
+          echo "DB_USERNAME=${{ secrets.STAGING_DB_USERNAME }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}" >> $GITHUB_ENV
           echo "DEPLOYPATH=/home/schnupf1/production" >> $GITHUB_ENV
         fi
 
