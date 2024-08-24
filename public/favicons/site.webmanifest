@@ -1,8 +1,14 @@
 {
     "name": "Schnupfbuch",
     "short_name": "Schnupfbuch",
-    "start_url": "/",
+    "description": "Schnupfbuch - Dein digitales Schnupfbuch, wenn du mal wieder keinen Spruch weisst.",
+    "start_url": "https://schnupfbuch.ch",
     "display": "standalone",
+    "id": "de.schnupfbuch",
+    "orientation": "portrait",
+    "launch_handler": {
+        "client_mode": ["navigate-existing", "auto"]
+    },
     "lang": "de",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
