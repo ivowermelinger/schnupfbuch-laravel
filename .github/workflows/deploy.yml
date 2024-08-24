@@ -126,6 +126,10 @@ jobs:
           chmod -R 755 bootstrap/cache
         EOF
 
+    - name: Debug Seed Input
+      run: |
+        echo "Seed input is: '${{ github.event.inputs.seed }}'"
+
     - name: Run database migrations and optimizations on the server
       run: |
         ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
