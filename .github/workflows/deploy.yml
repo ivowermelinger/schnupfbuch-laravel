@@ -14,7 +14,7 @@ on:
       seed:
         description: 'Run seeder after migrations?'
         required: true
-        default: 'no'
+        default: 'yes'
         type: choice
         options:
           - yes
