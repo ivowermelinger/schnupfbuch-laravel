@@ -2,7 +2,13 @@
     "name": "Schnupfbuch",
     "short_name": "Schnupfbuch",
     "description": "Schnupfbuch - Dein digitales Schnupfbuch, wenn du mal wieder keinen Spruch weisst.",
+    "categories": [
+        "entertainment",
+        "lifestyle",
+        "social"
+    ],
     "start_url": "https://schnupfbuch.ch",
+    "scope": "https://schnupfbuch.ch",
     "display": "standalone",
     "id": "de.schnupfbuch",
     "orientation": "portrait",
