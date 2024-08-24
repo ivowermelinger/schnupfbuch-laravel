@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "ch.schnupfbuch.twa",
+        "sha256_cert_fingerprints": ["A2:00:57:E5:BD:77:C9:DB:86:7D:66:47:59:E2:C6:61:4F:6E:38:15:43:78:4A:6D:C1:54:76:EF:4C:DC:71:64"]
+      }
+    }]
