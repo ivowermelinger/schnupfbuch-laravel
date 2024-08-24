@@ -52,6 +52,19 @@ jobs:
         extensions: mbstring, intl, pdo, pdo_mysql
         tools: composer
 
+    - name: Prepare environment file
+      run: |
+        cp .env.example .env
+        sed -i 's|^APP_ENV=.*|APP_ENV=${{ env.APP_ENV }}|' .env
+        sed -i 's|^APP_URL=.*|APP_URL=${{ env.APP_URL }}|' .env
+        sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${{ env.DB_DATABASE }}|' .env
+        sed -i 's|^DB_USERNAME=.*|DB_USERNAME=${{ env.DB_USERNAME }}|' .env
+        sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=${{ env.DB_PASSWORD }}|' .env
+        sed -i 's|^ADMIN_FIRST_NAME=.*|ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}|' .env
+        sed -i 's|^ADMIN_LAST_NAME=.*|ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}|' .env
+        sed -i 's|^ADMIN_EMAIL=.*|ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}|' .env
+
+
     - name: Install Composer dependencies
       run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
@@ -65,22 +78,6 @@ jobs:
 
     - name: Build assets
       run: yarn build
-
-
-
-    - name: Prepare environment file
-      run: |
-        cp .env.example .env
-        sed -i 's|^APP_ENV=.*|APP_ENV=${{ env.APP_ENV }}|' .env
-        sed -i 's|^APP_URL=.*|APP_URL=${{ env.APP_URL }}|' .env
-        sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${{ env.DB_DATABASE }}|' .env
-        sed -i 's|^DB_USERNAME=.*|DB_USERNAME=${{ env.DB_USERNAME }}|' .env
-        sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=${{ env.DB_PASSWORD }}|' .env
-        sed -i 's|^ADMIN_FIRST_NAME=.*|ADMIN_FIRST_NAME=${{ env.ADMIN_FIRST_NAME }}|' .env
-        sed -i 's|^ADMIN_LAST_NAME=.*|ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}|' .env
-        sed -i 's|^ADMIN_EMAIL=.*|ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}|' .env
-        sed -i 's|^ADMIN_NICKNAME=.*|ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}|' .env
-        sed -i 's|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD="asdf"|' .env
 
     - name: Log environment variables
       run: |
