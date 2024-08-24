@@ -128,7 +128,7 @@ jobs:
 
     - name: Run database migrations and optimizations on the server
       run: |
-        if [ "${{ github.event.inputs.seed }}" == true ]; then
+        if [ "${{ github.event.inputs.seed }}" == "true" ]; then
           ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
             set -e
             cd $DEPLOYPATH
