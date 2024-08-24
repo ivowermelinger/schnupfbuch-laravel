@@ -21,6 +21,8 @@
     "display": "standalone",
     "id": "de.schnupfbuch",
     "orientation": "portrait",
+    "dir": "ltr",
+    "prefer_related_applications": false,
     "launch_handler": {
         "client_mode": ["navigate-existing", "auto"]
     },
@@ -75,8 +77,6 @@
         }
     ],
     "display_override": [
-        "fullscreen",
-        "minimal-ui",
-        "window-controls-overlay"
+        "fullscreen"
     ]
 }
