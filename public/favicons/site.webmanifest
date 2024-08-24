@@ -1,0 +1,82 @@
+{
+    "name": "Schnupfbuch",
+    "short_name": "Schnupfbuch",
+    "description": "Schnupfbuch - Dein digitales Schnupfbuch, wenn du mal wieder keinen Spruch weisst.",
+    "categories": [
+        "entertainment",
+        "lifestyle",
+        "social"
+    ],
+    "screenshots": [
+    ],
+    "shortcuts" : [
+        {
+            "name": "Schnupfbuch",
+            "url": "https://schnupfbuch.ch",
+            "description": "Schnupfbuch - Dein digitales Schnupfbuch, wenn du mal wieder keinen Spruch weisst."
+        }
+    ],
+    "start_url": "https://schnupfbuch.ch",
+    "scope": "https://schnupfbuch.ch",
+    "display": "standalone",
+    "id": "de.schnupfbuch",
+    "orientation": "portrait",
+    "launch_handler": {
+        "client_mode": ["navigate-existing", "auto"]
+    },
+    "lang": "de",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "icons": [
+        {
+            "src": "/favicons/android-chrome-36x36.png",
+            "sizes": "36x36",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-48x48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/favicons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "display_override": [
+        "fullscreen",
+        "minimal-ui",
+        "window-controls-overlay"
+    ]
+}
