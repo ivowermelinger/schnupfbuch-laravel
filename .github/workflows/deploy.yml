@@ -64,7 +64,7 @@ jobs:
         sed -i 's|^ADMIN_LAST_NAME=.*|ADMIN_LAST_NAME=${{ env.ADMIN_LAST_NAME }}|' .env
         sed -i 's|^ADMIN_EMAIL=.*|ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}|' .env
         sed -i 's|^ADMIN_NICKNAME=.*|ADMIN_NICKNAME=${{ env.ADMIN_NICKNAME }}|' .env
-        sed -i 's|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD="asdf"|' .env
+        sed -i 's|^ADMIN_PASSWORD=.*|ADMIN_PASSWORD=${{ env.ADMIN_PASSWORD }}|' .env
 
     - name: Install Composer dependencies
       run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
