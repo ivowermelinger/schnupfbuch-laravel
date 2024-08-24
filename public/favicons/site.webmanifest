@@ -2,18 +2,9 @@
     "name": "Schnupfbuch",
     "short_name": "Schnupfbuch",
     "description": "Schnupfbuch - Dein digitales Schnupfbuch, wenn du mal wieder keinen Spruch weisst.",
-    "categories": [
-      "entertainment",
-      "lifestyle",
-      "social"
-    ],
-    "shortcuts": [
-      {
-        "name": "Schnupfbuch",
-        "url": "https://schnupfbuch.ch",
-        "description": "Schnupfbuch - Dein digitales Schnupfbuch, wenn du mal wieder keinen Spruch weisst."
-      }
-    ],
+    "theme_color": "#231f20",
+    "background_color": "#de3c4b",
+    "lang": "de",
     "start_url": "https://schnupfbuch.ch",
     "scope": "https://schnupfbuch.ch",
     "display": "standalone",
@@ -21,15 +12,27 @@
     "orientation": "portrait",
     "dir": "ltr",
     "prefer_related_applications": false,
+    "categories": [
+        "entertainment",
+        "lifestyle",
+        "social"
+    ],
     "launch_handler": {
       "client_mode": [
         "navigate-existing",
         "auto"
       ]
     },
-    "lang": "de",
-    "theme_color": "#231f20",
-    "background_color": "#231f20",
+    "shortcuts": [
+        {
+          "name": "Schnupfbuch",
+          "url": "https://schnupfbuch.ch",
+          "description": "Schnupfbuch - Dein digitales Schnupfbuch, wenn du mal wieder keinen Spruch weisst."
+        }
+    ],
+    "display_override": [
+        "window-controls-overlay"
+    ],
     "icons": [
       {
         "src": "/favicons/android-chrome-36x36.png",
@@ -76,8 +79,5 @@
         "sizes": "512x512",
         "type": "image/png"
       }
-    ],
-    "display_override": [
-      "window-controls-overlay"
     ]
   }
