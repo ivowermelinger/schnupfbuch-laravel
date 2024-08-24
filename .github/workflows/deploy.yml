@@ -12,13 +12,13 @@ on:
           - staging
           - production
       seed:
-        description: 'Run seeder after migrations?'
-        required: true
-        default: 'yes'
-        type: choice
-        options:
-          - yes
-          - no
+         description: 'Run seeder after migrations?'
+         required: true
+         default: 'false'
+         type: choice
+         options:
+            - true
+            - false
 
 jobs:
   deploy:
@@ -126,18 +126,18 @@ jobs:
           chmod -R 755 bootstrap/cache
         EOF
 
-    - name: Debug Seed Input
-      run: |
-        echo "Seed input is: '${{ github.event.inputs.seed }}'"
-
     - name: Run database migrations and optimizations on the server
       run: |
-        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
-          set -e
-          cd $DEPLOYPATH
-          if [ "${{ github.event.inputs.seed }}" == "yes" ]; then
+        if [ "${{ github.event.inputs.seed }}" == true ]; then
+          ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+            set -e
+            cd $DEPLOYPATH
             /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed --force
-          else
-            /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --force
-          fi
-        EOF
+          EOF
+        else
+          ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+            set -e
+            cd $DEPLOYPATH
+            /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate --force
+          EOF
+        fi
