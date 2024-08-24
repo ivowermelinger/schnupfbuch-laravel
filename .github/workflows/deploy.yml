@@ -55,7 +55,8 @@ jobs:
     - name: Prepare environment file
       run: |
         cp .env.example .env
-
+        sed -i 's|^APP_ENV=.*|APP_ENV=${{ env.APP_ENV }}|' .env
+        sed -i 's|^APP_URL=.*|APP_URL=${{ env.APP_URL }}|' .env
 
     - name: Install Composer dependencies
       run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
