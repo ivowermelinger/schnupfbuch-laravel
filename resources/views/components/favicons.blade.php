@@ -24,9 +24,9 @@
 
 <meta name="apple-mobile-web-app-title" content="Schnupfbuch" />
 <meta name="application-name" content="Schnupfbuch" />
-<meta name="msapplication-TileColor" content="#ffffff" />
+<meta name="msapplication-TileColor" content="#de3c4b" />
 <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
-<meta name="theme-color" content="#ffffff" />
+<meta name="theme-color" content="#231f20" />
 
 <script>
     if ('serviceWorker' in navigator) {
