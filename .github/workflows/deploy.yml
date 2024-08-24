@@ -66,6 +66,13 @@ jobs:
     - name: Build assets
       run: yarn build
 
+    - name: Ensure deploy path exists on the server
+      run: |
+        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
+          set -e
+          mkdir -p $DEPLOYPATH
+        EOF
+
     - name: Prepare environment file
       run: |
         cp .env.example .env
@@ -94,6 +101,8 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+
 
     - name: Sync application files to the server
       run: |
