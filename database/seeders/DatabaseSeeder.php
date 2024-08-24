@@ -65,26 +65,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Line::create([
-            'line' => 'Schneewittchen hat einen geilen Po, super Titten sowieso. Jeden Abend wilden Sex, mit den Zwegen eins bis sechs.
-Nur der siebte schwule Zwerg, fickt mit Hänschen hinter dem Berg!',
+            'line' => 'Schneewittchen hat einen geilen Po, super Titten sowieso. Jeden Abend wilden Sex, mit den Zwegen eins bis sechs.<br/><br/>Nur der siebte schwule Zwerg, fickt mit Hänschen hinter dem Berg!',
             'active' => true,
             'user_id' => $admin->id,
         ]);
 
         Line::create([
-            'line' => 'Prinzesschen warum seit so errötet, hat euch jemand durchgeflötet?
-
-Ja mein Herr, Prinz Theodor, mit sienem langen Ofenrohr!
-
-Prinz Theodor warst du der Schufft, der mein Prinzesschen in den Arsch gepufft?
-
-Oh ja, bitte lass Gnade walten!
-
-Nein,ich werde dir die Eier spalten!
-
-Ein kurzer Schnitt ein langer Schrei und über den Tisch rollt ein halbes Ei!
-
-Und die Moral von der Geschicht halbe Eier rollen nicht!',
+            'line' => 'Prinzesschen warum seit so errötet, hat euch jemand durchgeflötet?<br/><br/>Ja mein Herr, Prinz Theodor, mit sienem langen Ofenrohr!<br/><br/>Prinz Theodor warst du der Schufft, der mein Prinzesschen in den Arsch gepufft?<br/><br/>Oh ja, bitte lass Gnade walten!<br/><br/>Nein,ich werde dir die Eier spalten!<br/><br/>Ein kurzer Schnitt ein langer Schrei und über den Tisch rollt ein halbes Ei!<br/><br/>Und die Moral von der Geschicht halbe Eier rollen nicht!',
             'active' => true,
             'user_id' => $admin->id,
         ]);

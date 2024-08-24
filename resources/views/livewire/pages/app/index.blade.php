@@ -16,12 +16,12 @@
                 >
                     <span
                         x-show="activeLine"
-                        class="text-lead font-bold text-light"
-                        x-html="activeLine.line"
+                        class="select-none text-lead font-bold leading-none text-light"
+                        x-html="activeLine?.line"
                     ></span>
                     <span
-                        class="mt-4 text-lead font-light text-light"
-                        x-text="activeLine.nickname"
+                        class="mt-4 select-none text-lead font-light text-light"
+                        x-text="activeLine?.nickname"
                     ></span>
                 </button>
 
