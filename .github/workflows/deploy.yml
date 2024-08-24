@@ -11,6 +11,14 @@ on:
         options:
           - staging
           - production
+      seed:
+        description: 'Run seeder after migrations?'
+        required: true
+        default: 'no'
+        type: choice
+        options:
+          - yes
+          - no
 
 jobs:
   deploy:
@@ -123,5 +131,9 @@ jobs:
         ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
           set -e
           cd $DEPLOYPATH
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed --force
+          if [ "${{ github.event.inputs.seed }}" == "yes" ]; then
+            /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --seed --force
+          else
+            /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate:refresh --force
+          fi
         EOF
