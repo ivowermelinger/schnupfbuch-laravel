@@ -8,7 +8,7 @@ trait HasAuthenticationMethods
 {
     public $email = '';
     public $password = '';
-    public $remember = false;
+    public $remember = true;
 
     public function authenticate()
     {

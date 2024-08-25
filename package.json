@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "node delete-sw-assets.js && rimraf build && vite build"
+        "build": "rimraf build && vite build"
     },
     "devDependencies": {
         "@prettier/plugin-php": "^0.22.2",
