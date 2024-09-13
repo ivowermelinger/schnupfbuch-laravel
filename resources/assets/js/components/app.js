@@ -3,9 +3,14 @@ document.addEventListener('alpine:init', () => {
         lines: initialLines,
         activeLine: initialLines.length > 0 ? initialLines[0] : null,
         count: 0,
-        loading: false,
+        loading: true,
+        loadingFeedback: true,
         confetti: null,
+
         init: async function () {
+            this.loading = false;
+            this.loadingFeedback = false;
+
             const { default: confetti } = await import('canvas-confetti');
             this.confetti = confetti;
 
@@ -15,21 +20,28 @@ document.addEventListener('alpine:init', () => {
                 this.activeLine = this.lines[0];
                 this.count = 0;
                 this.loading = false;
+                this.loadingFeedback = false;
             });
 
             // Listen for Livewire event to update one line after liking/disliking
             this.$wire.on('singleLineUpdated', (data) => {
                 const line = data[0];
                 this.activeLine = line;
+                this.loading = false;
+                this.loadingFeedback = false;
             });
 
             this.addView();
         },
+
         addView: function () {
             if (!this.activeLine) return;
             this.$wire.addView(this.activeLine.id);
         },
+
         nextLine: function () {
+            if (this.loading || this.loadingFeedback) return;
+
             this.count++;
 
             if (this.count >= this.lines.length) {
@@ -42,13 +54,21 @@ document.addEventListener('alpine:init', () => {
             const index = this.lines.indexOf(this.activeLine);
             this.activeLine = this.lines[index + 1] || this.lines[0];
         },
+
         dislike: function () {
+            this.loadingFeedback = true;
+
             const liked = false;
             const disliked = !this.activeLine.disliked;
             this.$wire.toggleLike(liked, disliked, this.activeLine.id);
         },
-        like: function () {
+
+        like: function (){
+            console.log('like');
+            this.loadingFeedback = true;
+
             const liked = !this.activeLine.liked;
+
             const disliked = false;
             this.$wire.toggleLike(liked, disliked, this.activeLine.id);
 

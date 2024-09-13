@@ -1,6 +1,7 @@
 <div class="flex h-full w-full justify-center gap-4">
     <button
         class="flex h-full w-full items-center justify-center"
+        :disabled="loadingFeedback"
         @auth
             x-on:click="like"
         @else
@@ -18,6 +19,7 @@
 
     <button
         class="flex h-full w-full items-center justify-center"
+        :disabled="loadingFeedback"
         @auth
             x-on:click="dislike"
         @else

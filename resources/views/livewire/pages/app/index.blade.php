@@ -5,14 +5,16 @@
         class="main--app container mt-20 grid grid-cols-none grid-rows-12 bg-dark pb-4 text-light"
     >
         <div
-            class="relative row-span-11 grid grid-rows-11"
             x-data="app({{ $lines->toJson() }})"
             wire:ignore
+            class="relative row-span-11 grid grid-rows-11"
+            :class="loadingFeedback && 'animate-pulse'"
         >
             <div class="row-span-9">
                 <button
                     x-on:click="nextLine"
                     class="x-cloak relative flex h-full w-full flex-col items-center justify-center overflow-auto py-8"
+                    :disabled="loading"
                 >
                     <span
                         x-show="activeLine"
