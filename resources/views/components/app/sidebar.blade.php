@@ -9,16 +9,16 @@
     <aside
         x-show="showSidebar"
         x-transition:enter="transition duration-300 ease-out"
-        class="fixed left-0 top-0 z-40 h-full w-full backdrop-blur-sm"
+        class="fixed right-0 top-0 z-40 flex h-full w-full justify-end backdrop-blur-sm"
         x-cloak
     >
         <div
             x-show="showSidebar"
-            x-transition:enter="-translate-x-full transition duration-300 ease-out"
-            x-transition:enter-start="-translate-x-full"
-            x-transition:enter-end="translate-x-0 "
-            x-transition:leave-start="translate-x-0"
-            x-transition:leave="-translate-x-full transition duration-300 ease-out"
+            x-transition:enter="translate-x-full transition duration-300 ease-out"
+            x-transition:enter-start="translate-x-full"
+            x-transition:enter-end="-translate-x-0 "
+            x-transition:leave-start="-translate-x-0"
+            x-transition:leave="translate-x-full transition duration-300 ease-out"
             x-on:click.outside="close"
             class="flex h-full w-80 max-w-full flex-col bg-primary text-light md:w-96 xl:w-3/12"
         >

@@ -1,3 +1,4 @@
+
 <div>
     <label
         for="{{ $attributes->get('id', '') }}"
@@ -11,13 +12,18 @@
     @endif
 
     <div class="mt-2">
-        <input
+        <select
             {{
-                $attributes->merge(['class' => 'w-full transition-colors border-2 font-medium text-content block appearance-none rounded-lg m-0 py-3 px-2 focus:border-focus focus:outline-none focus:ring-0 md:py-3'])->class([
+                $attributes->merge(['class' => 'w-full transition-colors border-2 font-medium text-content block w-full appearance-none rounded-lg m-0 py-3 px-2 focus:border-focus focus:outline-none focus:ring-0 md:py-3'])->class([
                     'border-error' => $errors->has($attributes->get('name')),
                 ])
             }}
-        />
+
+
+        >
+
+            {{ $slot }}
+        </select>
     </div>
 
     @error($attributes->get('name'))

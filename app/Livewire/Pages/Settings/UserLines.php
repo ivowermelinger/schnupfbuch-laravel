@@ -2,20 +2,16 @@
 
 namespace App\Livewire\Pages\Settings;
 
+use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
+#[Layout('layouts.app')]
 class UserLines extends Component
 {
+	public function mount() {}
 
-
-
-    public function mount() {}
-
-
-    public function render()
-    {
-        return view('livewire.pages.settings.user-lines')->extends('layouts.app');;
-    }
+	public function render()
+	{
+		return view('livewire.pages.settings.user-lines');
+	}
 }
