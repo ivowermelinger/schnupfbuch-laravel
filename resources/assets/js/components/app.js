@@ -51,8 +51,7 @@ document.addEventListener('alpine:init', () => {
             }
 
             this.addView();
-            const index = this.lines.indexOf(this.activeLine);
-            this.activeLine = this.lines[index + 1] || this.lines[0];
+            this.activeLine = this.lines[this.count];
         },
 
         dislike: function () {
