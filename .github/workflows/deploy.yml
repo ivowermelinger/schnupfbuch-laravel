@@ -79,7 +79,6 @@ jobs:
       with:
           host: ${{ secrets.SSH_SERVER }}
           username: ${{ secrets.SSH_USER }}
-          port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: cd ${{ env.DEPLOYPATH }} && php artisan down || true
 
@@ -88,7 +87,6 @@ jobs:
       with:
         host: ${{ secrets.SSH_SERVER }}
         username: ${{ secrets.SSH_USER }}
-        port: 22
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
             mkdir -p ${{ env.DEPLOYPATH }}
@@ -99,7 +97,6 @@ jobs:
         switches: --recursive --no-perms --no-owner --no-group --ignore-times --compress --verbose --delete --exclude-from=.rsyncignore
         remote_path: ${{ env.DEPLOYPATH }}
         remote_host: ${{ secrets.SSH_SERVER }}
-        remote_port: 22
         remote_user: ${{ secrets.SSH_USER }}
         remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
         local_path: $GITHUB_WORKSPACE/
@@ -109,7 +106,6 @@ jobs:
       with:
           host: ${{ secrets.SSH_SERVER }}
           username: ${{ secrets.SSH_USER }}
-          port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             ln -sfn ${{ env.DEPLOYPATH }} /home/schnupf1/www/${{ env.APP_ENV }}
@@ -125,7 +121,6 @@ jobs:
       with:
         host: ${{ secrets.SSH_SERVER }}
         username: ${{ secrets.SSH_USER }}
-        port: 22
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
             cd ${{ env.DEPLOYPATH }}
