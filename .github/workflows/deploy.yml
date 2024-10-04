@@ -17,13 +17,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
 
-    env:
-      ADMIN_FIRST_NAME: ${{ vars.ADMIN_FIRST_NAME }}
-      ADMIN_LAST_NAME: ${{ vars.ADMIN_LAST_NAME }}
-      ADMIN_EMAIL: ${{ vars.ADMIN_EMAIL }}
-      ADMIN_NICKNAME: ${{ vars.ADMIN_NICKNAME }}
-      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-
     steps:
     - name: Set environment-specific variables
       run: |
