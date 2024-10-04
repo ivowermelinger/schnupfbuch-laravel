@@ -114,15 +114,6 @@ jobs:
           script: |
             ln -sfn ${{ env.DEPLOYPATH }} /home/schnupf1/www/${{ env.APP_ENV }}
             chmod 755 ${{ env.DEPLOYPATH }}
-
-    - name: Ensure storage and cache directories exist and have proper permissions
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_SERVER }}
-        username: ${{ secrets.SSH_USER }}
-        port: 22
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
             cd ${{ env.DEPLOYPATH }}
             mkdir -p storage/framework/{sessions,views,cache}
             mkdir -p bootstrap/cache
