@@ -18,6 +18,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set environment-specific variables
+      run: |
+        if [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            echo "APP_ENV=staging" >> $GITHUB_ENV
+            echo "DEPLOYPATH=/home/schnupf1/staging" >> $GITHUB_ENV
+        elif [ "${{ github.event.inputs.environment }}" == "production" ]; then
+            echo "APP_ENV=production" >> $GITHUB_ENV
+            echo "DEPLOYPATH=/home/schnupf1/production" >> $GITHUB_ENV
+        fi
+
     - name: Checkout code
       uses: actions/checkout@v3
 
