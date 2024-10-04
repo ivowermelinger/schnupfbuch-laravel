@@ -1,0 +1,14 @@
+bootstrap/cache/*
+.env
+.idea
+.rsyncignore
+.git*
+.github*
+node_modules
+storage/framework/cache/*
+storage/framework/session/*
+storage/framework/views/*
+storage/logs/*
+storage/app/*
+/.htaccess
+.devcontainer
