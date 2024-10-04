@@ -44,7 +44,7 @@ jobs:
         fi
 
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
@@ -52,6 +52,16 @@ jobs:
         php-version: '8.2'
         extensions: mbstring, intl, pdo, pdo_mysql
         tools: composer
+
+    - name: Prepare environment file
+      run: |
+        cp .env.example .env
+        sed -i 's|^APP_ENV=.*|APP_ENV=${{ env.APP_ENV }}|' .env
+        sed -i 's|^APP_URL=.*|APP_URL=${{ env.APP_URL }}|' .env
+        sed -i 's|^DB_DATABASE=.*|DB_DATABASE=${{ env.DB_DATABASE }}|' .env
+        sed -i 's|^DB_USERNAME=.*|DB_USERNAME=${{ env.DB_USERNAME }}|' .env
+        sed -i 's|^DB_PASSWORD=.*|DB_PASSWORD=${{ env.DB_PASSWORD }}|' .env
+        sed -i 's|^ADMIN_EMAIL=.*|ADMIN_EMAIL=${{ env.ADMIN_EMAIL }}|' .env
 
     - name: Get composer cache directory
       id: composer-cache
@@ -70,7 +80,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '20.x'
+        node-version: '20'
 
     - name: Get yarn cache directory
       id: yarn-cache
@@ -88,6 +98,11 @@ jobs:
 
     - name: Build assets
       run: yarn build
+
+    - name: Log environment variables
+      run: |
+        echo "Environment variables:"
+        cat .env
 
     - name: Generate application key
       run: php artisan key:generate
