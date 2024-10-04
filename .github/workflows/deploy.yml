@@ -74,47 +74,75 @@ jobs:
     - name: Build assets
       run: yarn build
 
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+    - name: Activate maintenance mode
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: cd ${{ env.DEPLOYPATH }} && php artisan down || true
 
     - name: Ensure deploy path exists on the server
-      run: |
-        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
-          set -e
-          mkdir -p $DEPLOYPATH
-        EOF
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_SERVER }}
+        username: ${{ secrets.SSH_USER }}
+        port: 22
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+            mkdir -p ${{ env.DEPLOYPATH }}
 
     - name: Sync application files to the server
-      run: |
-        rsync -avz --delete-after --exclude-from=.rsyncignore $GITHUB_WORKSPACE/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }}:${{ env.DEPLOYPATH }}
+      uses: burnett01/rsync-deployments@5.2.1
+      with:
+        switches: --recursive --no-perms --no-owner --no-group --ignore-times --compress --verbose --delete --exclude-from=.rsyncignore
+        remote_path: ${{ env.DEPLOYPATH }}
+        remote_host: ${{ secrets.SSH_SERVER }}
+        remote_port: 22
+        remote_user: ${{ secrets.SSH_USER }}
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        local_path: $GITHUB_WORKSPACE/
 
     - name: Create symlink and set permissions on the server
-      run: |
-        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
-          set -e
-          ln -sfn $DEPLOYPATH /home/schnupf1/www/${{ env.APP_ENV }}
-          chmod 755 $DEPLOYPATH
-        EOF
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            ln -sfn ${{ env.DEPLOYPATH }} /home/schnupf1/www/${{ env.APP_ENV }}
+            chmod 755 ${{ env.DEPLOYPATH }}
 
     - name: Ensure storage and cache directories exist and have proper permissions
-      run: |
-        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
-          set -e
-          cd $DEPLOYPATH
-          mkdir -p storage/framework/{sessions,views,cache}
-          mkdir -p bootstrap/cache
-          chmod -R 755 storage
-          chmod -R 755 bootstrap/cache
-        EOF
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_SERVER }}
+        username: ${{ secrets.SSH_USER }}
+        port: 22
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+            cd ${{ env.DEPLOYPATH }}
+            mkdir -p storage/framework/{sessions,views,cache}
+            mkdir -p bootstrap/cache
+            chmod -R 755 storage
+            chmod -R 755 bootstrap/cache
 
-    - name: Run database migrations and optimizations on the server
-      run: |
-        ssh -t ${{ secrets.SSH_USER }}@${{ secrets.SSH_SERVER }} << EOF
-          set -e
-          cd $DEPLOYPATH
-          /opt/cpanel/ea-php82/root/usr/bin/php artisan migrate --force
-        EOF
+    - name: Ready up application & disable maintenance mode
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_SERVER }}
+        username: ${{ secrets.SSH_USER }}
+        port: 22
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+            cd ${{ env.DEPLOYPATH }}
+            rm -rf bootstrap/cache/*
+            php artisan optimize:clear
+            php artisan storage:link
+            php artisan migrate --force
+            php artisan auth:clear-resets
+            php artisan optimize
+            php artisan up
+
