@@ -1,4 +1,4 @@
-name: Deploy Laravel Application
+name: Deploy Laravel Application 2.0
 
 on:
   workflow_dispatch:
