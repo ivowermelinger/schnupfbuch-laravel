@@ -77,15 +77,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: cd ${{ env.APP_PATH }} && php artisan down || true
 
-      - name: Ensure deploy path exists on the server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ vars.SSH_HOST }}
-          username: ${{ vars.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            mkdir -p ${{ env.APP_PATH }}
-
       - name: Rsync files
         uses: burnett01/rsync-deployments@5.2.1
         with:
