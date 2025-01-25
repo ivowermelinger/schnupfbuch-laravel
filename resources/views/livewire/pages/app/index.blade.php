@@ -18,11 +18,11 @@
                 >
                     <span
                         x-show="activeLine"
-                        class="select-none text-lead font-bold leading-none text-light"
+                        class="select-none overflow-auto text-lead font-bold text-light"
                         x-html="activeLine?.line"
                     ></span>
                     <span
-                        class="mt-4 select-none text-lead font-light text-light"
+                        class="mt-4 w-full select-none text-lead shadow-[0_-15px_25px_-10px_theme(colors.dark)] font-light text-light"
                         x-text="activeLine?.nickname"
                     ></span>
                 </button>
