@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Line;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DemoDataSeeder extends Seeder
 {
@@ -13,6 +14,23 @@ class DemoDataSeeder extends Seeder
 	 */
 	public function run(): void
 	{
+
+		// Reset users & lines
+		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        User::truncate();
+        Line::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+	
+		$admin = User::create([
+			'first_name' => getenv('ADMIN_FIRST_NAME'),
+			'last_name' => getenv('ADMIN_LAST_NAME'),
+			'email' => getenv('ADMIN_EMAIL'),
+			'nickname' => getenv('ADMIN_NICKNAME'),
+			'password' => getenv('ADMIN_PASSWORD'),
+			'profile_seed' => getenv('ADMIN_EMAIL'),
+		]);
+
+
 		$admin = User::where('email', getenv('ADMIN_EMAIL'))->first();
 
 		// Create my lines
